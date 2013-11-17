@@ -1,5 +1,9 @@
 package com.hadoopexpress.examples.chaining;
 
+/**
+ * Simple job chaining example using more than one JobConf.
+ * Chains jobs by calling JobClient.runJob(conf) in the order required
+ */
 import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;

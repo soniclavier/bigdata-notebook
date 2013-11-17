@@ -59,6 +59,7 @@ public class ChainMapperExample {
 		/*
 		 * First argument is the global conf file we already created
 		 * Second is the Mapper/Reducer class we gona use
+		 * Third,fourth,fifth and sixth arguments are mapper/reducer inputkey inputvalue,outputkey and outputvalue respectively
 		 */
 		ChainMapper.addMapper(conf1,WordCount.WordCountMapper.class,LongWritable.class,Text.class,Text.class,IntWritable.class,true,mapConf);
 		ChainMapper.addMapper(conf1,ToUpperCase.class,Text.class,IntWritable.class,Text.class,IntWritable.class,true,mapConf);

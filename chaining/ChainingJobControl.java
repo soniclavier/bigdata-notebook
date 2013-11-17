@@ -1,5 +1,16 @@
 package com.hadoopexpress.examples.chaining;
 
+/**
+ * Chains jobs using JobControl.
+ * Steps:
+ * 1.Create jobs
+ * 2.Create a job control.
+ * 3.Add jobs to the job control.
+ * 4.Add dependecy of jobs
+ * 5.Start the job using JobControl.run()
+ * 
+ */
+
 import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;

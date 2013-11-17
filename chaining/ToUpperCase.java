@@ -1,5 +1,9 @@
 package com.hadoopexpress.examples.chaining;
 
+
+/**
+ * A mapper which converts the key to upper case
+ */
 import java.io.IOException;
 
 import org.apache.hadoop.io.IntWritable;

@@ -1,5 +1,7 @@
 package com.hadoopexpress.examples;
-
+/**
+ * Simple word count program
+ */
 import java.io.IOException;
 import java.util.*;
 

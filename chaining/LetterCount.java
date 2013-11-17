@@ -1,5 +1,9 @@
 package com.hadoopexpress.examples.chaining;
-
+/**
+ * Take a word and count as input
+ * Emit the count for each letter in the word
+ * In effect generates a value for each letter which = number of times the letter occurs * number of words in which the word occur 
+ */
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
