@@ -9,9 +9,10 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 
-public class WordCountWithCustomComparator {
+public class WordCountWithCustoms {
 	
-
+	// A custom counter named CUSTOM_COUNT
+	static enum CustomCounter{CUSTOM_COUNT};
   public static class MyMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
@@ -21,6 +22,7 @@ public class WordCountWithCustomComparator {
       StringTokenizer tokenizer = new StringTokenizer(line);
       while(tokenizer.hasMoreTokens()){
         word.set(tokenizer.nextToken());
+        reporter.incrCounter(CustomCounter.CUSTOM_COUNT,1);
         output.collect(word, one);
       }
     }
@@ -37,7 +39,7 @@ public class WordCountWithCustomComparator {
   }
 
   public static void main(String[] args) throws Exception {
-    JobConf conf = new JobConf(WordCountWithCustomComparator.class);
+    JobConf conf = new JobConf(WordCountWithCustoms.class);
     conf.setJobName("wordcount");
 
     conf.setOutputKeyClass(Text.class);
