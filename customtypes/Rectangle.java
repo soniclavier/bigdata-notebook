@@ -1,7 +1,8 @@
 package com.hadoopexpress.examples.customtypes;
 
 /**
- * A custom type corresponding to a rectangle
+ * A custom Key type corresponding to a rectangle
+ * 
  *    B-------------------------C
  *    |							|
  *    |							|
@@ -27,29 +28,50 @@ public class Rectangle implements Writable{
 		this.b = b;
 		this.c = c;
 		this.d = d;
+		System.out.println("Called constructor with points"+a.toString()+b.toString()+c.toString()+d.toString());
+	}
+	
+	public Rectangle() {
+		Point2D point = new Point2D(0,0);
+		this.a = point;
+		this.b = point;
+		this.c = point;
+		this.d = point;
+		System.out.println("Called empty constructor");
 	}
 
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		int p = 0;
+		System.out.println("Called read on rectangle");
 		while (p < 4) {
 			float x = in.readFloat();
+			System.out.println("Read "+x);
 			float y = in.readFloat();
-			Point2D point = new Point2D(x,y); 
+			System.out.println("Read "+y);
+			System.out.println("--------");
 			if (p == 0)
-				a = point;
+				a = new Point2D(x,y);
 			if (p == 1)
-				b = point;
+				b = new Point2D(x,y);
 			if (p == 2)
-				c = point;
+				c = new Point2D(x,y);
 			if (p == 3)
-				d = point;
+				d = new Point2D(x,y);
 			p++;
-		}		
+		}
+		System.out.println("This rectangle is now "+this.toString());
+		System.out.println("---------------------------");
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
+		System.out.println("Called write on Rectangle");
+		System.out.println(a.x+" "+a.y);
+		System.out.println(b.x+" "+b.y);
+		System.out.println(c.x+" "+c.y);
+		System.out.println(d.x+" "+d.y);
+		System.out.println("--------------------");
 		out.writeFloat(a.x);
 		out.writeFloat(a.y);
 		out.writeFloat(b.x);
@@ -58,6 +80,23 @@ public class Rectangle implements Writable{
 		out.writeFloat(c.y);
 		out.writeFloat(d.x);
 		out.writeFloat(d.y);
+		
+	}
+
+	
+	@Override 
+	public String toString() {
+	  String returnFormat = "[ (ax,ay),(bx,by),(cx,cy),(dx,dy) ]";
+	  returnFormat = returnFormat.replace("ax",a.x+"");
+	  returnFormat = returnFormat.replace("ay",a.y+"");
+	  returnFormat = returnFormat.replace("bx",b.x+"");
+	  returnFormat = returnFormat.replace("by",b.y+"");
+	  returnFormat = returnFormat.replace("cx",c.x+"");
+	  returnFormat = returnFormat.replace("cy",c.y+"");
+	  returnFormat = returnFormat.replace("dx",d.x+"");
+	  returnFormat = returnFormat.replace("dy",d.y+"");
+	  return returnFormat;
+	  
 	}
 
 }
