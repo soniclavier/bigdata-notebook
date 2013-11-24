@@ -13,7 +13,7 @@ public class RectangleCount {
 	
 	// A custom counter named CUSTOM_COUNT
 	static enum CustomCounter{CUSTOM_COUNT};
-  public static class MyMapper extends MapReduceBase implements Mapper<Text, RectangleKey, RectangleKey, IntWritable> {
+  private static class MyMapper extends MapReduceBase implements Mapper<Text, RectangleKey, RectangleKey, IntWritable> {
 
     public void map(Text key, RectangleKey value, OutputCollector<RectangleKey, IntWritable> output, Reporter reporter) throws IOException {
       String line = value.toString();
@@ -23,7 +23,7 @@ public class RectangleCount {
     }
   }
 
-  public static class MyReducer extends MapReduceBase implements Reducer<RectangleKey, IntWritable, Text, IntWritable> {
+  private static class MyReducer extends MapReduceBase implements Reducer<RectangleKey, IntWritable, Text, IntWritable> {
     public void reduce(RectangleKey key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
       int sum = 0;
       while (values.hasNext()) {
