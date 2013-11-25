@@ -11,7 +11,7 @@ import org.apache.hadoop.mapred.*;
 
 public class WordCount {
 
-  public static class MyMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+	private static class MyMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
 
@@ -25,7 +25,7 @@ public class WordCount {
     }
   }
 
-  public static class MyReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
+  private static class MyReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
     public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
       int sum = 0;
       while (values.hasNext()) {
