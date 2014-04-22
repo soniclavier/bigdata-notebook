@@ -62,7 +62,6 @@ public class DistributeCache {
 	    conf.setMapperClass(MyMapper.class);
 	    /* by default identity reducer will be called
 	     * conf.setReducerClass(MyReducer.class);*/
-
 	    conf.setInputFormat(TextInputFormat.class);
 	    conf.setOutputFormat(TextOutputFormat.class);
 	    FileSystem fs = FileSystem.get(conf);
