@@ -19,7 +19,7 @@ lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at paralleliz
 <i>sc</i>, is the spark context which is available by default in the spark-shell and <i>sc.parallelilize</i> will parallelize the input which is a list of two Strings in this case. 
 
 #### <b>Map</b>
-Now that we have the RDD, we will run a <b>map()</b> operation on it.
+Now that we have the RDD, we will run a <i>map()</i> operation on it.
 
 {% highlight scala %}
 val lengthOfLines = lines.map(line => (line.length))
@@ -30,14 +30,14 @@ res0: Array[Int] = Array(7, 10)
 
 Here the map operation executes given function (to find the length) on each the element in the RDD and returns a new RDD. <i>lengthOfLines.collect()</i> operation shows that the result is an array with elements 7 and 10.
 
-#### Reduce
+#### <b>Reduce</b>
 Let us run the reduce operation on the result we obtained from map.
 {% highlight scala %}
 lines.map(line => (line.length)).reduce((a,b) => a + b)
 res1: Int = 17
 {% endhighlight %}
 
-<b>reduce()</b> operation in Spark is a bit different from how the Hadoop MapReduce used to be, reduce() in spark produces only single output instead of producing key-value pairs. In the above reduce operation the length of each line, is summed up to obtain the result, 17. We will later go through <b>reduceByKey()</b> operation which is similar to the reduce in Hadoop MapReduce.
+<i>reduce()</i> operation in Spark is a bit different from how the Hadoop MapReduce used to be, reduce() in spark produces only single output instead of producing key-value pairs. In the above reduce operation the length of each line, is summed up to obtain the result, 17. We will later go through <i>reduceByKey()</i> operation which is similar to the reduce in Hadoop MapReduce.
 
 Let's take another example of reduce() 
 
@@ -69,7 +69,7 @@ lines.map(line => (line.length)).reduce(_ + _)
 
 (line => (line.length)) can be re-written as <b>_.length</b> : map is taking a single parameter- line as input and doing a.length on it, so the _ here becomes the only parameter and _.length finds the length of the line.
 
-#### Word count using flatMap and reduceByKey
+#### <b>Word count using flatMap and reduceByKey</b>
 One of the difference between flatMap() and map() is that, map should always return a result where as flatMap need not. Have a look at the below examples
 
 {% highlight scala %}
@@ -80,3 +80,9 @@ lines.map(_.split(" ").filter(word => word.contains("this")).map(word => (word,1
 res85: Array[Array[(String, Int)]] = Array(Array((this,1)), Array(), Array())
 lines.map(line => (line.length)).reduce(_ + _)
 {% endhighlight %}
+
+We have three strings and we are doing a filtering based on the content. The result we got from the flatMap after filtering is `Array((this,1))` where as the map operation returned `Array(Array((this,1)), Array(), Array())` -two empty arrays.
+
+<blockquote>return type of flatMap and map is an RDD not an array, the above result with array was obtained after calling collect() on the RDD returned by map operations.</blockquote>
+
+Another difference between flatMap and map is that, flatMap flattens out the result, i.e., if you are getting an Array of Array of String in map, in flatMap you will get Array of String. See the below example
