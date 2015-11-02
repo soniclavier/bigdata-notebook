@@ -6,7 +6,7 @@ date: 2015-09-15
 PAGE_IDENTIFIER: spark_scala
 description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
 ---
-<div class="img_row">
+<div class="col three">
 	<img class="col three" src="/img/spark_blog.jpg">
 </div>
 This is a basic guide on how to run map-reduce in Apache Spark using Scala. I will also try to explain the basics of Scala underscore, how it works and few examples of writing map-reduce programs with and without using underscore. 
