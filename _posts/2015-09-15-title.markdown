@@ -3,13 +3,17 @@ layout: post
 comments: true
 title: Spark MapReduce and Scala underscore
 date: 2015-09-15 15:09:00
+PAGE_IDENTIFIER: spark_scala
 description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
 ---
+<div class="img_row">
+	<img class="col three" src="/img/spark_blog.jpg">
+</div>
 This is a basic guide on how to run map-reduce in Apache Spark using Scala. I will also try to explain the basics of Scala underscore, how it works and few examples of writing map-reduce programs with and without using underscore. 
 
 The source code is available <a href="https://github.com/soniclavier/hadoop/blob/master/map_reduce_in_spark.scala" target="blank">here</a>
 
-#### <b>MapReduce</b>
+### <b>MapReduce</b>
 The first step is to create an RDD(Resilient Distributed Dataset) of input Strings. An RDD is a collection of data which is partitioned, it is similar to a distributed collection. The more the number of partitions in an RDD, the more the parallelism. When a job runs, each partition will be moved to the node where it is going to be processed.
 
 {% highlight scala %}
@@ -19,7 +23,7 @@ lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at paralleliz
 
 <i>sc</i>, is the spark context which is available by default in the spark-shell and <i>sc.parallelilize</i> will parallelize the input which is a list of two Strings in this case. 
 
-#### <b>Map</b>
+### <b>Map</b>
 Now that we have the RDD, we will run a <i>map()</i> operation on it.
 
 {% highlight scala %}
@@ -31,7 +35,7 @@ res0: Array[Int] = Array(7, 10)
 
 Here the map operation executes given function (to find the length) on each the element in the RDD and returns a new RDD. <i>lengthOfLines.collect()</i> operation shows that the result is an array with elements 7 and 10.
 
-#### <b>Reduce</b>
+### <b>Reduce</b>
 Let us run the reduce operation on the result we obtained from map.
 {% highlight scala %}
 lines.map(line => (line.length)).reduce((a,b) => a + b)
@@ -53,7 +57,7 @@ res2: String = this an
 In this example, we took two lines, did a substring operation to obtain only the first word of each line and then concatenated in reduce. The point to note here is that, reduce() operation always returns a single result - string "this an" in this example. 
 <blockquote>Here we ran reduce operation on an Array(firstWords) which is not on an RDD. reduceByKey() can only called on an RDD where as reduce() can be called even if the object is not an RDD.</blockquote>
 
-#### Scala Underscore
+### Scala Underscore
 Now, let us come back to the reduce operation and see how we can re-write it using underscore( _ ). Here reduce takes two arguments a and b and does a summation. 
 
 {% highlight scala %}
@@ -70,7 +74,7 @@ lines.map(line => (line.length)).reduce(_ + _)
 
 (line => (line.length)) can be re-written as <b>_.length</b> : map is taking a single parameter- line as input and doing a.length on it, so the _ here becomes the only parameter and _.length finds the length of the line.
 
-#### <b>Word count using flatMap and reduceByKey</b>
+### <b>Word count using flatMap and reduceByKey</b>
 One of the difference between flatMap() and map() is that, map should always return a result where as flatMap need not. Have a look at the below examples
 
 {% highlight scala %}
