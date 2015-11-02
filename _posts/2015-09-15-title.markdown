@@ -8,7 +8,7 @@ This is a basic guide on how to run map-reduce in Apache Spark using Scala. I wi
 
 The source code is available <a href="https://github.com/soniclavier/hadoop/blob/master/map_reduce_in_spark.scala" target="blank">here</a>
 
-#### MapReduce
+#### <b>MapReduce</b>
 The first step is to create an RDD(Resilient Distributed Dataset) of input Strings. An RDD is a collection of data which is partitioned, it is similar to a distributed collection. The more the number of partitions in an RDD, the more the parallelism. When a job runs, each partition will be moved to the node where it is going to be processed.
 
 {% highlight scala %}
@@ -16,7 +16,7 @@ val lines = sc.parallelize(List("this is","an example"))
 lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:21
 {% endhighlight %}
 
-<b>sc</b>, is the spark context which is available by default in the spark-shell and <b>sc.parallelilize</b> will parallelize the input which is a list of two Strings in this case. 
+<i>sc</i>, is the spark context which is available by default in the spark-shell and <i>sc.parallelilize</i> will parallelize the input which is a list of two Strings in this case. 
 
 #### <b>Map</b>
 Now that we have the RDD, we will run a <b>map()</b> operation on it.
@@ -71,3 +71,12 @@ lines.map(line => (line.length)).reduce(_ + _)
 
 #### Word count using flatMap and reduceByKey
 One of the difference between flatMap() and map() is that, map should always return a result where as flatMap need not. Have a look at the below examples
+
+{% highlight scala %}
+val lines = sc.parallelize(List("this is line number one","line number two","line number three"))
+lines.flatMap(_.split(" ").filter(word => word.contains("this")).map(word => (word,1)))
+res83: Array[(String, Int)] = Array((this,1))
+lines.map(_.split(" ").filter(word => word.contains("this")).map(word => (word,1)))
+res85: Array[Array[(String, Int)]] = Array(Array((this,1)), Array(), Array())
+lines.map(line => (line.length)).reduce(_ + _)
+{% endhighlight %}
