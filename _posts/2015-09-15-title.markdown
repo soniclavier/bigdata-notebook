@@ -17,3 +17,37 @@ lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at paralleliz
 {% endhighlight %}
 
 <b>sc</b>, is the spark context which is available by default in the spark-shell and <b>sc.parallelilize</b> will parallelize the input which is a list of two Strings in this case. 
+
+#### Map
+Now that we have the RDD, we will run a <b>map()</b> operation on it.
+
+{% highlight scala %}
+val lengthOfLines = lines.map(line => (line.length))
+lengthOfLines: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[2] at map at <console>:23
+lengthOfLines.collect()
+res0: Array[Int] = Array(7, 10)
+{% endhighlight %}
+
+Here the map operation executes given function (to find the length) on each the element in the RDD and returns a new RDD. <i>lengthOfLines.collect()</i> operation shows that the result is an array with elements 7 and 10.
+
+#### Reduce
+Let us run the reduce operation on the result we obtained from map.
+{% highlight scala %}
+lines.map(line => (line.length)).reduce((a,b) => a + b)
+res1: Int = 17
+{% endhighlight %}
+
+<b>reduce()</b> operation in Spark is a bit different from how the Hadoop MapReduce used to be, reduce() in spark produces only single output instead of producing key-value pairs. In the above reduce operation the length of each line, is summed up to obtain the result, 17. We will later go through <b>reduceByKey()</b> operation which is similar to the reduce in Hadoop MapReduce.
+
+Let's take another example of reduce() 
+
+{% highlight scala %}
+val lines = sc.parallelize(List("this is","an example"))
+val firstWords = lines.map(line => (line.substring(0,line.indexOf(" ")))).collect()
+firstWords: Array[String] = Array(this, an)
+firstWords.reduce((a,b) => a +" "+b)
+res2: String = this an
+{% endhighlight %}
+
+In this example, we took two lines, did a substring operation to obtain only the first word of each line and then concatenated in reduce. The point to note here is that, reduce() operation always returns a single result - string "this an" in this example. 
+<blockquote>Here we ran reduce operation on an Array(firstWords) which is not on an RDD. reduceByKey() can only called on an RDD where as reduce() can be called even if the object is not an RDD.</blockquote>
