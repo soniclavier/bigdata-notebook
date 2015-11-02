@@ -4,4 +4,4 @@ title: resume
 permalink: /Resume/
 ---
 
-[pdf here]({{ site.baseurl }}/resources/VISHNU_VISWANATH.pdf)
+[Download]({{ site.baseurl }}/resources/VISHNU_VISWANATH.pdf)
