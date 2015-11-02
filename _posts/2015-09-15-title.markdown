@@ -15,3 +15,5 @@ The first step is to create an RDD(Resilient Distributed Dataset) of input Strin
 val lines = sc.parallelize(List("this is","an example"))
 lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:21
 {% endhighlight %}
+
+<b>sc</b>, is the spark context which is available by default in the spark-shell and <b>sc.parallelilize</b> will parallelize the input which is a list of two Strings in this case. 
