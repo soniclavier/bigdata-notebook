@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: Spark MapReduce and Scala underscore
-date: 2015-09-15 15:09:00
+date: 2015-09-15
 PAGE_IDENTIFIER: spark_scala
 description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
 ---
@@ -57,7 +57,7 @@ res2: String = this an
 In this example, we took two lines, did a substring operation to obtain only the first word of each line and then concatenated in reduce. The point to note here is that, reduce() operation always returns a single result - string "this an" in this example. 
 <blockquote>Here we ran reduce operation on an Array(firstWords) which is not on an RDD. reduceByKey() can only called on an RDD where as reduce() can be called even if the object is not an RDD.</blockquote>
 
-### Scala Underscore
+### <b>Scala Underscore</b>
 Now, let us come back to the reduce operation and see how we can re-write it using underscore( _ ). Here reduce takes two arguments a and b and does a summation. 
 
 {% highlight scala %}
