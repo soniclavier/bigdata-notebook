@@ -1,0 +1,17 @@
+---
+layout: post
+title: Spark MapReduce and Scala underscore
+date: 2015-09-15 15:09:00
+description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
+---
+This is a basic guide on how to run map-reduce in Apache Spark using Scala. I will also try to explain the basics of Scala underscore, how it works and few examples of writing map-reduce programs with and without using underscore. 
+
+The source code is available <a href="https://github.com/soniclavier/hadoop/blob/master/map_reduce_in_spark.scala" target="blank">here</a>
+
+#### MapReduce
+The first step is to create an RDD(Resilient Distributed Dataset) of input Strings. An RDD is a collection of data which is partitioned, it is similar to a distributed collection. The more the number of partitions in an RDD, the more the parallelism. When a job runs, each partition will be moved to the node where it is going to be processed.
+
+{% highlight scala %}
+val lines = sc.parallelize(List("this is","an example"))
+lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:21
+{% endhighlight %}
