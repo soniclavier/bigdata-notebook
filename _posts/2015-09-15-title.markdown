@@ -74,9 +74,9 @@ One of the difference between flatMap() and map() is that, map should always ret
 
 {% highlight scala %}
 val lines = sc.parallelize(List("this is line number one","line number two","line number three"))
-lines.flatMap(_.split(" ").filter(word => word.contains("this")).map(word => (word,1)))
+lines.flatMap(_.split(" ").filter(word => word.contains("this")).map(word => (word,1))).collect()
 res83: Array[(String, Int)] = Array((this,1))
-lines.map(_.split(" ").filter(word => word.contains("this")).map(word => (word,1)))
+lines.map(_.split(" ").filter(word => word.contains("this")).map(word => (word,1))).collect()
 res85: Array[Array[(String, Int)]] = Array(Array((this,1)), Array(), Array())
 lines.map(line => (line.length)).reduce(_ + _)
 {% endhighlight %}
@@ -86,3 +86,34 @@ We have three strings and we are doing a filtering based on the content. The res
 <blockquote>return type of flatMap and map is an RDD not an array, the above result with array was obtained after calling collect() on the RDD returned by map operations.</blockquote>
 
 Another difference between flatMap and map is that, flatMap flattens out the result, i.e., if you are getting an Array of Array of String in map, in flatMap you will get Array of String. See the below example
+
+{% highlight scala %}
+val lines = sc.parallelize(List("line number one","line number two"))
+lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[10] at parallelize at <console>:21
+val words = lines.map(line => (line.split(" ")))
+words: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[11] at map at <console>:23
+words.collect()
+res6: Array[Array[String]] = Array(Array(line, number, one), Array(line, number, two))
+val words = lines.flatMap(line => (line.split(" ")))
+words: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[12] at flatMap at <console>:23
+words.collect()
+res7: Array[String] = Array(line, number, one, line, number, two)
+{% endhighlight %}
+
+<i>reduceByKey()</i> takes a function that accepts two values and produces one. Here the result is an RDD of (key,value) pairs in contrast to reduce() where the result was just one value.
+
+Let's move on to the word count program. We will be using flatMap and reduceByKey explained earlier
+
+{% highlight scala %}
+val lines = sc.parallelize(List("line number one","line number two"))
+lines.collect()
+res8: Array[String] = Array(line number one, line number two)
+val words = lines.flatMap(line => (line.split(" ")))
+words.collect()
+res11: Array[String] = Array(line, number, one, line, number, two)
+val wordCount = words.map(x => (x,1)).reduceByKey(_ + _)
+wordCount.collect()
+res12: Array[(String, Int)] = Array((number,2), (two,1), (line,2), (one,1))
+{% endhighlight %}
+
+In the first line, we are creating an RDD with two Strings. Next, we are splitting the line based on space. Then for each word, the mapper will emit key as the word and 1 as the value. The reducer will receive these key,value pairs and will do an aggregation of all the values to find the number of occurrences of each word.
