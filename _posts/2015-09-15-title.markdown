@@ -18,7 +18,7 @@ lines: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at paralleliz
 
 <b>sc</b>, is the spark context which is available by default in the spark-shell and <b>sc.parallelilize</b> will parallelize the input which is a list of two Strings in this case. 
 
-#### Map
+#### <b>Map</b>
 Now that we have the RDD, we will run a <b>map()</b> operation on it.
 
 {% highlight scala %}
@@ -51,3 +51,23 @@ res2: String = this an
 
 In this example, we took two lines, did a substring operation to obtain only the first word of each line and then concatenated in reduce. The point to note here is that, reduce() operation always returns a single result - string "this an" in this example. 
 <blockquote>Here we ran reduce operation on an Array(firstWords) which is not on an RDD. reduceByKey() can only called on an RDD where as reduce() can be called even if the object is not an RDD.</blockquote>
+
+#### Scala Underscore
+Now, let us come back to the reduce operation and see how we can re-write it using underscore( _ ). Here reduce takes two arguments a and b and does a summation. 
+
+{% highlight scala %}
+lines.map(line => (line.length)).reduce((a,b) => a + b)
+{% endhighlight %}
+
+Using Scala underscore, this can also be written as
+
+{% highlight scala %}
+lines.map(line => (line.length)).reduce(_ + _)
+{% endhighlight %}
+
+((a,b) => a+b) can be re-written as <b>(_ + _)</b> : here it is implicitly understood that the function takes two parameters and does a <b>"+"</b> on them.
+
+(line => (line.length)) can be re-written as <b>_.length</b> : map is taking a single parameter- line as input and doing a.length on it, so the _ here becomes the only parameter and _.length finds the length of the line.
+
+#### Word count using flatMap and reduceByKey
+One of the difference between flatMap() and map() is that, map should always return a result where as flatMap need not. Have a look at the below examples
