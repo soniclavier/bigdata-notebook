@@ -6,8 +6,9 @@ permalink: /about/
 
 <img class="col one right" src="/img/prof_pic.jpg">
 
+<h1>Vishnu Viswanath</h1>
 <br/>
-	I am a Sr. BigData developer with 4.5 years work experience in Java. I have a considerable amount of experience in most of the BigData stacks. Currently I am interested in Apache Spark and Machine Learning. I also have proficient knowledge in Apache Storm, Kafka, Hadooop MapReduce, SOLR, Oozie, Flume, Pig, Hive, MongoDB and Hbase.
+	I am Sr. BigData developer with 4.5 years work experience in Java. I have a considerable amount of experience in most of the BigData stacks. Currently I am interested in Apache Spark and Machine Learning. I also have proficient knowledge in Apache Storm, Kafka, Hadooop MapReduce, SOLR, Oozie, Flume, Pig, Hive, MongoDB and Hbase.
 
 <hr/>
 <br/>
