@@ -7,12 +7,12 @@ layout: default
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
   </header>
-
   <article class="post-content">
+  	
     {{ content }}
   </article>
 
 </div>
-{% include _share.html %}
+<div class='shareaholic-canvas' data-app='share_buttons' data-app-id='21469058'></div>
 {% include disqus.html %}
 
