@@ -191,4 +191,4 @@ Check <a href="http://localhost:8080/index.html">http://localhost:8080/index.htm
 
 We have completed the environment setup and in the next part we will see how to setup the Eclipse project and start writing Storm Topology.
 
-[Next]({% post_url 2015-11-15-storm_kafka_part2%})
+<a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part2.html">Next</a>
