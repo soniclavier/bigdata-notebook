@@ -138,6 +138,7 @@ db.collection.find()
 </div>
 
 3) HDFS - You can either run `hadoop fs -ls /from_storm` or access namenode UI <a href="http://localhost:50070/">url</a>.
+
 <div class="col three">
 	<img class="col three" src="/img/hdfs_result.png"/>
 </div>
