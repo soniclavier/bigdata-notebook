@@ -168,7 +168,7 @@ switched to db storm
 `use storm` creates a new database called storm and switches to it. `createCollection("collection1")` creates a new collection named *'collection1'*
 
 #### **Apache Storm**
-Download Storm distribution from <a href="download from http://storm.apache.org/downloads.html">here</a> and unpack it. It is better to add the STORM_HOME/bin to you PATH. You can do so by changing your `bash_profile`. *Note: this step by might vary based on your OS. See how to set the path variable for <a href="http://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux">Linux</a> or <a href="http://hathaway.cc/post/69201163472/how-to-edit-your-path-environment-variables-on-mac">Mac</a>*
+Download Storm distribution from <a href="download from http://storm.apache.org/downloads.html">here</a> and unpack it. It is better to add the STORM_HOME/bin to you PATH. You can do so by changing your `bash_profile`. *Note: this step by might vary based on your OS. See how to set the path variable for <a href="http://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux">Linux</a> or <a href="http://hathaway.cc/post/69201163472/how-to-edit-your-path-environment-variables-on-mac">Mac</a>.
 
 {% highlight sh %}
 export STORM_HOME=/Users/vishnu/apache-storm-0.10.0
