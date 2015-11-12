@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Realtime Processing using Storm and Kafka Part1
+title: Realtime Processing using Storm-Kafka- Part1
 date: 2015-11-05
 PAGE_IDENTIFIER: storm_kafka
 description: This is the first of the three-part series of a POC on how to build a near Realtime Processing system using Apache Storm and Kafka in Java. In this first part, we will be dealing with setting up of the environment.

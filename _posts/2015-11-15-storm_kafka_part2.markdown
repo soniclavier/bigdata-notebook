@@ -249,4 +249,4 @@ public HdfsBolt buildHdfsBolt() {
 
 In the next part of this series, we will develop the Kafka Spout, tie it all together using Storm Topology and execute the project.
 <br/>
-<a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part2.html">Previous</a> <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part3.html">Next</a>
+<a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part1.html">Previous</a> <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part3.html">Next</a>
