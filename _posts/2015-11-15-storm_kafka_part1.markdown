@@ -105,6 +105,7 @@ Started Solr server on port 8983 (pid=15373). Happy searching!
 You can now access the Solr UI via <a href="http://localhost:8983/solr/#/">http://localhost:8983/solr/#/</a>
 
 *Solr home page:*
+
 <div class="col three">
 	<img class="col three" src="/img/solr_loadpage.png">
 </div>
