@@ -6,6 +6,9 @@ import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 
+/**
+ * An example from Spark site
+ */
 object bClassifier {
 
   def main(args: Array[String]) {

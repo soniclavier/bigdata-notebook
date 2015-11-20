@@ -1,5 +1,6 @@
 *.class
 *.log
+.cache-main
 
 #eclipse specific
 .classpath

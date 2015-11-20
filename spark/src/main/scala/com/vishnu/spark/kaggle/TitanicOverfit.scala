@@ -20,7 +20,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 
 
-object Titanic {
+object TitanicOverfit {
 
   def prepareData(data: DataFrame, train: Boolean,sqlContext: SQLContext): DataFrame = {
     val toDouble = sqlContext.udf.register("toDouble",((n:Int) => {n.toDouble}))
