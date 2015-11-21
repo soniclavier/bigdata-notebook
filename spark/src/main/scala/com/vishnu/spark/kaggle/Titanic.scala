@@ -86,17 +86,6 @@ object Titanic {
     var prepared = data.na.fill(avgAge, Seq("Age"))
 
     //2. Discover/Derive new features
-    //we can discover if a person is married or not from the title in name.
-    val findStatus = sqlContext.udf.register("findStatus", (name: String) => {
-      val married = "Mr(s).".r
-      val matchedStr = married.findFirstIn(name)
-      matchedStr match {
-        case Some(s) => "Married"
-        case None => "Unmarried"
-      }
-    })
-    prepared = prepared.withColumn("Status", findStatus(prepared("Name")))
-
     val hasFamily = sqlContext.udf.register("HasFamily", (siblings: Int, parents: Int) => {
       var count = siblings + parents
       if (count > 0)
@@ -104,6 +93,31 @@ object Titanic {
       else
         0.0
     })
+    
+    def findStatus(name: String) = {
+      val married = "Mr(s).".r
+      val matchedStr = married.findFirstIn(name)
+      matchedStr match {
+        case Some(s) => "Married"
+        case None => "Unmarried"
+      }
+    }
+    //we can discover if a person is married or not from the title in name.
+    val findMaritalStatus = sqlContext.udf.register("findStatus",findStatus _)
+    /*
+    val findMaritalStatus = sqlContext.udf.register("findMaritalStatus", (name: String) => {
+      /*
+      val married = "Mr(s).".r
+      val matchedStr = married.findFirstIn(name)
+      matchedStr match {
+        case Some(s) => "Married"
+        case None => "Unmarried"
+      }*/
+      1.0
+    })*/
+    prepared = prepared.withColumn("Status", findMaritalStatus(prepared("Name")))
+
+    
     prepared = prepared.withColumn("HasFamily", hasFamily(prepared("SibSp"), prepared("Parch")))
 
     //3. Check correlation

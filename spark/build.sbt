@@ -1,11 +1,11 @@
-val spark_mllib = "org.apache.spark" % "spark-mllib_2.11" % "1.5.2"
-val spark_core = "org.apache.spark" % "spark-core_2.11" % "1.5.2"
-val spark_csv = "com.databricks" % "spark-csv_2.11" % "1.2.0"
+val spark_mllib = "org.apache.spark" % "spark-mllib_2.10" % "1.5.2"
+val spark_core = "org.apache.spark" % "spark-core_2.10" % "1.5.2"
+val spark_csv = "com.databricks" % "spark-csv_2.10" % "1.2.0"
 
 lazy val commonSettings = Seq(
   organization := "com.vishnu",
   version := "0.1.0",
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.10.5"
 )
 
 lazy val root = (project in file(".")).
