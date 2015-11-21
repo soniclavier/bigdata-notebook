@@ -45,22 +45,43 @@ object TitanicOverfit {
   }
   def main(args: Array[String]) {
     
-    val conf = new SparkConf().setAppName("bClassiier").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
+    val conf = new SparkConf().setAppName("Titanic Overfit").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
     var train_data = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").option("inferSchema", "true").load("/kaggle/titanic/train.csv").toDF("PassengerId", "Survived", "Pclass", "Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked")
     var prepared_train = prepareData(train_data, true,sqlContext)
     var trainLabeled = prepared_train.map { row: Row =>
       val features = Array[Double](row(1).asInstanceOf[Double],
-        row(1).asInstanceOf[Double],
         row(2).asInstanceOf[Double],
         row(3).asInstanceOf[Double],
         row(4).asInstanceOf[Double],
+        row(5).asInstanceOf[Double],
         row(6).asInstanceOf[Double],
         row(7).asInstanceOf[Double],
         row(8).asInstanceOf[Double])
       LabeledPoint(row(0).asInstanceOf[Double], Vectors.dense(features))
     }
+
+    //val splits = trainLabeled.randomSplit(Array(0.6, 0.4), seed = 11L)
+    //val training = splits(0).cache()
+    //val test = splits(1)
+    
+    val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(trainLabeled)
+    
+
+    /*
+    val predictionAndLabels = test.map {
+      case LabeledPoint(label, features) =>
+        val prediction = model.predict(features)
+        (prediction.toDouble, label.toDouble)
+    }
+
+    val metrics = new MulticlassMetrics(predictionAndLabels)
+    val precision = metrics.precision
+    println("Precision = " + precision) 
+    */
+
+    model.save(sc, "/kaggle/titanic/overfit_model")
 
     var submission_data = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").option("inferSchema", "true").load("/kaggle/titanic/test.csv").toDF("PassengerId", "Pclass", "Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked")
     var prepared_submission = prepareData(submission_data, false,sqlContext)
@@ -75,30 +96,13 @@ object TitanicOverfit {
         row(8).asInstanceOf[Double])
       LabeledPoint(row(0).asInstanceOf[Double], Vectors.dense(features))
     }
-
-    val splits = trainLabeled.randomSplit(Array(0.6, 0.4), seed = 11L)
-    val training = splits(0).cache()
-    val test = splits(1)
-
-    val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(training)
-
-    val predictionAndLabels = test.map {
-      case LabeledPoint(label, features) =>
-        val prediction = model.predict(features)
-        (prediction.toDouble, label.toDouble)
-    }
-
-    val metrics = new MulticlassMetrics(predictionAndLabels)
-    val precision = metrics.precision
-    println("Precision = " + precision)
-
-    model.save(sc, "/kaggle/titanic/first_model")
-
+    
     val submissionPrediction = submissionLabeled.map {
       case LabeledPoint(label, features) =>
         val prediction = model.predict(features)
         (label.toInt, prediction.toInt)
     }
-    submissionPrediction.saveAsTextFile("/kaggle/titanic/model")
+    
+    submissionPrediction.saveAsTextFile("/kaggle/titanic/overfit_output")
   }
 }
