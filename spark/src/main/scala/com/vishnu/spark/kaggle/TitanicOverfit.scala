@@ -18,6 +18,8 @@ import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
+import org.apache.spark.mllib.tree.RandomForest
+
 
 
 object TitanicOverfit {
@@ -66,7 +68,11 @@ object TitanicOverfit {
     //val training = splits(0).cache()
     //val test = splits(1)
     
-    val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(trainLabeled)
+    val categoricalFeaturesInfo = Map[Int, Int]()
+    //val model = RandomForest.trainClassifier(processed_data,2, categoricalFeaturesInfo, 5, "auto", "gini", 4, 32)
+    
+    val model = RandomForest.trainClassifier(trainLabeled,2, categoricalFeaturesInfo, 5, "auto", "gini", 4, 32)
+    //val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(trainLabeled)
     
 
     /*
