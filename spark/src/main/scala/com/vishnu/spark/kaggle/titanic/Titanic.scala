@@ -1,4 +1,4 @@
-package com.vishnu.spark.kaggle
+package com.vishnu.spark.kaggle.titanic
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
@@ -10,19 +10,11 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.sql.functions._
-import org.apache.spark.ml.feature.Normalizer
-import scala.util.matching.Regex
 import org.apache.spark.ml.feature.StringIndexer
-import org.apache.spark.ml.feature.VectorAssembler
-import org.apache.spark.ml.classification.RandomForestClassifier
-import org.apache.spark.mllib.tree.RandomForest
-import org.apache.spark.mllib.tree.DecisionTree
 import org.apache.spark.mllib.classification.LogisticRegressionModel
-import com.vishnu.spark.Evaluator
 import org.apache.spark.mllib.tree.model.RandomForestModel
 import org.apache.spark.mllib.tree.model.DecisionTreeModel
-import org.apache.spark.ml.tuning.CrossValidator
-import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
+import scala.reflect.runtime.universe
 
 /**
  * @author vishnu viswanath

@@ -1,23 +1,16 @@
-package com.vishnu.spark.kaggle
+package com.vishnu.spark.kaggle.titanic
 
-import org.apache.spark.ml.feature.{ OneHotEncoder, StringIndexer }
+import org.apache.spark.ml.feature.StringIndexer
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.mllib.evaluation.MulticlassMetrics
-import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.ml.feature.Tokenizer
-import org.apache.spark.ml.feature.HashingTF
-import org.apache.spark.ml.classification.LogisticRegression
-import org.apache.spark.ml.Pipeline
-import org.apache.spark.mllib.classification.{ LogisticRegressionWithLBFGS, LogisticRegressionModel }
+import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
+import scala.reflect.runtime.universe
 
 object TitanicUnderfit {
 
