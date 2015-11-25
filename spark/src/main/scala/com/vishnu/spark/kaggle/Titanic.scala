@@ -38,6 +38,9 @@ object Titanic {
    * 3. Build Model
    * 4. Evaluate model
    */
+  
+  //TO-DO : change age avg calculation, consider avg of male and female separately
+  //TO-DO : group fare 
   def main(args: Array[String]) {
 
     val conf = new SparkConf().setAppName("Titanic").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
@@ -84,52 +87,6 @@ object Titanic {
 
   }
 
-  
-  def saveForSubmit(input: RDD[LabeledPoint], model: LogisticRegressionModel, outputPath: String, sc: SparkContext) {
-    println("PassengerId,Survived")
-    val submissionPrediction = input.map {
-      case LabeledPoint(label, features) =>
-        val prediction = model.predict(features)
-        println(label.toInt+","+prediction.toInt)
-        (label.toInt, prediction.toInt)
-    }
-    submissionPrediction.saveAsTextFile(outputPath)
-    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
-  }
-  
-  def saveForSubmit(input: RDD[LabeledPoint], model: RandomForestModel, outputPath: String, sc: SparkContext) {
-    println("PassengerId,Survived")
-    val submissionPrediction = input.map {
-      case LabeledPoint(label, features) =>
-        val prediction = model.predict(features)
-        println(label.toInt+","+prediction.toInt)
-        (label.toInt, prediction.toInt)
-    }
-    submissionPrediction.saveAsTextFile(outputPath)
-    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
-  }
-  
-  def saveForSubmit(input: RDD[LabeledPoint], model: DecisionTreeModel, outputPath: String, sc: SparkContext) {
-    println("PassengerId,Survived")
-    val submissionPrediction = input.map {
-      case LabeledPoint(label, features) =>
-        val prediction = model.predict(features)
-        println(label.toInt+","+prediction.toInt)
-        (label.toInt, prediction.toInt)
-    }
-    submissionPrediction.saveAsTextFile(outputPath)
-    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
-  }
-
-  def load(path: String, sqlContext: SQLContext, featuresArr: String*): DataFrame = {
-    var data = sqlContext.read.format("com.databricks.spark.csv")
-      .option("header", "true")
-      .option("inferSchema", "true")
-      .load(path)
-      .toDF(featuresArr: _*)
-    return data
-  }
-
   def preprocess(data: DataFrame, sqlContext: SQLContext, train: Boolean): RDD[LabeledPoint] = {
     //1. deal with missing value
     //Missing ages can be filled by avg(age)
@@ -137,6 +94,11 @@ object Titanic {
     //if(train)
     //  prepared = data.na.drop()
 
+    
+    
+    //var avgAge = data.groupBy("Sex").avg("Age")
+    //var maleAvg = avgAge.filter("Sex='male'").first()(1).asInstanceOf[Double]
+    //var femaleAvg = avgAge.filter("Sex='female'").first()(1).asInstanceOf[Double]
     var avgAge = data.select(mean("Age")).first()(0).asInstanceOf[Double]
     prepared = prepared.na.fill(avgAge, Seq("Age"))
 
@@ -164,7 +126,7 @@ object Titanic {
     })
     
     val findTitle = sqlContext.udf.register("findTitle", (name: String) => {
-      val pattern = "(Dr|Mrs?|Ms|Miss|Master|Rev|Capt|Mlle)\\.".r
+      val pattern = "(Dr|Mrs?|Ms|Miss|Master|Rev|Capt|Mlle|Jonkheer)\\.".r
       val matchedStr = pattern.findFirstIn(name)
       matchedStr match {
         case Some(s) => matchedStr.getOrElse("")
@@ -270,6 +232,51 @@ object Titanic {
     //5. normalize
     //6. Dimensionality reduction
 
+  }
+  
+    def saveForSubmit(input: RDD[LabeledPoint], model: LogisticRegressionModel, outputPath: String, sc: SparkContext) {
+    println("PassengerId,Survived")
+    val submissionPrediction = input.map {
+      case LabeledPoint(label, features) =>
+        val prediction = model.predict(features)
+        println(label.toInt+","+prediction.toInt)
+        (label.toInt, prediction.toInt)
+    }
+    submissionPrediction.saveAsTextFile(outputPath)
+    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
+  }
+  
+  def saveForSubmit(input: RDD[LabeledPoint], model: RandomForestModel, outputPath: String, sc: SparkContext) {
+    println("PassengerId,Survived")
+    val submissionPrediction = input.map {
+      case LabeledPoint(label, features) =>
+        val prediction = model.predict(features)
+        println(label.toInt+","+prediction.toInt)
+        (label.toInt, prediction.toInt)
+    }
+    submissionPrediction.saveAsTextFile(outputPath)
+    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
+  }
+  
+  def saveForSubmit(input: RDD[LabeledPoint], model: DecisionTreeModel, outputPath: String, sc: SparkContext) {
+    println("PassengerId,Survived")
+    val submissionPrediction = input.map {
+      case LabeledPoint(label, features) =>
+        val prediction = model.predict(features)
+        println(label.toInt+","+prediction.toInt)
+        (label.toInt, prediction.toInt)
+    }
+    submissionPrediction.saveAsTextFile(outputPath)
+    //submissionPrediction.saveAsTextFile("/kaggle/titanic/output")
+  }
+
+  def load(path: String, sqlContext: SQLContext, featuresArr: String*): DataFrame = {
+    var data = sqlContext.read.format("com.databricks.spark.csv")
+      .option("header", "true")
+      .option("inferSchema", "true")
+      .load(path)
+      .toDF(featuresArr: _*)
+    return data
   }
 
 }
