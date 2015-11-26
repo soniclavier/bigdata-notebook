@@ -107,6 +107,7 @@ $storm jar stormkafka-0.0.1-SNAPSHOT.jar com.vishnu.storm.Topology
 {% endhighlight %}
 where `com.vishnu.storm` is the package name and `Topology` is the class containing the main method.
 Open your storm UI at <a href="http://localhost:8080/">http://localhost:8080/</a> and verify that job has been deployed correctly. Storm UI provides a very good visualization of the toplogy, you can view it by clicking `your-tolology-name>Show Visualization`.
+
 <div class="col three">
 	<img class="col three" src="/img/storm_deployed.png"/>
 </div>
@@ -132,7 +133,8 @@ use storm
 db.collection.find()
 { "_id" : ObjectId("56442855a9ee7800956aaf50"), "id" : "1", "value" : "mongodb_message" }
 {% endhighlight %}
-2) SOLR - You can see the Solr message by accessing the SOLR UI <a href="http://localhost:8983/solr/#/">url</a>.. 
+2) SOLR - You can see the Solr message by accessing the SOLR UI <a href="http://localhost:8983/solr/#/">url</a>.
+ 
 <div class="col three">
 	<img class="col three" src="/img/solr_result.png"/>
 </div>
