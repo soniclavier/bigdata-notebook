@@ -17,9 +17,16 @@ import org.apache.spark.ml.tuning.CrossValidator
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.ml.classification.RandomForestClassifier
 import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
+import org.apache.spark.mllib.tree.configuration.Strategy
+import org.apache.spark.ml.feature.PCA
+import org.apache.spark.ml.classification.LogisticRegression
+import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
+import org.apache.spark.ml.feature.OneHotEncoder
+import org.apache.spark.ml.feature.RFormula
+
 
 object TitanicWithPipeline {
- 
+
   def main(args: Array[String]) {
 
     val conf = new SparkConf().setAppName("Titanic").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
@@ -34,81 +41,81 @@ object TitanicWithPipeline {
       sqlContext,
       "PassengerId", "Pclass", "Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked").cache()
 
-
     //2. Preprocess data
     train_data = preprocess(train_data, sqlContext, true)
     submission_data = preprocess(submission_data, sqlContext, false)
     train_data.show()
-    
-    
+
     /**
      *  INDEXING AND VECTOR FORMATION
      */
     val sexInd = new StringIndexer().setInputCol("sexMod").setOutputCol("SexIndex")
     val titleInd = new StringIndexer().setInputCol("Title").setOutputCol("TitleIndex")
-    //val titleEnc = new OneHotEncoder().setInputCol("TitleIndex").setOutputCol("title")
+    //val titleEnc = new OneHotEncoder().setInputCol("title_temp").setOutputCol("TitleIndex")
     val fareInd = new StringIndexer().setInputCol("Fare").setOutputCol("FareIndex")
     //val fareSplit = Array(0.0,10.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,100.0,130.0,160.0,190.0,240.0,290.0,390.0,490.0,590.0);
     //val fareBuc = new Bucketizer().setInputCol("Fare").setOutputCol("FareIndex").setSplits(fareSplit)
     val assembler = new VectorAssembler().setInputCols(Array("Pclass", "SexIndex", "Age", "FareIndex", "withFamily", "TitleIndex")).setOutputCol("features_temp")
     val normalizer = new Normalizer().setInputCol("features_temp").setOutputCol("features").setP(1.0)
-    //do PCA?
-    //val pca = new PCA().setInputCol("normFeatures").setOutputCol("pcaFeatures").setK(4)
-    val pipeline = new Pipeline().setStages(Array(sexInd, titleInd,fareInd,assembler,normalizer))
+    //adding PCA reduced score from 78 to 68
+    //val pca = new PCA().setInputCol("normFeatures").setOutputCol("features").setK(4)
+    val pipeline = new Pipeline().setStages(Array(sexInd, titleInd, fareInd, assembler, normalizer))
     //val model = trainPipeline.fit(train_data)
     var inputTrain = pipeline.fit(train_data).transform(train_data)
+    //val formula = new RFormula().setFormula("prediction ~ SexIndex+TitleIndex+FareIndex").setFeaturesCol("features").setLabelCol("label")
+    //inputTrain = formula.fit(inputTrain).transform(inputTrain)
     inputTrain = inputTrain.select("label", "features")
     inputTrain.show()
-    
-    
+
     /**
      * CROSS VALIDATION
      */
-    
-   
+
     //LOGISTIC REGRESSION
-    /*
-    val lr = new LogisticRegression().setMaxIter(10)
-    val lrPipe = new Pipeline().setStages(Array(rf))
-    label indexer required for RandomForest and DecisionTree
-    val bEval = new BinaryClassificationEvaluator().setLabelCol("label")
-     */
     
+    val lr = new LogisticRegression().setMaxIter(10)
+    val lrPipe = new Pipeline().setStages(Array(lr))
+    //label indexer required for RandomForest and DecisionTree
+    val bEval = new BinaryClassificationEvaluator().setLabelCol("label")
+    val crossval = new CrossValidator().setEstimator(lrPipe)
+    crossval.setEvaluator(bEval)
     //RANDOM FOREST
+    /*
     val labelInd = new StringIndexer().setInputCol("label").setOutputCol("labelInd")
     val rf = new RandomForestClassifier().setLabelCol("labelInd").setFeaturesCol("features").setNumTrees(64)
-    val rfPipe = new Pipeline().setStages(Array(labelInd,rf))
+    val rfPipe = new Pipeline().setStages(Array(labelInd, rf))
     val mclassEval = new MulticlassClassificationEvaluator().setLabelCol("labelInd").setPredictionCol("prediction").setMetricName("precision")
     val crossval = new CrossValidator().setEstimator(rfPipe)
-    val paramGrid = new ParamGridBuilder().build()
+    crossval.setEvaluator(mclassEval)
+    */
     
+    val paramGrid = new ParamGridBuilder().build()
     crossval.setEstimatorParamMaps(paramGrid)
     crossval.setNumFolds(10)
-    crossval.setEvaluator(mclassEval)
     
+
     val cvModel = crossval.fit(inputTrain)
     val lrModel = cvModel.bestModel
-    
-    
+
     //val labelSub = new StringIndexer().setInputCol("PassengerId").setOutputCol("label")
     //val testPipeline = new Pipeline().setStages(Array(pcInd,sexInd,titleInd,assembler,normalizer))
     var inputSubmission = pipeline.fit(submission_data).transform(submission_data)
-    inputSubmission = inputSubmission.select("label","features","pid")
+    //inputSubmission = formula.fit(inputSubmission).transform(inputSubmission)
+    inputSubmission = inputSubmission.select("label", "features", "pid")
     inputSubmission.show()
     var result = lrModel.transform(inputSubmission)
     result.show();
-    var saveDf = result.select("pid","prediction")
-    var saveRDD = saveDf.map(r => (r.get(0).asInstanceOf[Double].toInt,r.get(1).asInstanceOf[Double].toInt))
+    var saveDf = result.select("pid", "prediction")
+    var saveRDD = saveDf.map(r => (r.get(0).asInstanceOf[Double].toInt, r.get(1).asInstanceOf[Double].toInt))
     saveRDD.saveAsTextFile("/kaggle/titanic/output")
     /**
      *  CROSS VALIDATION END
      */
-    
-    
+
     /**
      *  WITH-OUT USING CROSS VALIDATION
      */
-    
+
     /*
     var inputLP = inputTrain.map { row: Row =>
       LabeledPoint(row(0).asInstanceOf[Double], row.getAs[org.apache.spark.mllib.linalg.SparseVector]("features"))
@@ -125,7 +132,7 @@ object TitanicWithPipeline {
   
     saveForSubmit(submissionLP, model, "/kaggle/titanic/output", sc)
     */
-    
+
     /**
      *  END SUBMISSION
      */
@@ -133,7 +140,7 @@ object TitanicWithPipeline {
   }
 
   /**
-   * Pre-process data, 
+   * Pre-process data,
    * 	a) Fill null values
    * 	b) Transform Int columns to Double
    *  c) Derive new features from existing ones
@@ -141,15 +148,15 @@ object TitanicWithPipeline {
    */
   def preprocess(data: DataFrame, sqlContext: SQLContext, train: Boolean): DataFrame = {
     var train_data = data
-    
+
     //Fill missing age with average (age)
     var avgAge = train_data.select(mean("Age")).first()(0).asInstanceOf[Double]
     train_data = train_data.na.fill(avgAge, Seq("Age"))
 
     //Fill missing fares with average(fare)
     var avgFare = train_data.select(mean("Fare")).first()(0).asInstanceOf[Double]
-    train_data = train_data.na.fill(avgFare, Seq("Fare")) 
-    
+    train_data = train_data.na.fill(avgFare, Seq("Fare"))
+
     //withFamily is true(1) if the family size excluding self is > 3 (large family may have more/less chance of survival)
     val withFamily = sqlContext.udf.register("withFamily", (sib: Int, par: Int) => {
       if (sib + par > 3)
@@ -157,7 +164,7 @@ object TitanicWithPipeline {
       else
         0.0
     })
-    
+
     //extract title information from the Name field
     val findTitle = sqlContext.udf.register("findTitle", (name: String) => {
       val pattern = "(Dr|Mrs?|Ms|Miss|Master|Rev|Capt|Mlle)\\.".r
@@ -175,15 +182,14 @@ object TitanicWithPipeline {
       else
         sex
     })
-    
+
     //convert Pclass to double
     val toDouble = sqlContext.udf.register("toDouble", ((n: Int) => { n.toDouble }))
     train_data = train_data.withColumn("Pclass", toDouble(train_data("Pclass")))
     if (train) {
       //create label field, needed for prediction
       train_data = train_data.withColumn("label", toDouble(train_data("Survived")))
-    }
-    else {
+    } else {
       //The classifier needs a label column which is not present in the test data, so generating a dummy one
       val getZero = sqlContext.udf.register("toDouble", ((n: Int) => { 0.0 }))
       train_data = train_data.withColumn("label", getZero(train_data("PassengerId")))
@@ -191,7 +197,7 @@ object TitanicWithPipeline {
       //Prediction is based no `features` column but we need this to map the predicted value with passenger
       train_data = train_data.withColumn("pid", toDouble(train_data("PassengerId")))
     }
-    
+
     train_data = train_data.withColumn("withFamily", withFamily(train_data("SibSp"), train_data("Parch")))
     train_data = train_data.withColumn("sexMod", addChild(train_data("Sex"), train_data("Age")))
     train_data.withColumn("Title", findTitle(train_data("Name")))
@@ -210,11 +216,11 @@ object TitanicWithPipeline {
   }
 
   /**
-   * This method is used for predicting and saving result for submitting on to kaggle. 
+   * This method is used for predicting and saving result for submitting on to kaggle.
    * It takes in an RDD, which will have the label = PassengerId, and features. The features are passed on to the model
    * to get the prediction.
    * An RDD of passengerId:Int,prediction:Int is returned.
-   * 
+   *
    */
   def saveForSubmit(input: RDD[LabeledPoint], model: LogisticRegressionModel, outputPath: String, sc: SparkContext) {
     val submissionPrediction = input.map {
