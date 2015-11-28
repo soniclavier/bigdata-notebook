@@ -111,8 +111,10 @@ You can now access the Solr UI via <a href="http://localhost:8983/solr/#/">http:
 </div>
 
 Now we need to create a collection in solr. This will be used by our Storm topology to store the message of the type *solr*.
-For creating a collection there are a set of configuration files needed, solr provides us basic configuration files which can be used for this. These files are available in `SOLR_BASE/server/solr/configsets/basic_configs/conf`
-
+For creating a collection there are a set of configuration files needed, solr provides us basic configuration files which can be used for this. These files are available in
+{% highlight sh %}
+SOLR_BASE/server/solr/configsets/basic_configs/conf
+{% endhighlight %}
 Let's first create a new folder and copy the basic configs to it.
 {% highlight sh %}
 $mkdir server/solr/collection1

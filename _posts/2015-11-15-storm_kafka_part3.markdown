@@ -56,7 +56,14 @@ HdfsBolt hdfsBolt = boltBuilder.buildHdfsBolt();
 MongodbBolt mongoBolt = boltBuilder.buildMongodbBolt();
 {% endhighlight %}
 
-These spouts and bolts are linked together by the TopologyBuilder class. Each spout should define from which stream it should receive it's input from. e.g., If bolt 'B' wants to receive it's input from bolt 'A', then we should call `builder.setBolt('B',boltBobj,1).shuffleGrouping("A");`. If bolt 'A' is emitting multiple streams -x and y, then bolt 'B' should also specify the stream name of bolt 'A'. It would look something like `builder.setBolt('B',bolt,1).shuffleGrouping("A","x");`
+These spouts and bolts are linked together by the TopologyBuilder class. Each spout should define from which stream it should receive it's input from. e.g., If bolt 'B' wants to receive it's input from bolt 'A', then we should call
+{% highlight java %}
+builder.setBolt('B',boltBobj,1).shuffleGrouping("A");
+{% endhighlight %}
+If bolt 'A' is emitting multiple streams -x and y, then bolt 'B' should also specify the stream name of bolt 'A'. It would look something like 
+{% highlight java %}
+builder.setBolt('B',bolt,1).shuffleGrouping("A","x");`
+{% endhighlight %}
 
 {% highlight java %}
 //set the kafkaSpout to topology

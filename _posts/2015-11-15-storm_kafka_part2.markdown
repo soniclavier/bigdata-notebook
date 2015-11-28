@@ -192,7 +192,12 @@ public void execute(Tuple input) {
 
 
 #### MongoDB Bolt
-<a href="https://github.com/soniclavier/hadoop/blob/master/stormkafka/src/main/java/com/vishnu/storm/bolt/MongodbBolt.java">MongodbBolt.java</a> is similar to SolrBolt. It creates an instance of MongoClient using hostname and port, and then it creates an instance of MongoDatabase using ths MongoClient and the database name. Input tuple is converted into `org.bson.Document` by the method `getMongoDocForInput` and is inserted into the collection by `mongoDB.getCollection(collection).insertOne(mongoDoc)`
+<a href="https://github.com/soniclavier/hadoop/blob/master/stormkafka/src/main/java/com/vishnu/storm/bolt/MongodbBolt.java">MongodbBolt.java</a> is similar to SolrBolt. It creates an instance of MongoClient using hostname and port, and then it creates an instance of MongoDatabase using ths MongoClient and the database name. Input tuple is converted into `org.bson.Document` by the method `getMongoDocForInput` and is inserted into the collection by
+
+{% highlight java %}
+mongoDB.getCollection(collection).insertOne(mongoDoc)
+{% endhighlight %}
+
 {% highlight java %}
 public void execute(Tuple input) {	
 	Document mongoDoc = getMongoDocForInput(input);
