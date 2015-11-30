@@ -23,7 +23,7 @@ import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
 import org.apache.spark.ml.feature.OneHotEncoder
 import org.apache.spark.ml.feature.RFormula
-
+import org.apache.spark.sql.types._
 
 object TitanicWithPipeline {
 
@@ -64,9 +64,8 @@ object TitanicWithPipeline {
     var inputTrain = pipeline.fit(train_data).transform(train_data)
     //val formula = new RFormula().setFormula("prediction ~ SexIndex+TitleIndex+FareIndex").setFeaturesCol("features").setLabelCol("label")
     //inputTrain = formula.fit(inputTrain).transform(inputTrain)
-    inputTrain = inputTrain.select("label", "features")
+    inputTrain = inputTrain.select("Survived", "features")
     inputTrain.show()
-
     /**
      * CROSS VALIDATION
      */
@@ -74,11 +73,13 @@ object TitanicWithPipeline {
     //LOGISTIC REGRESSION
     
     val lr = new LogisticRegression().setMaxIter(10)
+    lr.setLabelCol("Survived")
     val lrPipe = new Pipeline().setStages(Array(lr))
-    //label indexer required for RandomForest and DecisionTree
-    val bEval = new BinaryClassificationEvaluator().setLabelCol("label")
+    val bEval = new BinaryClassificationEvaluator().setLabelCol("Survived")
     val crossval = new CrossValidator().setEstimator(lrPipe)
     crossval.setEvaluator(bEval)
+    
+    
     //RANDOM FOREST
     /*
     val labelInd = new StringIndexer().setInputCol("label").setOutputCol("labelInd")
@@ -92,7 +93,6 @@ object TitanicWithPipeline {
     val paramGrid = new ParamGridBuilder().build()
     crossval.setEstimatorParamMaps(paramGrid)
     crossval.setNumFolds(10)
-    
 
     val cvModel = crossval.fit(inputTrain)
     val lrModel = cvModel.bestModel
@@ -101,7 +101,7 @@ object TitanicWithPipeline {
     //val testPipeline = new Pipeline().setStages(Array(pcInd,sexInd,titleInd,assembler,normalizer))
     var inputSubmission = pipeline.fit(submission_data).transform(submission_data)
     //inputSubmission = formula.fit(inputSubmission).transform(inputSubmission)
-    inputSubmission = inputSubmission.select("label", "features", "pid")
+    inputSubmission = inputSubmission.select("Survived", "features", "pid")
     inputSubmission.show()
     var result = lrModel.transform(inputSubmission)
     result.show();
@@ -188,11 +188,11 @@ object TitanicWithPipeline {
     train_data = train_data.withColumn("Pclass", toDouble(train_data("Pclass")))
     if (train) {
       //create label field, needed for prediction
-      train_data = train_data.withColumn("label", toDouble(train_data("Survived")))
+      train_data = train_data.withColumn("Survived", toDouble(train_data("Survived")))
     } else {
       //The classifier needs a label column which is not present in the test data, so generating a dummy one
       val getZero = sqlContext.udf.register("toDouble", ((n: Int) => { 0.0 }))
-      train_data = train_data.withColumn("label", getZero(train_data("PassengerId")))
+      train_data = train_data.withColumn("Survived", getZero(train_data("PassengerId")))
       //passenger id for which prediction is going to be made, 
       //Prediction is based no `features` column but we need this to map the predicted value with passenger
       train_data = train_data.withColumn("pid", toDouble(train_data("PassengerId")))
