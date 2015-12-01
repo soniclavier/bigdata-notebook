@@ -137,7 +137,7 @@ We now verify each of the sinks
 {% highlight sh %}
 $bin/mongo
 use storm
-db.collection.find()
+db.collection1.find()
 { "_id" : ObjectId("56442855a9ee7800956aaf50"), "id" : "1", "value" : "mongodb_message" }
 {% endhighlight %}
 2) SOLR - You can see the Solr message by accessing the SOLR UI <a href="http://localhost:8983/solr/#/">url</a>.
