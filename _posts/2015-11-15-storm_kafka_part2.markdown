@@ -32,7 +32,7 @@ Bolts are the processing units of a topology. It can enrich the message, filter,
 #### Topology
 A topology is a network of Spouts and Bolts
 
-1. *Sink-Type-bolt* : will act as a decision making node, by identigfying the message type and sending it to the appropriate bolt for persistence.
+1. *Sink-Type-bolt* : will act as a decision making node, by identifying the message type and sending it to the appropriate bolt for persistence.
 2. *Solr-bolt* : for indexing into SOLR collection
 1. *Hdfs-bolt* : for storing in HDFS
 1. *Mongodb-bolt* : for saving in MongoDB collection
