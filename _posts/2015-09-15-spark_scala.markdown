@@ -3,6 +3,7 @@ layout: post
 comments: true
 title: Spark MapReduce and Scala underscore
 date: 2015-09-15
+permalink: /spark-scala.html
 PAGE_IDENTIFIER: spark_scala_blog
 description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
 ---

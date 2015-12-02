@@ -14,6 +14,7 @@ width:100%;
 z-index: 50;
 }
 
+
 .site-title {
 font-size: 20px;
 line-height: $nav-height;
@@ -108,7 +109,6 @@ width:100%;
 max-width: -webkit-calc(800px - (#{$horizontal-spacing-unit} * 2));
 text-align: center;
 width: 100%;
-position: fixed;
 bottom: 50px;
 }
 .paginationicon {

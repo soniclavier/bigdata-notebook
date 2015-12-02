@@ -12,7 +12,7 @@ dl, dd, ol, ul, figure {
 
 /** Variables **********************************************/
 $base-font-family:              Helvetica, sans-serif;
-$base-line-height:              1.5em;
+$base-line-height:              2.0em;
 $horizontal-spacing-unit:       50px;
 $vertical-spacing-unit:         40px;
 $nav-height:                    56px;
@@ -28,7 +28,7 @@ $red:  #FF3636;
 $red_thunderbird: #D91E18;
 $orange: #F29105;
 $blue: #4183D7;
-$blue_sanmarino:#446CB3;
+$blue_dark:#446CB3;
 $confetti: #E9D460;
 $green: #11D68B;
 $lime_green: #B7D12A;
@@ -227,4 +227,13 @@ pre {
     }
 }
 
+/**
+ * Pagination style
+ */
+.previous {
+    color:#{$theme-color};
+}
 
+.next {
+    color:#{$theme-color};
+}

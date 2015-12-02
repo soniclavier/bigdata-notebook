@@ -4,6 +4,7 @@ comments: true
 title: Realtime Processing using Storm-Kafka - Part3
 date: 2015-11-05
 PAGE_IDENTIFIER: spark_scala
+permalink: /realtime-storm-kafka3.html
 description: This is the final part of the series. Here we are dealing with developing the Kafka Spout, Storm Topology and execution of the project.
 ---
 <div class="col three">
