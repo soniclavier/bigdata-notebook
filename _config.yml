@@ -2,8 +2,8 @@
 title: Bigdata Notebook
 email: vishnu.viswanath25@gmail.com
 description: My blogs in the field of BigData
-baseurl:  # the subpath of your site, e.g. /blog/
-url:  www.vishnuviswanath.com
+baseurl: 
+url:  http://www.vishnuviswanath.com
 twitter_username: #
 github_username:  soniclavier
 name: Bigdata Notebook
