@@ -13,7 +13,7 @@ description: This is the first of the three-part series of a POC on how to build
 
 This is a three-part series of a POC on how to build a near Realtime Processing system using Apache Storm and Kafka in Java. So to give a brief introduction on how the system works, messages come into a Kafka topic, Storm picks up these messages using Kafka Spout and gives it to a Bolt, which parses and identifies the message type based on the header. Once the message type is identified, the content of the message is extracted and is sent to different bolts for persistence - SOLR bolt, MongoDB bolt or HDFS bolt.
 
-In this first part, we will be dealing with setting up of the environment. If you already have the environment setup, you can jump to the <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part2.html">Part 2</a> which talks about how to setup the project in Eclipse and how to write the Bolts. Execution of the project and creation of Spout is discussed in the <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part3.html">Part 3</a>
+In this first part, we will be dealing with setting up of the environment. If you already have the environment setup, you can jump to the <a href="http://vishnuviswanath.com/realtime-storm-kafka2.html">Part 2</a> which talks about how to setup the project in Eclipse and how to write the Bolts. Execution of the project and creation of Spout is discussed in the <a href="http://vishnuviswanath.com/realtime-storm-kafka3.html">Part 3</a>
 
 The source code for this project is available in my <a href="https://github.com/soniclavier/hadoop/tree/master/stormkafka" target="blank">github</a>
 
@@ -195,4 +195,4 @@ Check <a href="http://localhost:8080/index.html">http://localhost:8080/index.htm
 
 We have completed the environment setup and in the next part we will see how to setup the Eclipse project and start writing Storm Topology.
 
-<a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part2.html">Next</a>
+<a href="http://vishnuviswanath.com/realtime-storm-kafka2.html">Next</a>

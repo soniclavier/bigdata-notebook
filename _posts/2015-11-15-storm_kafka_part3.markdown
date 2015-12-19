@@ -11,7 +11,7 @@ description: This is the final part of the series. Here we are dealing with deve
 	<img class="col three" src="/img/storm_blog_header.png">
 </div>
 
-This is the last part of the blog *Realtime Processing using Storm and Kafka*. You can find the previous parts here - <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part1.html">Part 1</a>, <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part2.html">Part 2</a>. In this section we will develop the Kafka Spout, Storm Topology and execute the project.
+This is the last part of the blog *Realtime Processing using Storm and Kafka*. You can find the previous parts here - <a href="http://vishnuviswanath.com/realtime-storm-kafka1.html">Part 1</a>, <a href="http://vishnuviswanath.com/realtime-storm-kafka2.html">Part 2</a>. In this section we will develop the Kafka Spout, Storm Topology and execute the project.
 
 The source code for this project is available in my <a href="https://github.com/soniclavier/hadoop/tree/master/stormkafka" target="blank">github</a>
 

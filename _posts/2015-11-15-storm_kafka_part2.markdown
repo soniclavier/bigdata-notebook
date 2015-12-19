@@ -11,7 +11,7 @@ description: This is part two of the series Realtime Processing using Storm and 
 	<img class="col three" src="/img/storm_blog_header.png">
 </div>
 
-This is Part 2 of the series *Realtime Processing using Storm and Kafka*. If you have not read the first part, you can read it <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part1.html">here</a>. In this section we are going to create an Eclipse project and develop the Solr, MongoDb and Hdfs Bolt used for persisting the messages.
+This is Part 2 of the series *Realtime Processing using Storm and Kafka*. If you have not read the first part, you can read it <a href="http://vishnuviswanath.com/realtime-storm-kafka1.html">here</a>. In this section we are going to create an Eclipse project and develop the Solr, MongoDb and Hdfs Bolt used for persisting the messages.
 
 The source code for this project is available in my <a href="https://github.com/soniclavier/hadoop/tree/master/stormkafka" target="blank">github</a>
 
@@ -255,4 +255,4 @@ public HdfsBolt buildHdfsBolt() {
 
 In the next part of this series, we will develop the Kafka Spout, tie it all together using Storm Topology and execute the project.
 <br/>
-<a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part1.html">Previous</a> <a href="http://vishnuviswanath.com/2015/11/05/storm_kafka_part3.html">Next</a>
+<a href="http://vishnuviswanath.com/realtime-storm-kafka1.html">Previous</a> <a href="http://vishnuviswanath.com/realtime-storm-kafka3.html">Next</a>
