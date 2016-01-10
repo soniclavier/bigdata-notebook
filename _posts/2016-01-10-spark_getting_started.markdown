@@ -11,7 +11,7 @@ description: This is quick guide on how to Setup Apache Spark 1.6 with YARN.
 	<img class="col three" src="/img/spark_start/heading.png">
 </div>
 
-In this short blog, I will explain how setup Apache Spark 1.6 with YARN. I assume Hadoop is already installed.
+In this short blog, I will explain how to setup Apache Spark 1.6 with YARN. I assume Hadoop is already installed.
 
 # 1. Download Apache Spark
 Go to [spark.apache.org/downloads.html](http://spark.apache.org/downloads.html) and choose the Spark release you want to download(1.6.0 is the default currently). Then under the package type choose the Spark release corresponding to your Hadoop version. Mine is 2.6 hence I choose *Pre-built for Hadoop 2.6 and later*
