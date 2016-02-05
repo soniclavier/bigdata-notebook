@@ -49,7 +49,7 @@ filtered.count()
 <blockquote>RDDs can also be thought of as a set of instructions that has to be executed, first instruction being the load instruction.</blockquote>
 
 ### **Caching**
-You can cache an RDD in memory by calling `rdd.cache()`. When you cache on an RDD, it's Partitions are loaded into memory of the nodes that hold it.
+You can cache an RDD in memory by calling `rdd.cache()`. When you cache an RDD, it's Partitions are loaded into memory of the nodes that hold it.
 <div class="col three">
 	<img class="col three" src="/img/spark_rdd/rdd_cache.png">
 </div>
