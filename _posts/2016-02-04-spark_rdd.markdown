@@ -1,0 +1,60 @@
+---
+layout: post
+comments: true
+title: Spark RDDs Simplified
+date: 2016-02-04
+PAGE_IDENTIFIER: spark_rdd
+permalink: /spark_rdd.html
+description: This blog tries to explain what a Spark RDD is and how it is used for distributing data across the cluster. I have tried to use simple illustrations for better understanding.
+---
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd/blog_header.png">
+</div>
+Spark RDDs are very simple at the same time very important concept in Apache Spark. Most of you might be knowing the full form of RDD, it is **Resilient Distributed Datasets**. ***Resilient*** because RDDs are immutable*(can't be modified once created)*, ***Distributed*** because it is distributed across cluster and ***Dataset*** because it holds data.
+
+So why RDD? Apache Spark lets you treat your input files almost like any other variable, which you cannot do in Hadoop MapReduce. RDDs are automatically distributed across the network by means of Partitions. 
+
+### **Partitions**
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd/rdd_partition.png">
+</div>
+RDDs are divided into smaller chunks called Partitions, and when you execute some action, a task is launched per partition. So it means, the more the number of partitions, the more the parallelism. Spark automatically decides the number of partitions that an RDD has to be divided into but you can also specify the number of partitions when creating an RDD. These partitions of an RDD is distributed across all the nodes in the network.
+
+### **Creating an RDD**
+
+Creating an RDD is easy, it can be created either from an external file or by parallelizing collections in your driver. For example,
+{% highlight scala %}
+val rdd = sc.textFile("/some_file",3)  
+val lines = sc.parallelize(List("this is","an example"))
+{% endhighlight %}
+The first line creates an RDD from an external file, and the second line creates an RDD from a list of Strings. *Note that the argument '3' in the method call sc.textFile() specifies the number of partitions that has to be created. If you don't want to specify the number of partitions, then you can simply call sc.textFile("some_file").*
+
+### **Actions/Transformations**
+There are two types of operations that you can perform on an RDD- *Transformations and Actions*. **Transformation** applies some function on a RDD and creates a new RDD, it does not modify the RDD that you apply the function on.*(Remember that RDDs are resilient/immutable).* Also, the new RDD keeps a pointer to it's parent RDD.
+
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd/rdd_transformation.png">
+</div>
+When you call a transformation, Spark does not execute it immediately, instead it creates a **lineage**. A lineage keeps track of what all transformations has to be applied on that RDD, including from where it has to read the data. For example, consider the below example
+
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd/rdd_lineage.png">
+</div>
+{% highlight scala %}
+val rdd = sc.textFile("spam.txt")
+val filtered = rdd.filter(line => line.contains("money"))
+filtered.count()
+{% endhighlight %}
+*sc.textFile() and rdd.filter()* do not get executed immediately, it will only get executed once you call an *Action* on the RDD - here filtered.count(). An **Action** is used to either save result to some location or to display it. You can also print the RDD lineage information by using the command `filtered.toDebugString`*(filtered is the RDD here)*.
+<blockquote>RDDs can also be thought of as a set of instructions that has to be executed, first instruction being the load instruction.</blockquote>
+
+### **Caching**
+You can cache an RDD in memory by calling `rdd.cache()`. When you cache on an RDD, it's Partitions are loaded into memory of the nodes that hold it.
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd/rdd_cache.png">
+</div>
+Caching can improve the performance of your application to a great deal. In the previous section you saw that when an action is performed on a RDD, it executes it's entire lineage. Now imagine you are going to perform an action multiple times on the same RDD which has a long lineage, this will cause an increase in execution time. Caching stores the computed result of the RDD in the memory thereby eliminating the need to recompute it every time. You can think of caching as if it is breaking the lineage, but it does remember the lineage so that it can be recomputed in case of a node failure.
+
+This concludes the basics of RDD, there is of course more details about RDD that I haven't covered here(Persistence, pairRDD etc). But this should get you started. Thanks for reading!
+
+<a href="http://vishnuviswanath.com/">Home</a>
