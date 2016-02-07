@@ -1,4 +1,7 @@
-
+_site/
+.jekyll-metadata
+.settings/
+target/
 .metadata
 bin/
 tmp/
