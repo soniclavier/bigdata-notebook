@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

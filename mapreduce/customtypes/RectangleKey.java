@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 
 /**
  * A custom Key type corresponding to a rectangle

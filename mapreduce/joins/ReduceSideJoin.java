@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.joins;
+package com.vishnuviswanath.examples.joins;
 
 import java.io.IOException;
 import java.util.ArrayList;

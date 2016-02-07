@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.JobConf;

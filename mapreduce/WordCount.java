@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples;
+package com.vishnuviswanath.examples;
 /**
  * Simple word count program
  */

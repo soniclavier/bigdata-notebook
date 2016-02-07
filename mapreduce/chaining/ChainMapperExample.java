@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.chaining;
+package com.vishnuviswanath.examples.chaining;
 
 /**
  * This example demonstrated how ChainMapper class can be used to chain mappers

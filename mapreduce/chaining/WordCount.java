@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.chaining;
+package com.vishnuviswanath.examples.chaining;
 /**
  * Word count program.
  */

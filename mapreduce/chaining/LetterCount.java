@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.chaining;
+package com.vishnuviswanath.examples.chaining;
 /**
  * Take a word and count as input
  * Emit the count for each letter in the word

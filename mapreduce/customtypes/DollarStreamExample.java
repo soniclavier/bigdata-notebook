@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 /**
  * Simple program to test dollar($) as file delimiter
  */

@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples;
+package com.vishnuviswanath.examples;
 
 import java.io.BufferedReader;
 import java.io.IOException;

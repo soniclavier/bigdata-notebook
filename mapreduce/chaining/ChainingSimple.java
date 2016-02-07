@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.chaining;
+package com.vishnuviswanath.examples.chaining;
 
 /**
  * Simple job chaining example using more than one JobConf.

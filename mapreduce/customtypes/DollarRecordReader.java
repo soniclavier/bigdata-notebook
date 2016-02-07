@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

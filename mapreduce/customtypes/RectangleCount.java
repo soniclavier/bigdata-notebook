@@ -1,4 +1,4 @@
-package com.hadoopexpress.examples.customtypes;
+package com.vishnuviswanath.examples.customtypes;
 /**
  * Simple word count program with custom counters and custom comparator(commented)
  */
