@@ -18,7 +18,7 @@ public class IncrementalAccumulator implements
 	
 	@Override
 	public void accumulate(GenericRecord value) {
-		this.sum += (Long) value.get("value");
+		this.sum += (Long) value.get("score");
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class IncrementalAccumulator implements
 			oSchema = new Schema.Parser().parse(outputSchemaString);
 		}
 		GenericRecord output = new GenericData.Record(oSchema);
-		output.put("kpi", sum);
+		output.put("score", sum);
 		return output;
 	}
 

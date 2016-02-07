@@ -29,14 +29,14 @@ public class IncrementalAggr {
 		//create schema for site and load it into memory.
 		final Schema keySchema = Schema.createRecord("Key", null, namespace,false);
 		List<Field> keyFields = new ArrayList<Field>();
-		Field id = new Field("town",Schema.create(Type.STRING),null,null);
+		Field id = new Field("exam",Schema.create(Type.STRING),null,null);
 		keyFields.add(id);
 		keySchema.setFields(keyFields);
 		final String keySchemaString = keySchema.toString(true);
 		
 		final Schema valueSchema = Schema.createRecord("Value", null, namespace,false);
 		List<Field> valueFields = new ArrayList<Field>();
-		Field value = new Field("value",Schema.create(Type.LONG),null,null);
+		Field value = new Field("score",Schema.create(Type.LONG),null,null);
 		valueFields.add(value);
 		valueSchema.setFields(valueFields);
 		final String valueSchemaString = valueSchema.toString(true);
@@ -44,15 +44,15 @@ public class IncrementalAggr {
 		
 		final Schema outputSchema = Schema.createRecord("Output", null, namespace,false);
 		List<Field> outputFields = new ArrayList<Field>();
-		Field kpi = new Field("kpi",Schema.create(Type.LONG),null,null);
-		outputFields.add(kpi);
+		Field result = new Field("result",Schema.create(Type.LONG),null,null);
+		outputFields.add(result);
 		outputSchema.setFields(outputFields);
 		final String outputSchemaString = outputSchema.toString(true);
 		
 		job.setKeySchema(keySchema);
 		job.setIntermediateValueSchema(valueSchema);
 		job.setOutputValueSchema(valueSchema);
-		job.setInputPaths(Arrays.asList(new Path("datafu/data/sitelice")));
+		job.setInputPaths(Arrays.asList(new Path("datafu/data/input")));
 		job.setOutputPath(new Path("datafu/data/output"));
 		job.setReusePreviousOutput(true);
 		

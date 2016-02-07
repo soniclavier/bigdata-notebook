@@ -9,6 +9,11 @@ import org.apache.avro.generic.GenericRecord;
 import datafu.hourglass.model.KeyValueCollector;
 import datafu.hourglass.model.Mapper;
 
+/**
+ * An example of incremental mapreduce using datafu
+ * @author vishnu
+ *
+ */
 public class IncrementalMapper implements Mapper<GenericRecord,GenericRecord,GenericRecord>
 {
 	
@@ -30,9 +35,9 @@ public class IncrementalMapper implements Mapper<GenericRecord,GenericRecord,Gen
 		  if (kSchema == null) kSchema = new Schema.Parser().parse(keySchemaString);
 	      if (vSchema == null) vSchema = new Schema.Parser().parse(valueSchemaString);
 	      GenericRecord key = new GenericData.Record(kSchema);
-	      key.put("town", input.get("town"));
+	      key.put("name", input.get("name"));
 	      GenericRecord value = new GenericData.Record(vSchema);
-	      value.put("value",input.get("value")); // member id   
+	      value.put("score",input.get("score"));    
 	      collector.collect(key,value);
 	}
 }

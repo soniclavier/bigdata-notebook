@@ -18,8 +18,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/vishnu/Installed/hadoop-1.2.1/hadoop-core-1.2.1.jar" sourcepath="/home/vishnu/Installed/hadoop-1.2.1/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0"/>
 	<classpathentry kind="lib" path="/home/vishnu/Installed/hadoop-1.2.1/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/vishnu/Installed/hadoop-1.2.1/lib/commons-configuration-1.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
