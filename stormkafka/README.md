@@ -6,4 +6,4 @@ which parses and identifies the message type based on the header.
 Once the message type is identified, the content of the message is extracted and is sent to different bolts for 
 persistence - SOLR bolt, MongoDB bolt or HDFS bolt.
 
-[view the blog](http://vishnuviswanath.com/2015/11/05/storm_kafka_part1.html)
+[view the blog](http://vishnuviswanath.com/realtime-storm-kafka1.html)
