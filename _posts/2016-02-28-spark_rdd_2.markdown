@@ -11,7 +11,7 @@ description: This is part 2 of the blog Spark RDDs Simplified. In this part, I a
 	<img class="col three" src="/img/spark_rdd_2/blog_header.png">
 </div>
 
-This is Part 2 of the blog **Spark RDDs Simplified.** In this part,  I am trying to cover the topics **Persistence**, **Broadcast** variables and **Accumulators**. You can read the first part from [here](spark_rdd) where I talked about Partitions, Actions/Transformatins and Caching.
+This is Part 2 of the blog **Spark RDDs Simplified.** In this part,  I am trying to cover the topics **Persistence**, **Broadcast** variables and **Accumulators**. You can read the first part from [here](spark_rdd) where I talked about Partitions, Actions/Transformations and Caching.
 
 ### **Persistence**
 In my previous [blog](spark_rdd), I talked about caching which can be used to avoid recomputation of RDD lineage by saving its contents in memory. If there is not enough memory in the cluster, you can tell spark to use disk also for saving the RDD by using the method *persist()*.
@@ -23,7 +23,7 @@ rdd.persist(StorageLevel.MEMORY_AND_DISK)
 <div class="col three">
 	<img class="col three" src="/img/spark_rdd_2/rdd_persistence.png">
 </div>
-In the above example, the RDD has 3 partitions and there are 2 nodes in the cluster. Also, memory available in the cluster can hold only 2 out of 3 partitions of the RDD. Here, partitions 1 and 2 can be saved in memory where as partition 3 will be saved to disk. Another StorageLevel, *DISK_ONLY* stores all the partitions in the disk.
+In the above example, the RDD has 3 partitions and there are 2 nodes in the cluster. Also, memory available in the cluster can hold only 2 out of 3 partitions of the RDD. Here, partitions 1 and 2 can be saved in memory where as partition 3 will be saved to disk. Another StorageLevel, *DISK_ONLY* stores all the partitions on the disk.
 <blockquote>In the above methods, the RDDs are not serialized before saving to Memory or Disk, there are two other StorageLevels - MEMORY_ONLY_SER and MEMORY_AND_DISK_SER, which will store the RDDs as serialized java objects.
 </blockquote> 
 There are a few more StorageLevels which I did not mention here, you can find more details about it [here](http://spark.apache.org/docs/latest/programming-guide.html#rdd-persistence)
