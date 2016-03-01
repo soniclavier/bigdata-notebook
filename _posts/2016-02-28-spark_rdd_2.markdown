@@ -1,0 +1,87 @@
+---
+layout: post
+comments: true
+title: Spark RDDs Simplified - Part 2
+date: 2016-02-28
+PAGE_IDENTIFIER: spark_rdd_2
+permalink: /spark_rdd_2.html
+description: This is part 2 of the blog Spark RDDs Simplified. In this part, I am trying to cover the topics Persistence, Broadcast variables and Accumulators.
+---
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd_2/blog_header.png">
+</div>
+
+This is Part 2 of the blog **Spark RDDs Simplified.** In this part,  I am trying to cover the topics **Persistence**, **Broadcast** variables and **Accumulators**. You can read the first part from [here](spark_rdd) where I talked about Partitions, Actions/Transformatins and Caching.
+
+### **Persistence**
+In my previous [blog](spark_rdd), I talked about caching which can be used to avoid recomputation of RDD lineage by saving its contents in memory. If there is not enough memory in the cluster, you can tell spark to use disk also for saving the RDD by using the method *persist()*.
+{% highlight scala %}
+rdd.persist(StorageLevel.MEMORY_AND_DISK)
+{% endhighlight %}
+ In fact Caching is a type of persistence with StorageLevel -*MEMORY_ONLY*. If you use MEMORY_ONLY as the *Storage Level* and if there is not enough memory in your cluster to hold the entire RDD, then some partitions of the RDD cannot be stored in memory and will have to be recomputed every time it is needed. If you don't want this to happen, you can use the StorageLevel -
+*MEMORY_AND_DISK* in which if an RDD does not fit in memory, the partitions that do not fit are saved to disk.
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd_2/rdd_persistence.png">
+</div>
+In the above example, the RDD has 3 partitions and there are 2 nodes in the cluster. Also, memory available in the cluster can hold only 2 out of 3 partitions of the RDD. Here, partitions 1 and 2 can be saved in memory where as partition 3 will be saved to disk. Another StorageLevel, *DISK_ONLY* stores all the partitions in the disk.
+<blockquote>In the above methods, the RDDs are not serialized before saving to Memory or Disk, there are two other StorageLevels - MEMORY_ONLY_SER and MEMORY_AND_DISK_SER, which will store the RDDs as serialized java objects.
+</blockquote> 
+There are a few more StorageLevels which I did not mention here, you can find more details about it [here](http://spark.apache.org/docs/latest/programming-guide.html#rdd-persistence)
+
+### **Broadcast variables**
+A broadcast variable, is a type of shared variable, used for broadcasting data across the cluster. Hadoop MapReduce users can relate this to distributed cache. Let us first understand why we need a broadcast variable. Take a look at the below example, where *names* is joined with *addresses*.
+{% highlight scala %}
+val names = sc.textFile("/names").map(line => (line.split(",")(3),line))
+val addresses = sc.textFile("/address").map(line=>(line.split(",")(0),line))
+names.join(addresses)
+{% endhighlight %}
+Here, both names and addresses will be shuffled over the network for performing the join which is not efficient since any data transfer over the network will reduce the execution speed.
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast_shuffle.png">
+</div>
+Another approach is, if one of the RDDs is small in size, we can choose to send it along with each task. Consider the below example
+{% highlight scala %}
+val names = sc.textFile("/names").map(line => (line.split(",")(3),line))
+val addresses = sc.textFile("/address").map(line=>(line.split(",")(0),line))
+val addressesMap = addresses.collect().toMap
+val joined = names.map(v=>(v._2,(addressesMap(v._1))))
+{% endhighlight %}
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast_collect.png">
+</div>
+This is also inefficient since we are sending sizable amount of data over the network for each task. So how do we overcome this problem? By means of **broadcast** variables.
+{% highlight scala %}
+val names = sc.textFile("/names").map(line => (line.split(",")(3),line))
+val addresses = sc.textFile("/address").map(line=>(line.split(",")(0),line))
+val addressesMap = addresses.collect().toMap
+val broadcast = sc.broadcast(addressesMap)
+val joined = names.map(v=>(v._2,(broadcast.value(v._1))))
+{% endhighlight %}
+If a variable is broadcasted, it will be sent to each node only once, thereby reducing network traffic. 
+<blockquote>Broadcast variables are read-only, broadcast.value is an immutable object</blockquote>
+Spark uses BitTorrent like protocol for sending the broadcast variable across the cluster, i.e., for each variable that has to be broadcasted, initially the driver will act as the only source. The data will be split into blocks at the driver and each leecher *(receiver)* will start fetching the block to it's local directory. Once a block is completely received, then that leecher will also act as a source for this block for the rest of the leechers *(This reduces the load at the machine running driver).* This is continued for rest of the blocks. So initially, only the driver is the source and later on the number of sources increases - because of this, rate at which the blocks are fetched by a node increases over time.
+<div class="col three">
+	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast.png">
+</div>
+
+### **Accumulators**
+Accumulators, as the name suggests accumulates data during execution. This is similar to *Counters* in Hadoop MapReduce. An accumulator is initialized at the driver and is then modified *(added)* by each executors. Finally all these values are aggregated back at the driver.
+{% highlight scala %}
+val names = sc.textFile("/names").map(line => (line.split(",")(3),line))
+val addresses = sc.textFile("/address").map(line=>(line.split(",")(0),line))
+val addressesMap = addresses.collect().toMap
+val broadcast = sc.broadcast(addressesMap)
+val joined = names.map(v=>(v._2,(broadcast.value(v._1))))
+
+val accum = sc.accumulator(0,"india_counter")
+joined.foreach(v=> if (v._2.contains("india")) accum += 1)
+
+//we cannot do below operations on accumulators of the type Int
+//joined.foreach(v=> if (v._2.contains("india")) accum -= 1)
+//joined.foreach(v=> if (v._2.contains("india")) accum *= 1)
+//error: value *= is not a member of org.apache.spark.Accumulator[Int]
+{% endhighlight %}
+
+That concludes part 2 of the blog **Spark RDDs Simplified**, thanks for reading. Please leave a comment for any clarifications or queries.<br/>
+<a href="http://vishnuviswanath.com/">Home</a>
+
