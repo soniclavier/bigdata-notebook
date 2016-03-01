@@ -3,8 +3,8 @@ layout: post
 comments: true
 title: Spark RDDs Simplified - Part 2
 date: 2016-02-28
-PAGE_IDENTIFIER: spark_rdd_2
-permalink: /spark_rdd_2.html
+PAGE_IDENTIFIER: spark_rdd_part2
+permalink: /spark_rdd_part2.html
 description: This is part 2 of the blog Spark RDDs Simplified. In this part, I am trying to cover the topics Persistence, Broadcast variables and Accumulators.
 ---
 <div class="col three">
