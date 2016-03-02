@@ -1,7 +1,8 @@
-val spark_mllib = "org.apache.spark" % "spark-mllib_2.10" % "1.5.2"
-val spark_core = "org.apache.spark" % "spark-core_2.10" % "1.5.2"
-val spark_csv = "com.databricks" % "spark-csv_2.10" % "1.2.0"
-val spark_streaming = "org.apache.spark" % "spark-streaming_2.10" % "1.4.1"
+val spark_mllib = "org.apache.spark" % "spark-mllib_2.10" % "1.5.2" % "provided"
+val spark_core = "org.apache.spark" % "spark-core_2.10" % "1.5.2 "% "provided"
+val spark_csv = "com.databricks" % "spark-csv_2.10" % "1.2.0" % "provided"
+val spark_streaming = "org.apache.spark" % "spark-streaming_2.10" % "1.6.0" % "provided"  
+val flume_streaming = "org.apache.spark" % "spark-streaming-flume_2.10" % "1.6.0"  exclude("org.spark-project.spark", "unused") exclude("spark-streaming-flume-sink_2.10", "unused")
 
 lazy val commonSettings = Seq(
   organization := "com.vishnu",
@@ -17,6 +18,19 @@ lazy val root = (project in file(".")).
     libraryDependencies += spark_core,
     libraryDependencies += spark_csv,
     libraryDependencies += spark_streaming,
+    libraryDependencies += flume_streaming,
     retrieveManaged := true
   )
+
+
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
+    case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+    case x if x.contains("unused") => MergeStrategy.last
+    case "application.conf" => MergeStrategy.concat
+    case "unwanted.txt"     => MergeStrategy.discard
+    case x => old(x)
+  }
+}
 
