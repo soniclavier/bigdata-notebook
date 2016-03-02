@@ -21,5 +21,5 @@ spark-submit   --class "com.vishnu.spark.kaggle.titanic.TitanicWithPipeline"   -
 
 For running Streaming Example
 ```
-spark-submit   --class "com.vishnu.spark.streaming.BasicStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples_2.10-0.1.0.jar
+spark-submit   --class "com.vishnu.spark.streaming.Socket"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples_2.10-0.1.0.jar
 ```
