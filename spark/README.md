@@ -1,12 +1,13 @@
-Edit your .bash_profile or .profile file in OSX/Unix or Edit your Environment variables in Windows
-In OSX:
+Edit your .bash_profile or .profile file in OSX/Unix or Edit your Environment variables in Windows.
+
+**OSX/Unix:**
 ```
 vi ~/.bash_profile
 export SPARK_HOME=/Users/vishnu/spark-1.6.0-bin-hadoop2.6
 export PATH=$PATH/:$SPARK_HOME/sbin
 export PATH=$PATH/:$SPARK_HOME/bin
 ```
-To submit the application:
+**To submit the application:**
 ```
 spark-submit   --class "package.name.Object"   --master spark://your_master_server:7077 target/path/to/your/jar_file.jar
 ```
