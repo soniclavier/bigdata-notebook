@@ -9,7 +9,7 @@ import org.apache.spark.streaming.StreamingContext._
  * Example from spark programming guide
  * https://spark.apache.org/docs/1.4.1/streaming-programming-guide.html
  */
-object BasicStreaming {
+object SocketStreaming {
   def main(args: Array[String]) {
     
     val conf = new SparkConf().setAppName("BasicStreaming").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
