@@ -1,3 +1,16 @@
+**SocketStreaming**
+
+SocketStreaming listens to a tcp port and run word count on the data received from the stream.
+
+To test the program,
+
+1. run command ` nc -lk 9999`
+2.  start streaming application
+```
+spark-submit   --class "com.vishnu.spark.streaming.SocketStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples-assembly-0.1.0.jar
+```
+3.send some message from console at (1)
+
 **FlumeStreaming**
 
 1. Configure your flume-conf.properties to have sink of the type avro.
