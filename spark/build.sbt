@@ -2,7 +2,7 @@ val spark_mllib = "org.apache.spark" % "spark-mllib_2.10" % "1.5.2" % "provided"
 val spark_core = "org.apache.spark" % "spark-core_2.10" % "1.5.2 "% "provided"
 val spark_csv = "com.databricks" % "spark-csv_2.10" % "1.2.0" % "provided"
 val spark_streaming = "org.apache.spark" % "spark-streaming_2.10" % "1.6.0" % "provided"  
-val flume_streaming = "org.apache.spark" % "spark-streaming-flume_2.10" % "1.6.0"  exclude("org.spark-project.spark", "unused") exclude("spark-streaming-flume-sink_2.10", "unused")
+val flume_streaming = "org.apache.spark" % "spark-streaming-flume_2.10" % "1.6.0"  exclude("org.spark-project.spark", "unused")
 
 lazy val commonSettings = Seq(
   organization := "com.vishnu",
