@@ -5,6 +5,17 @@ import org.apache.spark._
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.StreamingContext._
 
+/**
+ * @author : vishnu viswanath
+ * Receiver based approach, i.e., used kafka consumer api to implement receiver
+ * Drawback : possible loss of data incase of failures
+ * 
+ * Solution : use write-ahead logs and Reliable receivers.
+ * Spark provides a built in ReliableKafkaReceiver class which is not used by default.
+ * To use this receiver, set spark.streaming.receiver.writeAheadLog.enable to true 
+ *  
+ *  
+ */
 object KafkaStreaming {
   
   def main(args: Array[String]) {
