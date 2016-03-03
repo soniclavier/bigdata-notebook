@@ -1,3 +1,31 @@
+**KafkaStreaming**
+
+KafkaStreaming reads data from KafkaTopics and runs word count on that.
+To run the example,
+
+1. Start zookeeper.
+2. Start kafka broker.
+3. Create kafka topic.<br/>
+
+  ```
+bin/kafka-topics.sh --create --topic spark_streaming --zookeeper localhost:2181 --partitions 1 --replication-factor 1
+  ```
+  
+    If you don't have kafka or zookeeper setup, or you would like to know how to create a topic and send messages, Check my [blog post](http://vishnuviswanath.com/realtime-storm-kafka1.html) where I have explained these w.r.t to Strom streaming, but the steps are same here aswell.
+4. Submit spark job
+
+  ```
+spark-submit   --class "com.vishnu.spark.streaming.KafkaStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples-assembly-0.1.0.jar
+  ```
+
+5. Start kafka console producer
+
+```
+bin/kafka-console-producer.sh --broker localhost:9092 --topic spark_streaming
+```
+
+6.Send sample messages and check your console for spark job.
+
 **SocketStreaming**
 
 SocketStreaming listens to a tcp port and run word count on the data received from the stream.
