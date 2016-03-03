@@ -24,7 +24,7 @@ spark-submit   --class "com.vishnu.spark.streaming.KafkaStreaming"   --master sp
 bin/kafka-console-producer.sh --broker localhost:9092 --topic spark_streaming
 ```
 
-6.Send sample messages and check your console for spark job.
+6.Send sample messages and check your console of spark job.
 
 # SocketStreaming
 
