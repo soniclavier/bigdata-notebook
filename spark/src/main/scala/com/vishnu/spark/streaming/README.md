@@ -1,4 +1,4 @@
-**KafkaStreaming**
+# KafkaStreaming
 
 KafkaStreaming reads data from KafkaTopics and runs word count on that.
 To run the example,
@@ -26,7 +26,7 @@ bin/kafka-console-producer.sh --broker localhost:9092 --topic spark_streaming
 
 6.Send sample messages and check your console for spark job.
 
-**SocketStreaming**
+# SocketStreaming
 
 SocketStreaming listens to a tcp port and run word count on the data received from the stream.
 
@@ -39,7 +39,7 @@ spark-submit   --class "com.vishnu.spark.streaming.SocketStreaming"   --master s
 ```
 3.send some message from console at (1)
 
-**FlumeStreaming**
+# FlumeStreaming
 
 1. Configure your flume-conf.properties to have sink of the type avro.
   In this example, I have used netcat as the source. see [flume-conf.properties](/Flume/src/com/vishnu/flume/config/flume-conf_spark.properties)
