@@ -7,14 +7,14 @@ PAGE_IDENTIFIER: kaggle_ipython
 permalink: /kaggle-titanic.html
 description: Kaggle Titanic challenge solution using python and graphlab create
 ---
-###Load graphlab
+### Load graphlab
 <br/>
 {% highlight python %}
 import graphlab
 {% endhighlight %}
 <br/>
 
-###Load the data
+### Load the data
 <br/>
 
 {% highlight python %}
@@ -46,7 +46,7 @@ passengers.show()
 
 <br/>
 
-###Pre process
+### Pre process
 <br/>
 Age column has null values, fill it with Avg age
 
@@ -55,7 +55,7 @@ passengers = passengers.fillna("Age",passengers["Age"].mean())
 {% endhighlight %}
 <br/>
 
-###Feature engineering
+### Feature engineering
 <br/>
 Consider the family size = 1 if (#siblings + #parents) > 3 else 0
 
@@ -106,14 +106,14 @@ passengers_binned["Fare"].show()
 
 <br/>
 
-###Feature selection
+### Feature selection
 <br/>
 {% highlight python %}
 features = ["Pclass","Sex","Age","family","Child","Fare","Title"]
 {% endhighlight %}
 <br/>
 
-###Model building
+### Model building
 <br/>
 Split data into train and test set
 
@@ -148,7 +148,7 @@ PROGRESS: +-----------+----------+--------------+-------------------+-----------
 {% endhighlight %}
 <br/>
 
-###Evaluation
+### Evaluation
 <br/>
 ROC curve
 
@@ -192,7 +192,7 @@ model.show(view='Evaluation')
 
 <br/>
 
-###Build model again using the entre input
+### Build model again using the entre input
 <br/>
 {% highlight python %}
 model = graphlab.logistic_classifier.create(passengers_binned,
@@ -222,7 +222,7 @@ PROGRESS: +-----------+----------+--------------+-------------------+
 {% endhighlight %}
 <br/>
 
-###Predict
+### Predict
 <br/>
 {% highlight python %}
 passengers_submission = graphlab.SFrame('test.csv')
