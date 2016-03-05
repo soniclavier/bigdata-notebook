@@ -16,6 +16,7 @@ I am a competent Big Data developer currently pursuing MS in Computer Science wi
 	<a href="https://github.com/soniclavier" target="_blank"><i class="fa fa-github-square"></i></a>
 	<a href="https://www.linkedin.com/in/vishnuviswanath25" target="_blank"><i class="fa fa-linkedin-square"></i></a>
 	<a href="http://stackoverflow.com/users/864624/vishnu-viswanath" target="_blank"><i class="fa fa-stack-exchange"></i></a>
+	<a href="https://twitter.com/vishnuviswanath" target="_blank"><i class="fa fa-twitter-square"></i></a>
 </span>
 
 <br/>
