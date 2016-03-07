@@ -23,6 +23,7 @@ from previous offset to new offset as an RDD
 val kafka_streaming = "org.apache.spark" % "spark-streaming-kafka_2.10" % "1.6.0"
 ```
 2.Create a fat jar. here is the [link](/spark/uberjar.sbt) on how to create a fat jar
+
 3.Submit job
 ```
 spark-submit   --class "com.vishnu.spark.streaming.KafkaDirectStream"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark-vishnu-assembly-1.0.jar
