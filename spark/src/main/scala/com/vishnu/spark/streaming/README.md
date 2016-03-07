@@ -2,12 +2,6 @@
 
 KafkaStreaming reads data from KafkaTopics and runs word count on that.
 
-##Direct Streaming
-DirectStream approach periodically queries the kafka topic for new offset and takes in data
-from previous offset to new offset as an RDD
-
- 
-##Receiver Based approach 
 To run the example,
 
 1. Start zookeeper.
@@ -19,6 +13,24 @@ bin/kafka-topics.sh --create --topic spark_streaming --zookeeper localhost:2181 
   ```
   
     If you don't have kafka or zookeeper setup, or you would like to know how to create a topic and send messages, Check my [blog post](http://vishnuviswanath.com/realtime-storm-kafka1.html) where I have explained these w.r.t to Strom streaming, but the steps are same here aswell.
+ 
+### Direct Streaming
+DirectStream approach periodically queries the kafka topic for new offset and takes in data
+from previous offset to new offset as an RDD
+
+1.add below lines in buid.sbt. check [build.sbt](../build.sbt)
+```
+val kafka_streaming = "org.apache.spark" % "spark-streaming-kafka_2.10" % "1.6.0"
+```
+2.Create a fat jar. here is the [link]() on how to create a fat jar
+3.Submit job
+```
+spark-submit   --class "com.vishnu.spark.streaming.KafkaDirectStream"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark-vishnu-assembly-1.0.jar
+```
+Send sample messages through console producer and check your console of spark job.
+ 
+### Receiver Based approach 
+
     
 Receiver based approach makes use of KafkaConsoleConsumer
 
@@ -32,7 +44,8 @@ spark-submit   --class "com.vishnu.spark.streaming.KafkaStreaming"   --master sp
 ```
 bin/kafka-console-producer.sh --broker localhost:9092 --topic spark_streaming
 ```
-Send sample messages and check your console of spark job.
+
+Send sample messages through console producer and check your console of spark job.
 
 # SocketStreaming
 
