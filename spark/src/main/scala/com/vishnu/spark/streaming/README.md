@@ -1,6 +1,13 @@
 # KafkaStreaming
 
 KafkaStreaming reads data from KafkaTopics and runs word count on that.
+
+##Direct Streaming
+DirectStream approach periodically queries the kafka topic for new offset and takes in data
+from previous offset to new offset as an RDD
+
+ 
+##Receiver Based approach 
 To run the example,
 
 1. Start zookeeper.
@@ -12,19 +19,20 @@ bin/kafka-topics.sh --create --topic spark_streaming --zookeeper localhost:2181 
   ```
   
     If you don't have kafka or zookeeper setup, or you would like to know how to create a topic and send messages, Check my [blog post](http://vishnuviswanath.com/realtime-storm-kafka1.html) where I have explained these w.r.t to Strom streaming, but the steps are same here aswell.
-4. Submit spark job
+    
+Receiver based approach makes use of KafkaConsoleConsumer
+
+1. Submit spark job
 
   ```
-spark-submit   --class "com.vishnu.spark.streaming.KafkaStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples-assembly-0.1.0.jar
+spark-submit   --class "com.vishnu.spark.streaming.KafkaStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark-vishnu-assembly-1.0.jar
   ```
 
-5. Start kafka console producer
-
+2. Start kafka console producer
 ```
 bin/kafka-console-producer.sh --broker localhost:9092 --topic spark_streaming
 ```
-
-6.Send sample messages and check your console of spark job.
+Send sample messages and check your console of spark job.
 
 # SocketStreaming
 
@@ -35,7 +43,7 @@ To test the program,
 1. run command ` nc -lk 9999`
 2.  start streaming application
 ```
-spark-submit   --class "com.vishnu.spark.streaming.SocketStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples-assembly-0.1.0.jar
+spark-submit   --class "com.vishnu.spark.streaming.SocketStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark-vishnu-assembly-1.0.jar
 ```
 3.send some message from console at (1)
 
@@ -54,7 +62,7 @@ spark-submit   --class "com.vishnu.spark.streaming.SocketStreaming"   --master s
 
 3. submit spark job using command
   ```
-  spark-submit   --class "com.vishnu.spark.streaming.FlumeStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark_examples-assembly-0.1.0.jar
+  spark-submit   --class "com.vishnu.spark.streaming.FlumeStreaming"   --master spark://Vishnus-MacBook-Pro.local:7077 target/scala-2.10/spark-vishnu-assembly-1.0.jar
   ```
   
 4. start the flume agent by using the command
