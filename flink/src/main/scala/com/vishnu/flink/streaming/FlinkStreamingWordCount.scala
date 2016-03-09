@@ -11,7 +11,7 @@ object FlinkStreamingWordCount {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTxtStream = sev.socketTextStream("localhost",4444)
     
-    val counts = socTxtStream.flatMap{_.toLowerCase.split("\\W+") filter { _.nonEmpty } }
+    val counts = socTxtStream.flatMap{_.toLowerCase.split(" ") filter { _.nonEmpty } }
       .map { (_, 1) }
       .keyBy(0)
       .sum(1)

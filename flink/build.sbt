@@ -3,7 +3,8 @@ val flinkclients = "org.apache.flink" % "flink-clients" % "0.10.2"
 val flinkstreamingcore = "org.apache.flink" % "flink-streaming-core" % "0.9.1"
 val flinkstreamingscala = "org.apache.flink" % "flink-streaming-scala" % "0.10.2"
 
-val main = "com.vishnu.flink.streaming.FlinkStreamingWordCount"
+//val main = "com.vishnu.flink.streaming.FlinkStreamingWordCount"
+val main = "com.vishnu.flink.streaming.TumblingWindowStreaming"
 
 name := "flink-vishnu"
 mainClass in (Compile, run) := Some(main)
@@ -12,7 +13,7 @@ mainClass in (Compile, packageBin) := Some(main)
 lazy val commonSettings = Seq(
   organization := "com.vishnu",
   version := "1.0",
-  scalaVersion := "2.10.5"
+  scalaVersion := "2.10.4"
 )
 
 lazy val root = (project in file(".")).
