@@ -290,3 +290,21 @@ text-align: center;
 vertical-align: middle;
 font-size: $caption_font_size;
 }
+
+/**
+* tags
+*/
+.tags {
+    
+}
+
+.tags .tag {
+    padding: 5px;
+    background-color: $grey-color;
+    font-size: 11px;
+    color: #fff
+}
+
+.tags .tag_label {
+    font-size: 12px;
+}

@@ -5,6 +5,7 @@ title: Spark RDDs Simplified
 date: 2016-02-04
 PAGE_IDENTIFIER: spark_rdd
 permalink: /spark_rdd.html
+tags: ApacheSpark Scala BigData Hadoop
 description: This blog tries to explain what a Spark RDD is and how it is used for distributing data across the cluster. I have tried to use simple illustrations for better understanding.
 ---
 <div class="col three">

@@ -5,6 +5,7 @@ title: Getting Started With Apache Spark 1.6
 date: 2016-01-10
 PAGE_IDENTIFIER: spark_getting_started
 permalink: /spark_start.html
+tags: ApacheSpark Hadoop BigData
 description: This is quick guide on how to Setup Apache Spark 1.6 with YARN.
 ---
 <div class="col three">

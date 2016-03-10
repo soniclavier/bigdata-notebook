@@ -5,6 +5,7 @@ title: Spark MapReduce and Scala underscore
 date: 2015-09-15
 permalink: /spark-scala.html
 PAGE_IDENTIFIER: spark_scala_blog
+tags: ApacheSpark Scala BigData Hadoop
 description: A blog on how to write Spark mapreduce and an introduction on Scala underscore
 ---
 <div class="col three">

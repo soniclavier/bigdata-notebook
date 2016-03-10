@@ -5,6 +5,7 @@ title: Kaggle Titanic using python
 date: 2015-11-20
 PAGE_IDENTIFIER: kaggle_ipython
 permalink: /kaggle-titanic.html
+tags: MachineLearning Classification Python GraphLab Kaggle
 description: Kaggle Titanic challenge solution using python and graphlab create
 ---
 ### Load graphlab

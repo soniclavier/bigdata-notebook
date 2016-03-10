@@ -11,7 +11,13 @@ layout: default
   	
     {{ content }}
   </article>
-
+  
+  <div class="tags">
+  	<span class="tag_label">Tags: </span>
+  {% for tags in page.tags %}
+    <span class="tag">{{ tags }}</span>
+  {% endfor %}
+  </div>
 </div>
 <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='21469058'></div>
 {% include disqus.html %}

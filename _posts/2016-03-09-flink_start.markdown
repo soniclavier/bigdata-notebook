@@ -5,6 +5,7 @@ title: Getting Started With Apache Flink 1.0
 date: 2016-03-09
 PAGE_IDENTIFIER: flink_start
 permalink: /flink_start.html
+tags: ApacheFlink BigData Hadoop Scala
 description: This is a quick guide on how to Setup Apache Flink 1.0
 ---
 <div class="col three">

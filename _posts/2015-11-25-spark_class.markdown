@@ -5,6 +5,7 @@ title: Building Classification model using Apache Spark
 date: 2015-11-25
 PAGE_IDENTIFIER: spark_ml
 permalink: /spark_lr.html
+tags: ApacheSpark MachineLearning Classification Scala BigData Hadoop
 description: Build a LogisticRegression classification model to predict survival of passengers in Titanic disaster. The blog tries to solve the Kaggle knowledge challenge - Titanic Machine Learning from Disaster using Apache Spark and Scala.
 ---
 <div class="col three">
