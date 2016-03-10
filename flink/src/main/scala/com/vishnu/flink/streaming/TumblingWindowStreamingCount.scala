@@ -6,18 +6,18 @@ import org.apache.flink.streaming.api.windowing.time.Time
 
 
 /**
- * A tumbling window based on count
+ * A tumbling window based on time
  */
-object TumblingWindowStreamingCount {
+object TumblingWindowStreaming {
   def main(args: Array[String]) {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTextStream = sev.socketTextStream("localhost",4444)
     
-    //the following window is triggered for every 10 events, collecting last 15 events
+    //the following window is triggered every 10 seconds,and does the work on last 15 seconds data.
     val counts = socTextStream.flatMap{_.split("\\s")}
       .map { (_, 1) }
       .keyBy(0)
-      .countWindow(15,10)
+      .timeWindow(Time.seconds(15),Time.seconds(10))
       .sum(1).setParallelism(4);
     
     counts.print()
