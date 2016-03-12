@@ -14,14 +14,14 @@ object ProcessingTimeWindowWithTrigger {
     val socTextStream = sev.socketTextStream("localhost",4444)
 
     //a window of size 20 seconds is created, window slides every 10 seconds
-    //execution of window is done when there are 3 elements in the window
+    //execution of window is triggered when there are 3 elements in the window
     //once it is executed, 2 items are kept in the window, rest is evicted.
     val counts = socTextStream.flatMap{_.split("\\s")}
       .map { (_, 1) }
       .keyBy(0)
       .window(SlidingProcessingTimeWindows.of(Time.seconds(20),Time.seconds(10)))
-      .trigger(CountTrigger.of(5))
-      .evictor(CountEvictor.of(0))
+      .trigger(CountTrigger.of(3))
+      .evictor(CountEvictor.of(2))
       .sum(1).setParallelism(4);
 
     counts.print()
