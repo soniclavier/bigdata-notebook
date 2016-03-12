@@ -13,11 +13,11 @@ object TumblingWindowStreamingCount {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTextStream = sev.socketTextStream("localhost",4444)
     
-    //the following window is triggered for every 10 events, collecting last 15 events
+    //the following window is triggered for every 15
     val counts = socTextStream.flatMap{_.split("\\s")}
       .map { (_, 1) }
       .keyBy(0)
-      .countWindow(15,10)
+      .countWindow(15)
       .sum(1).setParallelism(4);
     
     counts.print()
