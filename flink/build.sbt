@@ -1,7 +1,6 @@
-val flink = "org.apache.flink" % "flink-core" % "0.10.2"
-val flinkclients = "org.apache.flink" % "flink-clients" % "0.10.2"
-val flinkstreamingcore = "org.apache.flink" % "flink-streaming-core" % "0.9.1"
-val flinkstreamingscala = "org.apache.flink" % "flink-streaming-scala" % "0.10.2"
+val flink_scala = "org.apache.flink" %% "flink-scala" % "1.0.0"
+val flink_clients = "org.apache.flink" %% "flink-clients" % "1.0.0"
+val flink_streaming= "org.apache.flink" %% "flink-streaming-scala" % "1.0.0"
 
 //val main = "com.vishnu.flink.streaming.FlinkStreamingWordCount"
 val main = "com.vishnu.flink.streaming.TumblingWindowStreaming"
@@ -20,10 +19,9 @@ lazy val root = (project in file(".")).
   settings(commonSettings:_*).
   settings(
     name := "flink-vishnu",
-    libraryDependencies += flink,
-    libraryDependencies += flinkclients,
-    libraryDependencies += flinkstreamingscala,
-    libraryDependencies += flinkstreamingcore,
+    libraryDependencies += flink_scala,
+    libraryDependencies += flink_clients,
+    libraryDependencies += flink_streaming,
     retrieveManaged := true
   )
 
