@@ -8,7 +8,8 @@ import org.apache.flink.streaming.api.windowing.time.Time
 /**
  * A tumbling window based on time
  */
-object TumblingWindowStreaming {
+
+object TimeTumblingWindow {
   def main(args: Array[String]) {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTextStream = sev.socketTextStream("localhost",4444)

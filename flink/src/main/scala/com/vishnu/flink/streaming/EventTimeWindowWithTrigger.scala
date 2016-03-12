@@ -1,18 +1,22 @@
 package com.vishnu.flink.streaming
 
+import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.assigners.{SlidingEventTimeWindows, GlobalWindows}
 import org.apache.flink.streaming.api.windowing.evictors.{CountEvictor, TimeEvictor}
-import java.util.concurrent.TimeUnit
 
 import org.apache.flink.streaming.api.windowing.triggers.CountTrigger
 
   object EventTimeWindowWithTrigger {
      def main(args: Array[String]) {
        val sev = StreamExecutionEnvironment.getExecutionEnvironment
+       sev.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
        val socTextStream = sev.socketTextStream("localhost",4444)
+
+       //TODO : set watermark and eventime
+
 
        //a window of size 10 seconds is created, window slides every 3 seconds
        //execution of window is done when there are 10 elements

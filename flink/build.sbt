@@ -1,9 +1,8 @@
 val flink_scala = "org.apache.flink" %% "flink-scala" % "1.0.0"
 val flink_clients = "org.apache.flink" %% "flink-clients" % "1.0.0"
-val flink_streaming= "org.apache.flink" %% "flink-streaming-scala" % "1.0.0"
+val flink_streaming = "org.apache.flink" %% "flink-streaming-scala" % "1.0.0"
 
-//val main = "com.vishnu.flink.streaming.FlinkStreamingWordCount"
-val main = "com.vishnu.flink.streaming.TumblingWindowStreaming"
+val main = "com.vishnu.flink.streaming.ProcessingTimeWindowWithTrigger"
 
 name := "flink-vishnu"
 mainClass in (Compile, run) := Some(main)
