@@ -36,7 +36,7 @@ Let us consider few scenarios to understand trigger better.<br/>
 <div class="col three">
 	<img class="col three" src="/img/flink_trigger/trigger1.png">
 </div>
-This is the basic case, where window 1 received 5 items within its window-width of 15 seconds. Last two items have overlap with window 2, hence it will be present in both windows 1 and 2. But window 2 has only 2 items which is less than the trigger count **5**. Whereas window 1 has received 5 items within it's window-width and hence the function `sum()` will be triggered.
+This is the basic case, where window 1 received 5 items within its window-width of 15 seconds. Last two items have overlap with window 2, hence it will be present in both windows 1 and 2. But window 2 has only 2 items which is less than the trigger count **5**. Whereas window 1 has received 5 items within its window-width and hence the function `sum()` will be triggered.
 
 **scenario 2:**
 <div class="col three">
@@ -72,5 +72,5 @@ Consider the **scenario 1** of trigger example and assume we added a CountEvicto
 
 The function sum will be applied only to the 3 items which are left in the window after eviction.
 
-That conludes this post, you can find the code used in this aritcle in my [GitHub](https://github.com/soniclavier/hadoop_datascience/tree/master/flink/src/main/scala/com/vishnu/flink/streaming). Thanks for reading!
+That concludes this post, you can find the code used in this article in my [GitHub](https://github.com/soniclavier/hadoop_datascience/tree/master/flink/src/main/scala/com/vishnu/flink/streaming). Thanks for reading!
 <br/><a href="http://vishnuviswanath.com/">Home</a>
