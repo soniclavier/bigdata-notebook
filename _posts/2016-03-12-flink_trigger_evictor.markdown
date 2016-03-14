@@ -6,7 +6,7 @@ date: 2016-03-14
 PAGE_IDENTIFIER: flink_trigger_evictor
 permalink: /flink_trigger_evictor.html
 tags: ApacheFlink BigData Hadoop Scala
-description: This article explains the concepts - Triggers and Evictors in Flink streaming and how implement it using Flink.
+description: This article explains the concepts - Triggers and Evictors in Flink Streaming and how to impelemnt it using Scala.
 ---
 <div class="col three">
 	<img class="col three" src="/img/flink_trigger/blog_header.png">
