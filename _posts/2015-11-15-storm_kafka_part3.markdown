@@ -105,7 +105,7 @@ For execution, we need to start the below servers
 6. Storm supervisor
 7. Storm UI (optional)
 
-Build the jar using the command `mvn clean install1`. The command will create your toplogy jar with all the dependencies - `stormkafka-0.0.1-SNAPSHOT.jar`.
+Build the jar using the command `mvn clean install`. The command will create your toplogy jar with all the dependencies - `stormkafka-0.0.1-SNAPSHOT.jar`.
 Run the jar using the command
 {% highlight sh %}
 $storm jar stormkafka-0.0.1-SNAPSHOT.jar com.vishnu.storm.Topology
