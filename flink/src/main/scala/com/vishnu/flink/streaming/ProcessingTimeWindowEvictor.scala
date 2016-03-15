@@ -1,14 +1,13 @@
 package com.vishnu.flink.streaming
 
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.api.scala._
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows
+import org.apache.flink.streaming.api.windowing.evictors.CountEvictor
 import org.apache.flink.streaming.api.windowing.time.Time
-import org.apache.flink.streaming.api.windowing.assigners.{SlidingProcessingTimeWindows}
-import org.apache.flink.streaming.api.windowing.evictors.{CountEvictor}
-
 import org.apache.flink.streaming.api.windowing.triggers.CountTrigger
 
-object ProcessingTimeWindowWithTrigger {
+object ProcessingTimeWindowEvictor {
   def main(args: Array[String]) {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTextStream = sev.socketTextStream("localhost",4444)
@@ -20,6 +19,7 @@ object ProcessingTimeWindowWithTrigger {
         .keyBy(0)
         .window(SlidingProcessingTimeWindows.of(Time.seconds(15),Time.seconds(10)))
       .trigger(CountTrigger.of(5))
+      .evictor(CountEvictor.of(3))
       .sum(1).setParallelism(4);
 
     counts.print()

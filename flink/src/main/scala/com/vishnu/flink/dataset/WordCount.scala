@@ -26,8 +26,10 @@ object WordCount {
 
     counts.print()
   }
+  
 
 }
+
 
 class Tokenizer extends FlatMapFunction[String,(String,Int)] {
   override def flatMap(value: String, out: Collector[(String,Int)]): Unit = {

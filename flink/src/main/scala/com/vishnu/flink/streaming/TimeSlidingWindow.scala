@@ -11,7 +11,7 @@ object TimeSlidingWindow {
   def main(args: Array[String]) {
     val sev = StreamExecutionEnvironment.getExecutionEnvironment
     val socTextStream = sev.socketTextStream("localhost",4444)
-    
+
     //the following window is triggered every 10 seconds,for last 15 seconds data
     //therefore there is an overlap between data being processed at an instance and previous processing.
     val counts = socTextStream.flatMap{_.split("\\s")}
@@ -19,7 +19,7 @@ object TimeSlidingWindow {
       .keyBy(0)
       .timeWindow(Time.seconds(15),Time.seconds(10))
       .sum(1).setParallelism(4);
-    
+
     counts.print()
     sev.execute()
   }

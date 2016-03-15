@@ -1,3 +1,5 @@
+.ensime
+.ensime_cache/
 .ipynb_checkpoints/
 _site/
 .jekyll-metadata
