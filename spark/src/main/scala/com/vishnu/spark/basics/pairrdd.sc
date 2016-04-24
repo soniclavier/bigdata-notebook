@@ -42,5 +42,6 @@ object pairrdd {
 	// only if dataset can fit in memory
 	val num_inc_dist = sfpd.map(x=>(x(PdDistrict),1)).countByKey()
 	
+	val catAdd = sc.textFile("/user/vishnu/mapr/dev361/J_AddCat.csv").map(x=>x.split(",")).map(x=>(x(1),x(0)))
 	
 }
