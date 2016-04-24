@@ -43,5 +43,15 @@ object pairrdd {
 	val num_inc_dist = sfpd.map(x=>(x(PdDistrict),1)).countByKey()
 	
 	val catAdd = sc.textFile("/user/vishnu/mapr/dev361/J_AddCat.csv").map(x=>x.split(",")).map(x=>(x(1),x(0)))
+	val distAdd = sc.textFile("/user/vishnu/mapr/dev361/J_AddDist.csv").map(x=>x.split(",")).map(x=>(x(1),x(0)))
+	
+	
+	val incByDists = sfpd.map(x=>(x(PdDistrict),1)).reduceByKey(_+_)
+	val inc_map = incByDists.map(x=>((x._2,x._1)))
+	val inc_sort = incByDists.map(x=>(x._2,x._1)).sortByKey(false)
+	val inc_group = sfpd.map(x=>(x(PdDistrict),1)).groupByKey()
+	
+	val incByDists2 = sfpd.map(x=>(x(PdDistrict),1)).reduceByKey(_+_,10)
+	
 	
 }
