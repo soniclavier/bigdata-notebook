@@ -5,6 +5,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
+import org.apache.spark.sql.functions.udf
 
 
 
@@ -55,4 +56,24 @@ object dataframes {
 		
 		//correct way from spark 1.4
 		top10ResSQl.write.format("json").mode("overwrite").save("/user/vishnu/mapr/dev361/top10Res.json")
+		
+		//creating udf
+		def getStr = udf((s:String)=> {
+     val lastS = s.substring(s.lastIndexOf('/')+1)
+     lastS
+     })
+     
+     
+     //inline usage of udf
+     val yy = sfpdDF.groupBy(getStr(sfpdDF("date"))).count.show
+     
+     
+     //define function and register it as udf
+     def getStr(s:String) = {
+     	val strAfter = s.substring(s.lastIndexOf('/')+1)
+     	strAfter
+     }
+     
+     //register as udf
+     sqlContext.udf.register("getStr",getStr _)
 }
