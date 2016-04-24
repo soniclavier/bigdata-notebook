@@ -3,10 +3,13 @@ package com.vishnu.spark.basics
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 
+
 object rdds {
+
+	
   println("Welcome to the Scala worksheet")
   
-  val conf = new SparkConf().setAppName("bClassiier").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
+  val conf = new SparkConf().setAppName("rdd-test").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
 	val sc = new SparkContext(conf)
 	//define RDD
   val auctionRDD = sc.textFile("/user/vishnu/mapr/dev360/auctiondata.csv").map(_.split(","))
@@ -30,9 +33,14 @@ object rdds {
   .count
   
   //how many bids per item type
-  auctionRDD.map(entry=>(entry(itemtype),1))
-  .reduceByKey((x,y)=>x+y)
-  .collect
+  val bidAuctionRDD = auctionRDD.map(entry=>(entry(itemtype),1)).reduceByKey((x,y)=>x+y)
+  
+  //cache
+  bidAuctionRDD.cache
+  
+  bidAuctionRDD.collect
+  
+   
   
   
 }
