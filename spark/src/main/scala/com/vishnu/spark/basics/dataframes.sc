@@ -74,6 +74,10 @@ object dataframes {
      	strAfter
      }
      
-     //register as udf
+     //register as udf, we can use getStr in sql quries only if we regiter
      sqlContext.udf.register("getStr",getStr _)
+     
+     //using getStr in sql
+     sqlContext.sql("SELECT getStr(date),count(incidentnum) as count from sfpd GROUP BY getStr(date) ORDER BY count DESC limit 5")
+     
 }
