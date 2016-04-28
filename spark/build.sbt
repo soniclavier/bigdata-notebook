@@ -6,6 +6,9 @@ val kafka_core = "org.apache.kafka" % "kafka_2.10" % "0.8.2.1"
 val flume_streaming = "org.apache.spark" % "spark-streaming-flume_2.10" % "1.6.0"  exclude("org.spark-project.spark", 
 "unused")
 val kafka_streaming = "org.apache.spark" % "spark-streaming-kafka_2.10" % "1.6.0"
+val hbase_server = "org.apache.hbase" % "hbase-server" % "1.1.4" exclude("org.mortbay.jetty", "jsp-2.1")
+val hbase_common  = "org.apache.hbase" % "hbase-common" % "1.1.4"
+
 
 
 name := "spark-vishnu"
@@ -27,6 +30,8 @@ lazy val root = (project in file(".")).
     libraryDependencies += flume_streaming,
     libraryDependencies += kafka_streaming,
     libraryDependencies += kafka_core,
+    libraryDependencies += hbase_server,
+    libraryDependencies += hbase_common,
     retrieveManaged := true
   )
 
@@ -34,8 +39,12 @@ lazy val root = (project in file(".")).
 mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   {
     case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
-    case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+    case PathList("jetty", "jsp", xs @ _*)         => MergeStrategy.first
+    case x if x.contains("w3c") => MergeStrategy.first
+    case x if x.contains("commons") => MergeStrategy.first
+    case x if x.contains("xml-apis") => MergeStrategy.first
     case x if x.contains("unused") => MergeStrategy.last
+    case x if x.contains("html") => MergeStrategy.discard
     case "application.conf" => MergeStrategy.concat
     case "unwanted.txt"     => MergeStrategy.discard
     case x => old(x)
