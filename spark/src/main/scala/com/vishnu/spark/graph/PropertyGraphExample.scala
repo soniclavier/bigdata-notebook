@@ -34,7 +34,8 @@ object PropertyGraphExample {
     graph.edges.filter{case Edge(src,dest,route) => route.dist > 1000}.count
     graph.edges.filter{case Edge(src,dest,route) => route.dist > 1000}.collect.foreach(println)
     
-    
+    graph.triplets.sortBy(_.attr,ascending=false).collect.foreach(println)
+
     
   }
   
