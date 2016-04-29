@@ -25,7 +25,7 @@ object PropertyGraphExample {
     val graph = Graph(vertices, edges, defaultVertex)
     
     graph.vertices.collect.foreach(println)
-    graph.vertices.collect.foreach(println)
+    
     graph.triplets.collect.foreach(println)
     println(graph.inDegrees)
     println(graph.vertices.count())
@@ -38,12 +38,17 @@ object PropertyGraphExample {
     
   }
   
-  case class Route(src:Int, dest:Int, dist: Int)
+  case class Route(src:Int, dest:Int, dist: Int) 
+  object Route{
+    
+    implicit def orderingByDist[A <: Route]: Ordering[A] =
+      Ordering.by(r => (r.dist))
+  }
   case class Airport(id:Int, name:String)
   
   def parseRoute(str:String): Route = {
     val p = str.split(",")
-    Route(p(0).toInt, p(1).toInt, p(2).toInt)
+    new Route(p(0).toInt, p(1).toInt, p(2).toInt)
   }
   def parseAirport(str:String): Airport = {
     val p = str.split(",")
