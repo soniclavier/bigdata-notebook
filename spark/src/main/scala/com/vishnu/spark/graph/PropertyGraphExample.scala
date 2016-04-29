@@ -13,6 +13,27 @@ object PropertyGraphExample {
     
     //load data
     val airports = sc.textFile("/mapr_lab_data/data/airports.csv").map(parseAirport)
+    val vertices = airports.map(airport => (airport.id.toLong,airport))  //note id.toLong, we need that for creating Graph, because Graph()'s first arg takes an RDD of tuples with _0 that has a Long 
+    
+    val routes = sc.textFile("/mapr_lab_data/data/routes.csv").map(parseRoute)
+    val edges = routes.map(route => Edge(route.src, route.dest, route))
+    
+    //create defualt vertex
+    val defaultVertex = Airport(0,"default")
+    
+    //create graph
+    val graph = Graph(vertices, edges, defaultVertex)
+    
+    graph.vertices.collect.foreach(println)
+    graph.vertices.collect.foreach(println)
+    graph.triplets.collect.foreach(println)
+    println(graph.inDegrees)
+    println(graph.vertices.count())
+    println(graph.edges.count())
+    
+    graph.edges.filter{case Edge(src,dest,route) => route.dist > 1000}.count
+    graph.edges.filter{case Edge(src,dest,route) => route.dist > 1000}.collect.foreach(println)
+    
     
     
   }
