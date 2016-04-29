@@ -6,7 +6,7 @@ Visit my blog at : www.vishnuviswanath.com
 
 ### Contents
 
-1. Spark ML and Streaming
+1. Spark ML, Streaming, SQL and GraphX
 2. Flink Streaming
 3. StormKafka streaming application POC
 4. Flume custom source and config files
