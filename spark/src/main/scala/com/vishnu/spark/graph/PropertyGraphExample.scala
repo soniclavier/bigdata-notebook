@@ -35,8 +35,13 @@ object PropertyGraphExample {
     graph.edges.filter{case Edge(src,dest,route) => route.dist > 1000}.collect.foreach(println)
     
     graph.triplets.sortBy(_.attr,ascending=false).collect.foreach(println)
-
     
+    
+    //page rank
+    val ranks = graph.pageRank(0.1).vertices
+    ranks.take(3)
+    
+    ranks.join(vertices).sortBy(_._2._1,false).map(_._2._2).collect.foreach(println)
   }
   
   case class Route(src:Int, dest:Int, dist: Int) 
