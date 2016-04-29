@@ -64,10 +64,7 @@ object SensorStream {
       rdd.map(SensorStream.converToPut).saveAsHadoopDataset(jobConf)
       alertRDD.map(SensorStream.convertToPutAlert).saveAsHadoopDataset(jobConf)
     }
-    // TODO  filter sensor data for low psi
 
-    //  TODO save As Text File 
-    //
 
     // Start the computation
     println("start streaming")
