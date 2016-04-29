@@ -23,12 +23,18 @@ object SensorStreamSQL {
     val sensorDStream = linesDStream.map(parseSensor)
     
     //pump vendor and maintenance data
-    sc.textFile("/mapr_lab_data/data/sensorvendor.csv").map(parseVendor).toDF().registerTempTable("pump")
-    sc.textFile("/mapr_lab_data/data/sensormaint.csv").map(parseSensor).toDF().registerTempTable("maint")
+    sc.textFile("/mapr_lab_data/data/sensorvendor.csv").map(parseVendor).toDF.registerTempTable("pump")
+    sc.textFile("/mapr_lab_data/data/sensormaint.csv").map(parseMaintainence).toDF.registerTempTable("maint")
     
     sensorDStream.foreachRDD(rdd => {
-      val lowPsi = rdd.filter { sensor => sensor.psi < 5.0 }
+      rdd.filter { sensor => sensor.psi < 5.0 }.toDF.registerTempTable("alert")
+      val alertPumpMaint = sqlContext.sql("select a.resid,a.date,a.psi,p.pumpType,p.vendor,m.date,m.technician from alert a join pump p on a.resid = p.resid join maint m on p.resid = m.resid")
+      alertPumpMaint.show()
     })
+    
+    println("start streaming")
+    ssc.start
+    ssc.awaitTermination
     
     
   }
