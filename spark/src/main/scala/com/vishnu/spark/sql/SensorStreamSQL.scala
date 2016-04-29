@@ -2,9 +2,10 @@ package com.vishnu.spark.sql
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext._
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.Seconds
-import org.apache.spark.SparkContext._
+import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.SQLContext
 
 object SensorStreamSQL {
@@ -21,6 +22,12 @@ object SensorStreamSQL {
     //stream from text file
     val linesDStream = ssc.textFileStream("/user/vishnu/mapr/dev362");
     val sensorDStream = linesDStream.map(parseSensor)
+    
+    sensorDStream.foreachRDD(rdd => {
+      rdd.toDF.registerTempTable("sensor")
+      val stats = sqlContext.sql("SELECT resid, date,MAX(hz) as maxhz, min(hz) as minhz, avg(hz) as avghz, MAX(disp) as maxdisp, min(disp) as mindisp, avg(disp) as avgdisp, MAX(flo) as maxflo, min(flo) as minflo, avg(flo) as avgflo,MAX(sedPPM) as maxsedPPM, min(sedPPM) as minsedPPM, avg(sedPPM) as avgsedPPM, MAX(psi) as maxpsi, min(psi) as minpsi, avg(psi) as avgpsi,MAX(chlPPM) as maxchlPPM, min(chlPPM) as minchlPPM, avg(chlPPM) as avgchlPPM FROM sensor GROUP BY resid,date");
+      stats.show()
+    })
     
     //pump vendor and maintenance data
     sc.textFile("/mapr_lab_data/data/sensorvendor.csv").map(parseVendor).toDF.registerTempTable("pump")
