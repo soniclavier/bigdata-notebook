@@ -13,7 +13,7 @@ object PropertyGraphExample {
     
     //load data
     val airports = sc.textFile("/mapr_lab_data/data/airports.csv").map(parseAirport)
-    val vertices = airports.map(airport => (airport.id.toLong,airport))  //note id.toLong, we need that for creating Graph, because Graph()'s first arg takes an RDD of tuples with _0 that has a Long 
+    val vertices = airports.map(airport => (airport.id.toLong,airport))  //note id.toLong -> we need that for creating Graph, because Graph()'s first arg takes an RDD of tuples with _0 that has a Long 
     
     val routes = sc.textFile("/mapr_lab_data/data/routes.csv").map(parseRoute)
     val edges = routes.map(route => Edge(route.src, route.dest, route))
