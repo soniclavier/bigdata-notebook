@@ -34,6 +34,10 @@ object ALSRecommender {
     
     //find false positive, if predicted high (>4) and actual was low (<1)
     val falsePositives = testAndPred.filter{case ((user,prod),(rating,pred)) => rating <= 1 && pred >= 4}
+    
+    //MAE (mean absolute error)
+    val absoluteError = testAndPred.map{case ((user,prod),(rating,pred)) => Math.abs(pred-rating)}
+    val mean = absoluteError.mean()
   }
   
   def parseRating(str: String): Rating = {
