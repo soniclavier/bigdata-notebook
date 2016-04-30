@@ -3,6 +3,8 @@ package com.vishnu.spark.graph.ml
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 import org.apache.spark.mllib.recommendation.{ALS,MatrixFactorizationModel,Rating}
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql._
 
 object ALSRecommender {
   
@@ -12,7 +14,7 @@ object ALSRecommender {
     val sc = new SparkContext(conf)
     
     //load data
-    val ratingText = sc.textFile("/mapr_lab_data/data/ratings.dat")
+    val ratingText = sc.textFile("/mapr_lab_data/data/ratings.dat") 
     val ratingsRDD = ratingText.map(parseRating).cache()
     
     //split into training and testing set
@@ -38,14 +40,21 @@ object ALSRecommender {
     //MAE (mean absolute error)
     val absoluteError = testAndPred.map{case ((user,prod),(rating,pred)) => Math.abs(pred-rating)}
     val mean = absoluteError.mean()
+    
+    //prediction for new user
+    val newRatingsRDD = sc.parallelize(Array(Rating(0,260,4), Rating(0,1,3)))
+    val unionRatingsRDD = ratingsRDD.union(newRatingsRDD)
+    val newModel =  (new ALS().setRank(20).setIterations(10).run(unionRatingsRDD))
+    
+    //recommend
+    val topRecForUser = newModel.recommendProducts(0,5)
   }
   
   def parseRating(str: String): Rating = {
     val p = str.split("::")
     Rating(p(0).toInt,p(1).toInt,p(2).toDouble)
   }
-  case class Movie(movieId: Int, title: String)
-  case class User(userId: Int, gender: String, age: Int, occupation: Int, zip: String)
+  
   //case class Rating(user:Int, movie: Int, rating: Double) no need of this since spark ml lib package is having Rating class
   
 }
