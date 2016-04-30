@@ -10,7 +10,7 @@ name: Bigdata Notebook
 # Build settings
 markdown: kramdown
 
-highlighter: pygments
+highlighter: rouge
 
 gems :
   - jekyll-paginate
