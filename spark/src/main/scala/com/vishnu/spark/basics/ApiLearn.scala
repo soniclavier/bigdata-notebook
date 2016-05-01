@@ -65,6 +65,11 @@ object ApiLearn {
     //in printed 
     //123 saved
     //432 saved
+    
+    //for each item in address, do something. again, this does not print anything in the driver console instead prints in the stdout of worker
+    address.foreach(x=>println(x))
+    
+    
    }
 
   case class Address(houseNumber: Int, street: String, city: String)
