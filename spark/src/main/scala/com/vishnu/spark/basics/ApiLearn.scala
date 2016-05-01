@@ -4,7 +4,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 
 object ApiLearn {
-  
+
   def main(args: Array[String]): Unit = {
 
     /**
@@ -25,19 +25,51 @@ object ApiLearn {
     println(sc.sparkUser) //a,b) vishnu
     println(sc.master) //a)local[*] b)spark://Vishnus-MacBook-Pro.local:7077
     println(sc.version) //a,b) 1.6.0
-    
 
     /**
      * RDD
      */
     val intRDD = sc.parallelize(List(1, 2, 3))
+    val intRDD2 = sc.parallelize(List(4, 5, 6))
     //intRDD: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[2] at parallelize at <console>:21
     val anyRDD = sc.parallelize(List(1, "2", 3))
     //anyRDD: org.apache.spark.rdd.RDD[Any] = ParallelCollectionRDD[3] at parallelize at <console>:21
 
     //partitions of an rdd
     intRDD.partitions
+
+    //union of 2 RDDs
+    intRDD.union(intRDD2)
+
+    //mapPartitionsWithIndex (e.g., to get a contents of a particular partition)
+    val b = sc.parallelize(List(1, 2, 3, 4, 5, 6, 7, 8, 9), 3)
+    val part = b.partitions(0)
+    val partRDD = b.mapPartitionsWithIndex((a, b) => if (a == part.index) b else Iterator(), true)
     
-    
+    //filter
+    intRDD.filter(x => x > 2)
+    val address = sc.parallelize(List(("123", "Street1", "City1"), ("432", "Street2", "City2")))
+    address.filter { case (house, address, city) => city == "City2" }.collect
+
+    //zipWithIndex - adds index for each RDD element
+    address.zipWithIndex.collect
+    //res47: Array[((String, String, String), Long)] = Array(((123,Street1,City1),0), ((432,Street2,City2),1))
+
+    //foreachPartitions (returns nothing, can be used to perform some operation per partition, common example is DB connection
+    address.foreachPartition{partition=>
+      val dummyDB = new DummyDB
+      partition.foreach{case (a,b,c) => dummyDB.save(Address(a.toInt,b,c))}
+    }
+    //note this does not print anything to console, but if you check the application stdout from the spark ui(localhost:8088) you can see the following
+    //in printed 
+    //123 saved
+    //432 saved
+   }
+
+  case class Address(houseNumber: Int, street: String, city: String)
+  class DummyDB {
+    def save(item:Address) {
+      println(item.houseNumber+" saved")
+    }
   }
 }
