@@ -58,9 +58,10 @@ object ApiLearn {
     //foreachPartitions (returns nothing, can be used to perform some operation per partition, common example is DB connection
     address.foreachPartition{partition=>
       val dummyDB = new DummyDB
+      //or any other operation that has to be done once per partition
       partition.foreach{case (a,b,c) => dummyDB.save(Address(a.toInt,b,c))}
     }
-    //note this does not print anything to console, but if you check the application stdout from the spark ui(localhost:8088) you can see the following
+    //note this does not print anything to console, but if you check the application stdout from the spark ui(localhost:8080) you can see the following
     //in printed 
     //123 saved
     //432 saved
