@@ -122,6 +122,8 @@ object ApiLearn {
      //we cannot use map here, since map will return an org.apache.spark.rdd.RDD[Array[(String, Int)]], which does not have reduce by key
      sentences.flatMap(line=> line.split(" ").map(word => (word,1))).reduceByKey((v1,v2)=>(v1+v2)).collect
      
+     sentences.saveAsTextFile("/somepath")
+     sentences.saveAsObjectFile("/somepath")
      
      /*
       * PAIR RDD
