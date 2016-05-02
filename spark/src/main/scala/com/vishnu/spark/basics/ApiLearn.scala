@@ -111,7 +111,26 @@ object ApiLearn {
     //res56: Array[String] = Array(sentence, Second, sentence)
     sentences.flatMap(sentenceSplitter)
     
+    /*
+     * REDUCE
+     */
+    //reduce walks through each pair of elements, it will perform the given fun on the pair and return result,
+    // in the next iteration, i.e., for the nxt two elments, the left element will be the result of previous computation and right element will be the 
+    // the next item in the collection
+     val l = sc.parallelize(List(1,4,2,3,6,7))
+     l.reduce((a,b)=>(a+b))
+     //we cannot use map here, since map will return an org.apache.spark.rdd.RDD[Array[(String, Int)]], which does not have reduce by key
+     sentences.flatMap(line=> line.split(" ").map(word => (word,1))).reduceByKey((v1,v2)=>(v1+v2)).collect
+     
+     
+     /*
+      * PAIR RDD
+      */
+     
+     
   }
+  
+
   
   def sentenceSplitter(str:String) = {
     val parts = str.split(" ")
