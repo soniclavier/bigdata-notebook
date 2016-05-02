@@ -111,6 +111,10 @@ object ApiLearn {
     //res56: Array[String] = Array(sentence, Second, sentence)
     sentences.flatMap(sentenceSplitter)
     
+    //groupBy, applies the given function on each element and adds that element to the group as returned by the function
+    sentences.groupBy(x=> if (x.length > 10) "long" else "short").collect
+    //res25: Array[(String, Iterable[String])] = Array((long,CompactBuffer(This is one sentence, Second sentence has five words, this is third sentence)))
+    
     /*
      * REDUCE
      */
@@ -125,9 +129,30 @@ object ApiLearn {
      sentences.saveAsTextFile("/somepath")
      sentences.saveAsObjectFile("/somepath")
      
+      
      /*
       * PAIR RDD
       */
+     
+     val wordPair = sentences.flatMap(line => line.split(" ").map(word=>(word,1)))
+     //groupByKey does not take any argument
+     wordPair.groupByKey.collect
+     //res21: Array[(String, Iterable[Int])] = Array((words,CompactBuffer(1)), (is,CompactBuffer(1, 1)), (five,CompactBuffer(1)), (has,CompactBuffer(1)), (sentence,CompactBuffer(1, 1, 1)), (Second,CompactBuffer(1)), (this,CompactBuffer(1)), (one,CompactBuffer(1)), (This,CompactBuffer(1)), (third,CompactBuffer(1)))
+     
+     
+     //map values applies a function to each value in the RDD (k,v) pair
+     wordPair.mapValues(x=>x+1).collect
+     //res20: Array[(String, Int)] = Array((This,2), (is,2), (one,2), (sentence,2), (Second,2), (sentence,2), (has,2), (five,2), (words,2), (this,2), (is,2), (third,2), (sentence,2))
+     
+     //keys returns all the keys
+     wordPair.keys.collect
+     //res18: Array[String] = Array(This, is, one, sentence, Second, sentence, has, five, words, this, is, third, sentence)
+     
+     
+     //values returns all the values
+     wordPair.values.collect
+     //res19: Array[Int] = Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+     
      
      
   }
