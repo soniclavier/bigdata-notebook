@@ -106,12 +106,21 @@ object ApiLearn {
     sentences.map(line=>line.split(" ").filter(word=>(word.contains("c")))).collect
     //res55: Array[Array[String]] = Array(Array(sentence), Array(Second, sentence), Array())
     
-    //flatmap returns an traversable( a list of items) for each item in the collection[RDD in this case]. And flattens out the result
+    //flatmap returns an traversable( an arrays of items) for each item in the collection[RDD in this case]. And flattens out the result
     sentences.flatMap(line=>line.split(" ").filter(word=>(word.contains("c")))).collect
     //res56: Array[String] = Array(sentence, Second, sentence)
+    sentences.flatMap(sentenceSplitter)
     
   }
   
+  def sentenceSplitter(str:String) = {
+    val parts = str.split(" ")
+    parts.filter(wordFilter)
+  }
+  
+  def wordFilter(word:String) = {
+    word.contains("c")
+  }
 
   def myIterator(iter: Iterator[(String,String,String)]) = {
     println("This will be executed per partition")
