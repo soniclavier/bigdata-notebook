@@ -115,6 +115,11 @@ object ApiLearn {
     sentences.groupBy(x=> if (x.length > 10) "long" else "short").collect
     //res25: Array[(String, Iterable[String])] = Array((long,CompactBuffer(This is one sentence, Second sentence has five words, this is third sentence)))
     
+    //soryBy
+    //sorts the rdd based on the function.
+    //in this example each sentence will be sorted based on the last two letters in the sentence
+    sentences.sortBy(x=>x.substring(x.length-2,x.length)).collect
+    
     /*
      * REDUCE
      */
@@ -128,7 +133,7 @@ object ApiLearn {
      
      sentences.saveAsTextFile("/somepath")
      sentences.saveAsObjectFile("/somepath")
-     
+      
       
      /*
       * PAIR RDD
@@ -153,6 +158,10 @@ object ApiLearn {
      wordPair.values.collect
      //res19: Array[Int] = Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
      
+     
+     //sortByKey
+     wordPair.sortByKey().collect
+     //res51: Array[(String, Int)] = Array((Second,1), (This,1), (five,1), (has,1), (is,1), (is,1), (one,1), (sentence,1), (sentence,1), (sentence,1), (third,1), (this,1), (words,1))
      
      
   }
