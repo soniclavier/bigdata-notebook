@@ -57,8 +57,9 @@ object ApiLearn {
     //res47: Array[((String, String, String), Long)] = Array(((123,Street1,City1),0), ((432,Street2,City2),1))
 
     
-    
-    
+    /*
+     * FOREACH, FOREACH_PARTITION, MAP, MAP_PARTITION, MAP_PARTITION_WITHINDEX, FLATMAP
+     */
     
     //foreachPartitions (returns nothing, can be used to perform some operation per partition, common example is DB connection
     address.foreachPartition { partition =>
@@ -88,22 +89,32 @@ object ApiLearn {
     
     address.mapPartitionsWithIndex(myIterator2).collect
     /*
-     * This will be executed per iteration 4
-		This will be executed per iteration 3
-		This will be executed per iteration 1
-		This will be executed per iteration 6
-		This will be executed per iteration 0
-		This will be executed per iteration 5
+     * This will be executed per partition 4
+		This will be executed per partition 3
+		This will be executed per partition 1
+		This will be executed per partition 6
+		This will be executed per partition 0
+		This will be executed per partition 5
 		123
-		This will be executed per iteration 2
-		This will be executed per iteration 7
+		This will be executed per partition 2
+		This will be executed per partition 7
 		432
      */
     
+    //flatMap vs map, flatMap takes (f: T => TraversableOnce[U]), map takes (f: T => U) 
+    val sentences = sc.parallelize(List("This is one sentence","Second sentence has five words",""))
+    sentences.map(line=>line.split(" ").filter(word=>(word.contains("c")))).collect
+    //res55: Array[Array[String]] = Array(Array(sentence), Array(Second, sentence), Array())
+    
+    //flatmap returns an traversable( a list of items) for each item in the collection[RDD in this case]. And flattens out the result
+    sentences.flatMap(line=>line.split(" ").filter(word=>(word.contains("c")))).collect
+    //res56: Array[String] = Array(sentence, Second, sentence)
+    
   }
+  
 
   def myIterator(iter: Iterator[(String,String,String)]) = {
-    println("This will be executed per iteration")
+    println("This will be executed per partition")
     var l = ListBuffer[(String,String)]()
     
     //iter has the elements that belong to this partition
@@ -118,7 +129,7 @@ object ApiLearn {
   }
   
   def myIterator2(index:Int, iter: Iterator[(String,String,String)]) = {
-    println("This will be executed per iteration "+index)
+    println("This will be executed per partition "+index)
     var l = ListBuffer[(String,String)]()
     
     //iter has the elements that belong to this partition with index, index
