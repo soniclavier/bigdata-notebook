@@ -2,6 +2,7 @@ package com.vishnu.spark.basics
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
+import scala.collection.mutable.ListBuffer
 
 object ApiLearn {
 
@@ -55,6 +56,10 @@ object ApiLearn {
     address.zipWithIndex.collect
     //res47: Array[((String, String, String), Long)] = Array(((123,Street1,City1),0), ((432,Street2,City2),1))
 
+    
+    
+    
+    
     //foreachPartitions (returns nothing, can be used to perform some operation per partition, common example is DB connection
     address.foreachPartition { partition =>
       val dummyDB = new DummyDB
@@ -67,17 +72,65 @@ object ApiLearn {
     //432 saved
 
     //for each item in address, do something. again, this does not print anything in the driver console instead prints in the stdout of worker
-    address.foreach(x => println(x))
-
+    address.foreach(x => println(x)) 
+    
     //map vs foreach
     //foreach and map iterates through the elements in the given RDD (collection)
     //foreach does not return anything, instead it applies the given function on each element.
     //map applies the given function and returns the new/transformed collection
     address.map(x => (x._1, x))
     address.map(transform).collect //here transform is a function that takes a Tuple3 give another Tuple2 (f: T => U)
+    
     //mapPartitions applies the given function to each partition. the function should be of the form, f: Iterator[T] => Iterator[U]
+    address.mapPartitions(myIterator).collect
+    address.mapPartitions{partition => partition.map(record=>(record._1))}.collect
+    
+    
+    address.mapPartitionsWithIndex(myIterator2).collect
+    /*
+     * This will be executed per iteration 4
+		This will be executed per iteration 3
+		This will be executed per iteration 1
+		This will be executed per iteration 6
+		This will be executed per iteration 0
+		This will be executed per iteration 5
+		123
+		This will be executed per iteration 2
+		This will be executed per iteration 7
+		432
+     */
+    
   }
 
+  def myIterator(iter: Iterator[(String,String,String)]) = {
+    println("This will be executed per iteration")
+    var l = ListBuffer[(String,String)]()
+    
+    //iter has the elements that belong to this partition
+    while(iter.hasNext) {
+      val n:(String,String,String) = iter.next
+      println(n._1)
+      //this creates a 2 tuple
+      l += (n._1->n._2)
+    }
+    //we have to return iterator since mapPartitions expects, f: Iterator[T] => Iterator[U]
+    l.iterator
+  }
+  
+  def myIterator2(index:Int, iter: Iterator[(String,String,String)]) = {
+    println("This will be executed per iteration "+index)
+    var l = ListBuffer[(String,String)]()
+    
+    //iter has the elements that belong to this partition with index, index
+    while(iter.hasNext) {
+      val n:(String,String,String) = iter.next
+      println(n._1)
+      //this creates a 2 tuple
+      l += (n._1->n._2)
+    }
+    //we have to return iterator since mapPartitions expects, f: Iterator[T] => Iterator[U]
+    l.iterator
+  }
   def transform(add:(String,String,String)) = {
     (add._1, Address(add._1.toInt,add._2,add._3))
   }
