@@ -149,6 +149,10 @@ object ApiLearn {
      wordPair.mapValues(x=>x+1).collect
      //res20: Array[(String, Int)] = Array((This,2), (is,2), (one,2), (sentence,2), (Second,2), (sentence,2), (has,2), (five,2), (words,2), (this,2), (is,2), (third,2), (sentence,2))
      
+     //flatMap values, reutrn a list of values for each value and flattens out the result
+     wordPair.flatMapValues(x=>List(x+1,x+2,x+3)).collect
+     //res52: Array[(String, Int)] = Array((This,2), (This,3), (This,4), (is,2), (is,3), (is,4), (one,2), (one,3), (one,4), (sentence,2), (sentence,3), (sentence,4), (Second,2), (Second,3), (Second,4), (sentence,2), (sentence,3), (sentence,4), (has,2), (has,3), (has,4), (five,2), (five,3), (five,4), (words,2), (words,3), (words,4), (this,2), (this,3), (this,4), (is,2), (is,3), (is,4), (third,2), (third,3), (third,4), (sentence,2), (sentence,3), (sentence,4))
+     
      //keys returns all the keys
      wordPair.keys.collect
      //res18: Array[String] = Array(This, is, one, sentence, Second, sentence, has, five, words, this, is, third, sentence)
@@ -163,10 +167,20 @@ object ApiLearn {
      wordPair.sortByKey().collect
      //res51: Array[(String, Int)] = Array((Second,1), (This,1), (five,1), (has,1), (is,1), (is,1), (one,1), (sentence,1), (sentence,1), (sentence,1), (third,1), (this,1), (words,1))
      
-     
+     //combineByKey takes 3 functions
+     //1. function decides what should happen when it sees a value for a key for the first time (parameter for the fun is the new value, 
+     //what ever returned from this function becomes the structure of your combiner
+     //2. function decides what to do when a value for a key already seen is found, the parameters for this function is the combiner and the new value
+     //3. function tell how to combine two combiners
+     //
+     wordPair.combineByKey(initfun,mergeVal,mergeCombiner).collect
+     //res56: Array[(String, Int)] = Array((words,1), (is,2), (five,1), (has,1), (sentence,3), (Second,1), (this,1), (one,1), (This,1), (third,1))
   }
   
 
+  def initfun(x:Int) = {x}
+  def mergeVal(x:Int,y:Int):Int ={x+y}
+  def mergeCombiner(x:Int,y:Int):Int = {x+y}
   
   def sentenceSplitter(str:String) = {
     val parts = str.split(" ")
