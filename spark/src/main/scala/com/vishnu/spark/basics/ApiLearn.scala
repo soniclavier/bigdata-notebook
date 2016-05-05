@@ -199,6 +199,30 @@ object ApiLearn {
      //
      wordPair.combineByKey(initfun,mergeVal,mergeCombiner).collect
      //res56: Array[(String, Int)] = Array((words,1), (is,2), (five,1), (has,1), (sentence,3), (Second,1), (this,1), (one,1), (This,1), (third,1))
+     
+     
+     /*
+      * ACCUMULATORS and BROADCAST variables
+      */
+     
+     var accAsVar = 0
+     val acc = sc.accumulator(0)
+     x.foreach(y => {
+       if (y>1) {
+         accAsVar += 1
+         acc += 1
+         }
+       })
+       
+       println(accAsVar)
+       //res13: Int = 0 (accAsVar was send to each task (corresponding to each partition)) but the local copy remained the same
+       println(acc)
+      //res14: org.apache.spark.Accumulator[Int] = 3
+       
+      //broadcast variable bvar will be broadcasted to each node once
+      val bvar = sc.broadcast(10)
+      x.map(y=>y+bvar.value)
+        
   }
   
 
