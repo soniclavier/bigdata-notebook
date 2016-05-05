@@ -120,6 +120,30 @@ object ApiLearn {
     //in this example each sentence will be sorted based on the last two letters in the sentence
     sentences.sortBy(x=>x.substring(x.length-2,x.length)).collect
     
+    val x = sc.parallelize(List(1,2,3,4))
+    //fold
+    //take an inital value and a function to be applied on the values. (x,y) are values
+    //initial value will be applied multiple times (once per partition and once while combining the results)
+    //e.g.,
+    x.fold(0)((x,y)=>x+y) //10    
+    
+    x.fold(1)((x,y)=>x+y) //19 since I have 8 partitions
+    
+    val y = sc.parallelize(List(1,2,3,4),1)
+    y.fold(1)((x,y)=>x+y) //12 since there is only 1 partition
+    y.fold(2)((x,y)=>x+y) //14
+    
+    //aggregate, similar to combineByKey
+    //scala currying is applied here,first parameter initializes the aggregation values (lets call this as aggr)
+    //second fun defines what to do when you see a new value. (x,y) where x is the aggr and y is the new value
+    //thrid fun defines how to combine two aggr's here x and y are of the type (Int,Int)
+     x.aggregate(0,0)((x,y)=>(x._1+y,x._2+1),(x,y)=>(x._1+y._1,x._2+y._2))
+     //res10: (Int, Int) = (10,4)
+
+     //another example where aggr is of the type (Int)
+     x.aggregate(0)((x,y)=>(x+y),(x,y)=>(x+y))
+     //res11: Int = 10
+    
     /*
      * REDUCE
      */
@@ -138,7 +162,7 @@ object ApiLearn {
      /*
       * PAIR RDD
       */
-     
+     //wordPair is a pair RDD
      val wordPair = sentences.flatMap(line => line.split(" ").map(word=>(word,1)))
      //groupByKey does not take any argument
      wordPair.groupByKey.collect
