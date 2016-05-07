@@ -12,6 +12,10 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.client.Put
 import org.apache.hadoop.hbase.util.Bytes
 
+/**
+ *  This is NOT streaming from Hbase, this exmple shows how to save streaming data to Hbase, (part of MapR course)
+ */
+
 object SensorStream {
 
   // schema for sensor data   
