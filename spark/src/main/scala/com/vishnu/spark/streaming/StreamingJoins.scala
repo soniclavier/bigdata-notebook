@@ -12,7 +12,7 @@ import org.apache.spark.streaming.StreamingContext._
 object StreamingJoins {
   def main(args: Array[String]) {
     
-    val conf = new SparkConf().setAppName("BasicStreaming").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
+    val conf = new SparkConf().setAppName("StreamingJoins").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
     val ssc = new StreamingContext(conf, Seconds(10))
     
     val stream1 = ssc.socketTextStream("localhost", 9999)
