@@ -6,18 +6,19 @@ import org.apache.spark.streaming.StreamingContext._
 
 
 /**
- * An example of Streaming with checkpointing
+ * Streaming with sliding window
  */
-object StreamingWithCheckpointing {
+object WindowedStream {
   def main(args: Array[String]) {
     
     val conf = new SparkConf().setAppName("StreamingWithCheckpointing").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
     val ssc = new StreamingContext(conf, Seconds(1))
     ssc.checkpoint("hdfs:///user/vishnu/spark_checkpoint")
     
+    
     val linesDStream = ssc.socketTextStream("localhost", 9999)
     
-    val lines = linesDStream.window(Seconds(5),Seconds(10))
+    val lines = linesDStream.window(Seconds(10),Seconds(5))
     val words = lines.flatMap(_.split(" "))
     val pairs = words.map(word => (word,1))
     
