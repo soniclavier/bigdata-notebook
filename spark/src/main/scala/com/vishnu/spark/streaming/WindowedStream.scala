@@ -17,15 +17,21 @@ object WindowedStream {
     
     
     val linesDStream = ssc.socketTextStream("localhost", 9999)
-    
     val lines = linesDStream.window(Seconds(10),Seconds(5))
     val words = lines.flatMap(_.split(" "))
     val pairs = words.map(word => (word,1))
-    
     pairs.checkpoint(Seconds(10));
     val wordCounts = pairs.reduceByKey(_+_)
-    
     wordCounts.print()
+    
+    
+    //reduce by key and window, will do reduce by key and use the first function to do the aggregation
+    //and second function to do the inverse aggregation
+    val windowedWordCount = pairs.reduceByKeyAndWindow({(x,y)=>x+y},{(x,y)=>x-y}, Seconds(10),Seconds(5))
+    windowedWordCount.print()
+    
+    
+    
     
     ssc.start()
     ssc.awaitTermination()
