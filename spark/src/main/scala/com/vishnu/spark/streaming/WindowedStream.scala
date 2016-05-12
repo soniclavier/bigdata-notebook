@@ -22,13 +22,27 @@ object WindowedStream {
     val pairs = words.map(word => (word,1))
     pairs.checkpoint(Seconds(10));
     val wordCounts = pairs.reduceByKey(_+_)
-    wordCounts.print()
+    //wordCounts.print()
     
     
     //reduce by key and window, will do reduce by key and use the first function to do the aggregation
     //and second function to do the inverse aggregation
     val windowedWordCount = pairs.reduceByKeyAndWindow({(x,y)=>x+y},{(x,y)=>x-y}, Seconds(10),Seconds(5))
-    windowedWordCount.print()
+    //windowedWordCount.print()
+    
+    
+    
+    //expected input <ip> <body>
+    //e.g, 10.90.123.42 some long log contenxt
+    val logsDStream = ssc.socketTextStream("localhost", 8888)
+    val ipAddress = logsDStream.map(line => line.split(" ")(0))
+    val count1 = ipAddress.countByValueAndWindow(Seconds(10),Seconds(5));
+    val count2 = ipAddress.countByWindow(Seconds(10),Seconds(5));
+    
+    count1.print()
+    count2.print()
+    
+    
     
     
     
