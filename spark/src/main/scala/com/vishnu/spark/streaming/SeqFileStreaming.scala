@@ -18,6 +18,8 @@ object SeqFileStreaming {
     val ssc = new StreamingContext(conf, Seconds(10))
     val inputDir = "/usr/vishnu/spark_temp/seqfile_sample/"
     val keyValue = ssc.fileStream[Text,IntWritable, SequenceFileInputFormat[Text,IntWritable]](inputDir).map {
+      
+      //x.toString is needed because Text by itself is not serializ  able and it will throw an error
       case (x,y) => (x.toString,y.get())
     }
     keyValue.print()
