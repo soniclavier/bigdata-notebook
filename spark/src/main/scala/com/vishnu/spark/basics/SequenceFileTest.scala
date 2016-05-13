@@ -11,6 +11,7 @@ object SequenceFileTest {
     val conf = new SparkConf().setAppName("SeqFileTest")
     val sc = new SparkContext(conf)
     
+    
     //create a sequence file
     val data = sc.parallelize(List(("key1",1), ("key2",2)))
     data.saveAsSequenceFile("/usr/vishnu/spark_temp/seqfile_sample")
