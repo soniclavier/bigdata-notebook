@@ -9,7 +9,7 @@ import akka.actor.ActorSystem
 object SendToActor {
   
   def main(args: Array[String]) : Unit = {
-    val actorSystem = ActorSystem("SparkActorSystem")
+    val actorSystem = ActorSystem("sparkMaster")
     
     val url = s"akka.tcp://sparkDriver@$SparkAkkaSource.driverHost:$SparkAkkaSource.driverPort/user/Supervisor0/$SparkAkkaSource.actorName"
     val helloer = actorSystem.actorSelection(url)
