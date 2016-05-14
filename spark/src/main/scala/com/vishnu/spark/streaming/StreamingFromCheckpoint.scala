@@ -19,8 +19,8 @@ object StreamingFromCheckpoint {
   
   def createStreamingContext() = {
     println("creating new stream")
-    val conf = new SparkConf().setAppName("StreamingFromCheckpoint")
-    val ssc = new StreamingContext(conf,Seconds(3))
+    val conf = new SparkConf().setAppName("StreamingRecoverFromCheckpoint")
+    val ssc = new StreamingContext(conf,Seconds(10))
     ssc.checkpoint(checkpoint_dir)
     val dataDirDStream = ssc.textFileStream(dataDir)
     dataDirDStream.print()
