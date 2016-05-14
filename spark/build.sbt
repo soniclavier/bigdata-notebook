@@ -8,7 +8,7 @@ val flume_streaming = "org.apache.spark" % "spark-streaming-flume_2.10" % "1.6.0
 val kafka_streaming = "org.apache.spark" % "spark-streaming-kafka_2.10" % "1.6.0"
 val hbase_server = "org.apache.hbase" % "hbase-server" % "1.1.4" exclude("org.mortbay.jetty", "jsp-2.1")
 val hbase_common  = "org.apache.hbase" % "hbase-common" % "1.1.4"
-
+val spark_hive =  "org.apache.spark" % "spark-hive_2.10" % "1.5.2" exclude("com.twitter","parquet-hadoop-bundle")
 
 
 name := "spark-vishnu"
@@ -32,9 +32,13 @@ lazy val root = (project in file(".")).
     libraryDependencies += kafka_core,
     libraryDependencies += hbase_server,
     libraryDependencies += hbase_common,
+    libraryDependencies += spark_hive,
+    
     retrieveManaged := true
   )
 
+
+val excludedFiles = Seq("pom.xml", "pom.properties", "manifest.mf", "package-info.class","plugin.xml")
 
 mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   {
@@ -42,11 +46,13 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
     case PathList("jetty", "jsp", xs @ _*)         => MergeStrategy.first
     case x if x.contains("w3c") => MergeStrategy.first
     case x if x.contains("commons") => MergeStrategy.first
-    case x if x.contains("xml-apis") => MergeStrategy.first
+    case x if x.contains("javax/xml/") => MergeStrategy.first
+    case x if x.contains("minlog") => MergeStrategy.first
     case x if x.contains("unused") => MergeStrategy.last
-    case x if x.contains("html") => MergeStrategy.discard
+    case x if x.contains("html") => MergeStrategy.discard 
+    case x if x.startsWith("com/google/common/base/") => MergeStrategy.first
     case "application.conf" => MergeStrategy.concat
-    case "unwanted.txt"     => MergeStrategy.discard
+    case x if excludedFiles.exists(x.endsWith(_)) => MergeStrategy.discard
     case x => old(x)
   }
 }
