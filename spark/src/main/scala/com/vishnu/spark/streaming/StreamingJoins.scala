@@ -7,7 +7,7 @@ import org.apache.spark.streaming.StreamingContext._
 
 /**
  * An example with multiple receivers and stream joins
- * 
+ * This is also an example of Multiple DStream, => this created multiple receivers 
  */
 object StreamingJoins {
   def main(args: Array[String]) {
