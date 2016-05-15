@@ -23,9 +23,11 @@ object ToMongoDB {
     val sqlContext = new SQLContext(sc)
 
     val input = sqlContext.read.json("/spark_learning/testweet.json")
+    val avroInput = sqlContext.read.format("com.databricks.spark.avro").load("/spark_learning/avro/")
 
     input.registerTempTable("tweets")
     val targetData = sqlContext.sql("Select * from tweets")
+    
 
     val targetOutputBuilder = MongodbConfigBuilder(
       Map(Host -> List("localhost:27017"),
@@ -39,7 +41,9 @@ object ToMongoDB {
     val writeConfig =  targetOutputBuilder.build()
 
     // Writing data into the mongoDb table
-    targetData.saveToMongodb(writeConfig)
+    //targetData.saveToMongodb(writeConfig)
+    //write avro data to mongodb dable
+    avroInput.saveToMongodb(writeConfig)
   }
 
 }

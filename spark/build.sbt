@@ -11,6 +11,7 @@ val hbase_common  = "org.apache.hbase" % "hbase-common" % "1.1.4"
 val spark_hive =  "org.apache.spark" % "spark-hive_2.10" % "1.5.2" exclude("com.twitter","parquet-hadoop-bundle")
 val spark_mongodb = "com.stratio" % "spark-mongodb" % "0.8.0"
 val spark_mongodb_stratio = "com.stratio.datasource" % "spark-mongodb_2.10" % "0.11.1"
+val spark_avro = "com.databricks" %% "spark-avro" % "1.0.0"
 
 
 
@@ -38,6 +39,7 @@ lazy val root = (project in file(".")).
     libraryDependencies += spark_hive,
     libraryDependencies += spark_mongodb,
     libraryDependencies += spark_mongodb_stratio,
+    libraryDependencies += spark_avro,
     
     retrieveManaged := true
   )
