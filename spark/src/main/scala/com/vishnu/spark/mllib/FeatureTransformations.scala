@@ -20,6 +20,8 @@ object FeatureTransformations {
     val scalerModel = scaler.fit(dataset)
     scalerModel.transform(dataset).collect.foreach(println)
     
-   
+    val normalizer = new Normalizer()
+    normalizer.transform(dataset).collect.foreach(println)
+    
   }
 }
