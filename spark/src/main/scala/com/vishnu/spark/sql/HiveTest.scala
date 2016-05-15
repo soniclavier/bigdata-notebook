@@ -13,6 +13,8 @@ object HiveTest {
     val sqlContext = new HiveContext(sc)
     
     val input = sqlContext.read.json("/spark_learning/testweet.json")
-    input.saveAsTable("tweets")
+    input.registerTempTable("tweets")
+    val texts = sqlContext.sql("select text from tweets")
+    texts.saveAsTable("texts")
   }
 }

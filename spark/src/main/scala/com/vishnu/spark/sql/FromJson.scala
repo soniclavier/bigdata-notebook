@@ -16,6 +16,13 @@ object FromJson {
     input.registerTempTable("tweets")
     val texts = sqlContext.sql("select text from tweets")
     
+    
+    //udf register
+    sqlContext.udf.register("strLen",(x:String)=>{findLength(x)})
     texts.foreach(println)
+  }
+  
+  def findLength(x:String) = {
+    x.length
   }
 }
