@@ -29,8 +29,9 @@ object LogisticRegr {
     
     val model = new LogisticRegressionWithSGD().run(trainingData)
     
+    
     val newMail = tf.transform("You have won 100000$ free".split(" "))
-    println(model.predict(newMail))
+    model.predict(newMail)
     
     
     
