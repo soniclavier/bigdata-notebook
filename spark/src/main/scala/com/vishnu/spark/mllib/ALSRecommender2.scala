@@ -1,4 +1,4 @@
-package com.vishnu.spark.ml
+package com.vishnu.spark.mllib
 
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
