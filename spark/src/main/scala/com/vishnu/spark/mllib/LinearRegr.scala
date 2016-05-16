@@ -5,6 +5,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.feature.HashingTF
 import org.apache.spark.mllib.regression.LinearRegressionWithSGD
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.mllib.linalg.Vectors
 
 
 object LinearRegr {
@@ -13,24 +15,22 @@ object LinearRegr {
     
     val conf = new SparkConf().setAppName("LinearRegression")
     val sc = new SparkContext(conf)
-     
-    val tf = new HashingTF(10000)
+     val sqlContext = new SQLContext(sc)
     
-    val spam = sc.textFile("/spark_learning/spam.txt")
-    val normal = sc.textFile("/spark_learning/normal.txt")
+    val features = Array("price","numBeds","year","sqft")
+    val path = "/spark_learning/house_data.csv"
+    val housePrice = sc.textFile(path).map(line => Vectors.dense(line.split(",").map(_.toDouble)))
     
-    val spamFeatures = spam.map(email=> tf.transform(email.split(" ")))
-    val normalFeatures = normal.map(email=> tf.transform(email.split(" ")))
+    val houseFeaturesLP = housePrice.map(house => LabeledPoint(house(0).toLong,house))
     
-    val positiveLP = spamFeatures.map(features => LabeledPoint(1,features))
-    val negativeLP = normalFeatures.map(features => LabeledPoint(0,features))
+  
+    val lrModel = LinearRegressionWithSGD.train(houseFeaturesLP,10)
     
-    val trainingData = positiveLP.union(negativeLP)
-    trainingData.cache()
+    println(lrModel.intercept+" "+lrModel.weights)
     
-    val lr = new LinearRegressionWithSGD().setIntercept(true)
-    val model = lr.run(trainingData)
-    println(model.intercept+" "+model.weights)
+    val entry = "0,5,2016,4000"
+    val newEntry = LabeledPoint(0,Vectors.dense(entry.split(",").map(_.toDouble)))
+    println(lrModel.predict(newEntry.features))
     
 
     
