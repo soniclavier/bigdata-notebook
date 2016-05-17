@@ -57,7 +57,7 @@ object dataframes {
 		//correct way from spark 1.4
 		top10ResSQl.write.format("json").mode("overwrite").save("/user/vishnu/mapr/dev361/top10Res.json")
 		
-		//creating udf
+		//creating udf (scala)
 		def getStr = udf((s:String)=> {
      val lastS = s.substring(s.lastIndexOf('/')+1)
      lastS
