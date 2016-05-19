@@ -3,8 +3,8 @@ layout: post
 comments: true
 title: Experiment with Spark 2.0 - Session
 date: 2016-03-14
-PAGE_IDENTIFIER: spark_20_session
-permalink: /spark_20_session.html
+PAGE_IDENTIFIER: spark_session
+permalink: /spark_session.html
 tags: ApacheSpark BigData Hadoop Scala
 description: This blog post shows my experiment with Spark 2.0, Sessions
 ---
