@@ -2,3 +2,4 @@
 .jekyll-metadata
 _site/
 resources/target/
+GemFile.lock
