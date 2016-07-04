@@ -1,17 +1,17 @@
 package com.vishnu.storm.spout;
 
-import storm.kafka.BrokerHosts;
-import storm.kafka.KafkaSpout;
-import storm.kafka.SpoutConfig;
-import storm.kafka.StringScheme;
-import storm.kafka.ZkHosts;
+import org.apache.storm.kafka.BrokerHosts;
+import org.apache.storm.kafka.KafkaSpout;
+import org.apache.storm.kafka.SpoutConfig;
+import org.apache.storm.kafka.StringScheme;
+import org.apache.storm.kafka.ZkHosts;
 
 import java.util.Properties;
 
 import com.vishnu.storm.Keys;
 
-import backtype.storm.spout.RawScheme;
-import backtype.storm.spout.SchemeAsMultiScheme;
+import org.apache.storm.spout.RawScheme;
+import org.apache.storm.spout.SchemeAsMultiScheme;
 
 /**
  * @author vishnu viswanath

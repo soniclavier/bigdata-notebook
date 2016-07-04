@@ -10,10 +10,10 @@ import com.vishnu.storm.bolt.SinkTypeBolt;
 import com.vishnu.storm.bolt.SolrBolt;
 import com.vishnu.storm.spout.SpoutBuilder;
 
-import backtype.storm.Config;
-import backtype.storm.StormSubmitter;
-import backtype.storm.topology.TopologyBuilder;
-import storm.kafka.KafkaSpout;
+import org.apache.storm.Config;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.kafka.KafkaSpout;
 
 /**
  * @author vishnu viswanath
