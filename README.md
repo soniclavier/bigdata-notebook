@@ -1,3 +1,7 @@
+<blockquote>This branch is an update to the storm-kafka-poc, with code changes corresponding to apache storm version 1.0
+For other projects, change branch to master.</blockquote>
+
+
 # Hadoop and ML repository
 
 A repository to hold all my Hadoop and Machine Learning related codes.
