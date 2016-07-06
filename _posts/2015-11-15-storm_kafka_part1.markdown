@@ -18,6 +18,7 @@ In this first part, we will be dealing with setting up of the environment. If yo
 
 The source code for this project is available in my <a href="https://github.com/soniclavier/hadoop/tree/master/stormkafka" target="blank">github</a>
 
+
 ### <b>Setup</b>
 <span></span>	
 
@@ -30,8 +31,11 @@ For building this system, we would require
 5. MongoDB <small>*3.0.7*</small>
 6. Apache Storm <small>*0.10.0*</small>
 
-Versions I used are given in italics, It is not necessary to use the same versions but there might be some changes needed if versions are different.
 *Note: All are single node setup*
+
+Versions I used are given in italics, It is not necessary to use the same versions but there might be some changes needed if versions are different.<br/>
+<i><b>Update</b> (07/05/2016)</i> : The source code for Storm-1.0 is available in the branch [storm1.0-kafka-poc](https://github.com/soniclavier/hadoop_datascience/tree/storm1.0-kafka-poc)<br/>
+
 
 #### **Hadoop**
 I am assuming that hadoop is installed and I am not going through the installation steps here. If not you can do so easily by following the instructions <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html">here</a>.
