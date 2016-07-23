@@ -294,17 +294,46 @@ font-size: $caption_font_size;
 /**
 * tags
 */
-.tags {
-    
+
+
+
+.tag-box {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow: hidden;
+  *zoom: 1;
 }
 
-.tags .tag {
-    padding: 5px;
-    background-color: $grey-color;
-    font-size: 11px;
-    color: #fff
+.tag-box:before, .tag-box:after {
+  display: table;
+  content: "";
+  line-height: 0;
 }
 
-.tags .tag_label {
-    font-size: 12px;
+.tag-box:after {
+  clear: both;
+}
+
+.tag-box.inline li {
+  float: left;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 2.5;
+}
+
+.tag-box a {
+  padding: 4px 6px;
+  margin: 2px;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.tag-box a span {
+  vertical-align: super;
+  font-size: 10px;
+  font-size: 0.625rem;
 }
