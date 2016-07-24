@@ -15,6 +15,7 @@ highlighter: rouge
 gems :
   - jekyll-paginate
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Pagination
 paginate: 5
