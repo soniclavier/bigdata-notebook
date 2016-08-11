@@ -4,7 +4,7 @@ title: about
 permalink: /about/
 ---
 
-<img class="col one right" src="/img/prof_pic.jpg">
+<img class="col one right" src="/img/prof_pic.png">
 
 <h1><b>Vishnu Viswanath</b></h1>
 I am a competent Big Data developer currently pursuing MS in Computer Science with concentration in Data Analytics. I have over 4.5 years of experience in designing and building various scalable and efficient systems and proficient in most of the BigData stacks.<br/><br/>
