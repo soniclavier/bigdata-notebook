@@ -6,7 +6,7 @@ date: 2016-11-07
 PAGE_IDENTIFIER: flink_eventtime_watermark
 permalink: /flink_eventtime.html
 tags: ApacheFlink BigData Hadoop Scala Streaming
-description: If you are creating a Realtime streaming application, *EventTime processing is one of the features that you will have to use sooner or later. In the blog post, we will see why and how we can enable EventTime processing in ApacheFlink.
+description: If you are creating a Realtime streaming application, EventTime processing is one of the features that you will have to use sooner or later. In the blog post, we will see why and how we can enable EventTime processing in ApacheFlink.
 ---
 <div class="col three">
     <img class="col three" src="/img/flink_eventtime/blog_header.png">
