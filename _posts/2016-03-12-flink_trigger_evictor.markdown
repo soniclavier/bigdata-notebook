@@ -31,7 +31,7 @@ Let us consider few scenarios to understand trigger better.<br/>
 <blockquote>Note 1: I am assuming that we are receiving the same word in the stream. This is done to make the explanation simple. Since there is a keyBy(0) after map, each word will belong to separate logical window grouped by the word.</blockquote>
 
 <blockquote>Note 2: The sliding window used in this example is based on Processing time. Processing time is the time at which an event is processed in the system compared to EventTime which is the time at which event was created. I will be explaining these concepts in the upcoming blogs.</blockquote>
-
+Update : Read about the concept of ProcesingTime and EventTime from this [blog](flink_eventtime.html).<br/>
 **scenario 1:**
 <div class="col three">
 	<img class="col three" src="/img/flink_trigger/trigger1.png">
