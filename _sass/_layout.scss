@@ -337,3 +337,26 @@ font-size: $caption_font_size;
   font-size: 10px;
   font-size: 0.625rem;
 }
+
+/**
+* Search box
+*/
+
+.search-box {
+  height: $text-field-height;  
+}
+
+.search-button {
+  display: inline-block;
+  height: $text-field-height; 
+}
+
+.search-form {
+   margin-top:5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .search-button {
+        display: none;
+    }
+}
