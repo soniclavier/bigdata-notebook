@@ -5,7 +5,7 @@
 .site-header {
 border-bottom: 1px solid $grey-color-light;
 background-color: #fff;
-opacity: 0.75;
+opacity: 0.95;
 position:fixed;
 left:0px;
 top:0px;
@@ -365,4 +365,13 @@ font-size: $caption_font_size;
     .search-button {
         display: none;
     }
+}
+
+/**
+* header image
+*/
+.head_img {
+  margin-top:-44px;
+  padding:0;
+  padding-bottom:50px;
 }
