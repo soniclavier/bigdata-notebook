@@ -347,8 +347,14 @@ font-size: $caption_font_size;
 }
 
 .search-button {
-  display: inline-block;
-  height: $text-field-height; 
+  -webkit-appearance: none;
+    height: $button-height; 
+    background-color:$theme-color;
+    color: $white;
+    font-family: $base-font-family;
+    font-weight: 100;
+    border: solid $white 1px;
+    font-size: 14px;
 }
 
 .search-form {
