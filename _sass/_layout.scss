@@ -373,5 +373,9 @@ font-size: $caption_font_size;
 .head_img {
   margin-top:-44px;
   padding:0;
-  padding-bottom:50px;
+  margin-bottom:50px;
+  background-color:#3a7cc0;
+}
+.head_img img {
+  padding:0;
 }
