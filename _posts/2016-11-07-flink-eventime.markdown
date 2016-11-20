@@ -1,27 +1,28 @@
 ---
 layout: post
 comments: true
-title: Flink EventTime Processing and Watermarks
+title: Flink Event Time Processing and Watermarks
 date: 2016-11-07
 PAGE_IDENTIFIER: flink_eventtime_watermark
 permalink: /flink_eventtime.html
+image: /img/flink_eventtime/blog_header.png
 tags: ApacheFlink BigData Hadoop Scala Streaming
-description: If you are creating a Realtime streaming application, EventTime processing is one of the features that you will have to use sooner or later. In the blog post, we will see why and how we can enable EventTime processing in ApacheFlink.
+description: If you are creating a Realtime streaming application, Event Time processing is one of the features that you will have to use sooner or later. In the blog post, we will see why and how we can enable EventTime processing in ApacheFlink.
 ---
 <div class="col three">
     <img class="col three" src="/img/flink_eventtime/blog_header.png">
 </div>
-If you are building a Realtime streaming application, EventTime processing is one of the features that you will have to use sooner or later. Since in most of the real-world use cases messages arrive out-of-order, there should be some way through which the system you build understands the fact that messages could arrive late and handle them accordingly. In this blog post, we will see why we need EventTime processing and how we can enable it in ApacheFlink.
+If you are building a Realtime streaming application, Event Time processing is one of the features that you will have to use sooner or later. Since in most of the real-world use cases messages arrive out-of-order, there should be some way through which the system you build understands the fact that messages could arrive late and handle them accordingly. In this blog post, we will see why we need Event Time processing and how we can enable it in ApacheFlink.
 
-**EventTime** is the time at which an event occurred in the real-world and **ProcessingTime** is the time at which that event is processed by the Flink system. To understand the importance of EventTime processing, we will first start by building a ProcessingTime based system and see it's drawback. 
+**EventTime** is the time at which an event occurred in the real-world and **ProcessingTime** is the time at which that event is processed by the Flink system. To understand the importance of Event Time processing, we will first start by building a Processing Time based system and see it's drawback. 
 
 We will create a [SlidingWindow](flink_streaming.html) of size 10 seconds which slides every 5 seconds and at the end of the window, the system will emit the number of messages that were received during that time. Once you understand how EventTime processing works with respect to a SlidingWindow, it will not be difficult to understand how it works for a [TumblingWindow](flink_streaming.html) as well. So let's get started.
 
 
 ### **ProcessingTime based system**
-For this example we expect messages to have the format ***value,timestamp*** where value is the message and timestamp is the time at which this message was generated at the source. Since we are now building a ProcessingTime based system, the code below ignores the timestamp part.
+For this example we expect messages to have the format ***value,timestamp*** where value is the message and timestamp is the time at which this message was generated at the source. Since we are now building a Processing Time based system, the code below ignores the timestamp part.
 <blockquote>
-  It is an important aspect to understand that the messages should contain the information on when it was generated. Flink or any other system is not a magic box that can somehow figure this out by itself. Later we will see that, EventTime processing extracts this timestamp information to handle late messages.
+  It is an important aspect to understand that the messages should contain the information on when it was generated. Flink or any other system is not a magic box that can somehow figure this out by itself. Later we will see that, Event Time processing extracts this timestamp information to handle late messages.
 </blockquote>
 {% highlight scala %}
 val text = senv.socketTextStream("localhost", 9999)
@@ -103,5 +104,5 @@ Finally we have the correct result, all the three windows now emit counts as exp
 <blockquote>Update: We could also use AllowedLateness feature to set the maximum allowed lateness of a message to solve this problem. </blockquote>
 
 ### **Conclusion**
-The importance of real-time stream processing systems has grown lately and having to deal with delayed message is part of any such system you build. In this blog post, we saw how late arriving messages can affect the results of your system and how ApacheFlink's EventTime processing capabilities can be used to solve them. That concludes the post, Thanks for reading!
+The importance of real-time stream processing systems has grown lately and having to deal with delayed message is part of any such system you build. In this blog post, we saw how late arriving messages can affect the results of your system and how ApacheFlink's Event Time processing capabilities can be used to solve them. That concludes the post, Thanks for reading!
 <br/><a href="http://vishnuviswanath.com/">Home</a>
