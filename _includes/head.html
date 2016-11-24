@@ -16,9 +16,9 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
 
     {% if page.image %}
-      <meta content="{{ page.image }}" property="og:image"/>
+      <meta content="{{ site.url }}{{ page.image }}" property="og:image"/>
     {% else %}
-      <meta content="/img/site_image.png" property="og:image"/>
+      <meta content="{{ site.url }}/img/site_image.png" property="og:image"/>
     {% endif %}
     {% if page.categories %}
       {% for category in page.categories limit:1 %}
@@ -29,5 +29,29 @@
       {% for tag in page.tags %}
       <meta content="{{ tag }}" property="article:tag"/>
       {% endfor %}
+    {% endif %}
+
+
+    <!-- Twitter card meta-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@site_username">
+    <meta name="twitter:creator" content="@creator_username">
+    {% if page.title %}
+      <meta name="twitter:title" content="{{ page.title }}">
+    {% else %}
+      <meta name="twitter:title" content="{{ site.title }}">
+    {% endif %}
+    {% if page.url %}
+      <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
+    {% endif %}
+    {% if page.description %}
+      <meta name="twitter:description" content="{{ page.description }}">
+    {% else %}
+      <meta name="twitter:description" content="{{ site.description }}">
+    {% endif %}
+    {% if page.image %}
+      <meta name="twitter:image:src" content="{{ site.url }}{{ page.image }}">
+    {% else %}
+      <meta name="twitter:image:src" content="{{ site.url }}/img/site_image.png">
     {% endif %}
 </head>
