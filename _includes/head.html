@@ -14,4 +14,20 @@
     {% include shareaholic.html %}
     <link rel="shortcut icon" type="image/png" href="/favicon_sticky.png?">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
+
+    {% if page.image %}
+      <meta content="{{ page.image }}" property="og:image">
+    {% else %}
+      <meta content="/img/site_image.png" property="og:image">
+    {% endif %}
+    {% if page.categories %}
+      {% for category in page.categories limit:1 %}
+      <meta content="{{ category }}" property="article:section">
+      {% endfor %}
+    {% endif %}
+    {% if page.tags %}
+      {% for tag in page.tags %}
+      <meta content="{{ tag }}" property="article:tag">
+      {% endfor %}
+    {% endif %}
 </head>
