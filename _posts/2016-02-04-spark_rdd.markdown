@@ -56,6 +56,6 @@ You can cache an RDD in memory by calling `rdd.cache()`. When you cache an RDD, 
 </div>
 Caching can improve the performance of your application to a great extent. In the previous section you saw that when an action is performed on a RDD, it executes it's entire lineage. Now imagine you are going to perform an action multiple times on the same RDD which has a long lineage, this will cause an increase in execution time. Caching stores the computed result of the RDD in the memory thereby eliminating the need to recompute it every time. You can think of caching as if it is breaking the lineage, but it does remember the lineage so that it can be recomputed in case of a node failure.
 
-This concludes the basics of RDD, there is of course more details about RDD that I haven't covered here(Persistence, pairRDD etc). But this should get you started. Thanks for reading!
+This concludes the basics of RDD. If you would like to read more, [Part2](spark_rdd_part2.html) talks about Persistence, Broadcast variables and Accumulators. Thanks for reading!
 
 <a href="http://vishnuviswanath.com/">Home</a>
