@@ -22,7 +22,7 @@ rdd.persist(StorageLevel.MEMORY_AND_DISK)
  In fact Caching is a type of persistence with StorageLevel -*MEMORY_ONLY*. If you use MEMORY_ONLY as the *Storage Level* and if there is not enough memory in your cluster to hold the entire RDD, then some partitions of the RDD cannot be stored in memory and will have to be recomputed every time it is needed. If you don't want this to happen, you can use the StorageLevel -
 *MEMORY_AND_DISK* in which if an RDD does not fit in memory, the partitions that do not fit are saved to disk.
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd_2/rdd_persistence.png">
+	<img class="col three expandable" src="/img/spark_rdd_2/rdd_persistence.png">
 </div>
 In the above example, the RDD has 3 partitions and there are 2 nodes in the cluster. Also, memory available in the cluster can hold only 2 out of 3 partitions of the RDD. Here, partitions 1 and 2 can be saved in memory where as partition 3 will be saved to disk. Another StorageLevel, *DISK_ONLY* stores all the partitions on the disk.
 <blockquote>In the above methods, the RDDs are not serialized before saving to Memory or Disk, there are two other StorageLevels - MEMORY_ONLY_SER and MEMORY_AND_DISK_SER, which will store the RDDs as serialized java objects.
@@ -38,7 +38,7 @@ names.join(addresses)
 {% endhighlight %}
 Here, both names and addresses will be shuffled over the network for performing the join which is not efficient since any data transfer over the network will reduce the execution speed.
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast_shuffle.png">
+	<img class="col three expandable" src="/img/spark_rdd_2/rdd_broadcast_shuffle.png">
 </div>
 Another approach is, if one of the RDDs is small in size, we can choose to send it along with each task. Consider the below example
 {% highlight scala %}
@@ -48,7 +48,7 @@ val addressesMap = addresses.collect().toMap
 val joined = names.map(v=>(v._2,(addressesMap(v._1))))
 {% endhighlight %}
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast_collect.png">
+	<img class="col three expandable" src="/img/spark_rdd_2/rdd_broadcast_collect.png">
 </div>
 This is also inefficient since we are sending sizable amount of data over the network for each task. So how do we overcome this problem? By means of **broadcast** variables.
 {% highlight scala %}
@@ -62,7 +62,7 @@ If a variable is broadcasted, it will be sent to each node only once, thereby re
 <blockquote>Broadcast variables are read-only, broadcast.value is an immutable object</blockquote>
 Spark uses BitTorrent like protocol for sending the broadcast variable across the cluster, i.e., for each variable that has to be broadcasted, initially the driver will act as the only source. The data will be split into blocks at the driver and each leecher *(receiver)* will start fetching the block to it's local directory. Once a block is completely received, then that leecher will also act as a source for this block for the rest of the leechers *(This reduces the load at the machine running driver).* This is continued for rest of the blocks. So initially, only the driver is the source and later on the number of sources increases - because of this, rate at which the blocks are fetched by a node increases over time.
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd_2/rdd_broadcast.png">
+	<img class="col three expandable" src="/img/spark_rdd_2/rdd_broadcast.png">
 </div>
 
 ### **Accumulators**

@@ -118,7 +118,7 @@ where `com.vishnu.storm` is the package name and `Topology` is the class contain
 Open your storm UI at <a href="http://localhost:8080/">http://localhost:8080/</a> and verify that job has been deployed correctly. Storm UI provides a very good visualization of the toplogy, you can view it by clicking `your-tolology-name>Show Visualization`.
 
 <div class="col three">
-	<img class="col three" src="/img/storm_deployed.png"/>
+	<img class="col three expandable" src="/img/storm_deployed.png"/>
 </div>
 
 Now let us insert some sample messages for each of the sinks - MongoDB, SOLR and HDFS and check if those messages makes their way to the destination.
@@ -145,13 +145,13 @@ db.collection1.find()
 2) SOLR - You can see the Solr message by accessing the SOLR UI <a href="http://localhost:8983/solr/#/">url</a>.
  
 <div class="col three">
-	<img class="col three" src="/img/solr_result.png"/>
+	<img class="col three expandable" src="/img/solr_result.png"/>
 </div>
 
 3) HDFS - You can either run `hadoop fs -ls /from_storm` or access namenode UI <a href="http://localhost:50070/">url</a>.
 
 <div class="col three">
-	<img class="col three" src="/img/hdfs_result.png"/>
+	<img class="col three expandable" src="/img/hdfs_result.png"/>
 </div>
 
 I hope you got a fair idea about how to integrate Storm, Kafka, MongoDB, SOLR and HDFS for Realtime analysis. Although this was implemented in a single node cluster for learning purpose, it can be extended for multi-node scenarios as well. For further doubts and clarifications please comment below and I will respond as soon as possible. <br/>

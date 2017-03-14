@@ -17,7 +17,7 @@ So why RDD? Apache Spark lets you treat your input files almost like any other v
 
 ### **Partitions**
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd/rdd_partition.png">
+	<img class="col three expandable" src="/img/spark_rdd/rdd_partition.png">
 </div>
 RDDs are divided into smaller chunks called Partitions, and when you execute some action, a task is launched per partition. So it means, the more the number of partitions, the more the parallelism. Spark automatically decides the number of partitions that an RDD has to be divided into but you can also specify the number of partitions when creating an RDD. These partitions of an RDD is distributed across all the nodes in the network.
 
@@ -34,12 +34,12 @@ The first line creates an RDD from an external file, and the second line creates
 There are two types of operations that you can perform on an RDD- *Transformations and Actions*. **Transformation** applies some function on a RDD and creates a new RDD, it does not modify the RDD that you apply the function on.*(Remember that RDDs are resilient/immutable).* Also, the new RDD keeps a pointer to it's parent RDD.
 
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd/rdd_transformation.png">
+	<img class="col three expandable" src="/img/spark_rdd/rdd_transformation.png">
 </div>
 When you call a transformation, Spark does not execute it immediately, instead it creates a **lineage**. A lineage keeps track of what all transformations has to be applied on that RDD, including from where it has to read the data. For example, consider the below example
 
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd/rdd_lineage.png">
+	<img class="col three expandable" src="/img/spark_rdd/rdd_lineage.png">
 </div>
 {% highlight scala %}
 val rdd = sc.textFile("spam.txt")
@@ -52,7 +52,7 @@ filtered.count()
 ### **Caching**
 You can cache an RDD in memory by calling `rdd.cache()`. When you cache an RDD, it's Partitions are loaded into memory of the nodes that hold it.
 <div class="col three">
-	<img class="col three" src="/img/spark_rdd/rdd_cache.png">
+	<img class="col three expandable" src="/img/spark_rdd/rdd_cache.png">
 </div>
 Caching can improve the performance of your application to a great extent. In the previous section you saw that when an action is performed on a RDD, it executes it's entire lineage. Now imagine you are going to perform an action multiple times on the same RDD which has a long lineage, this will cause an increase in execution time. Caching stores the computed result of the RDD in the memory thereby eliminating the need to recompute it every time. You can think of caching as if it is breaking the lineage, but it does remember the lineage so that it can be recomputed in case of a node failure.
 

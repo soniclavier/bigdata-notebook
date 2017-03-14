@@ -40,7 +40,7 @@ A topology is a network of Spouts and Bolts
 1. *Mongodb-bolt* : for saving in MongoDB collection
 
 <div class="col three">
-	<img class="col three" src="/img/storm_blog_flow.png">
+	<img class="col three expandable" src="/img/storm_blog_flow.png">
 </div>
 
 #### **Creating the project**
@@ -64,7 +64,7 @@ You can download the pom.xml from <a href="https://github.com/soniclavier/hadoop
 
 #### Structure of the project
 <div class="col three">
-	<img class="col three" src="/img/project_structure.png"/>
+	<img class="col three expandable" src="/img/project_structure.png"/>
 </div>
 
 #### Keys class

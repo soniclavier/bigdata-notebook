@@ -240,3 +240,24 @@ pre {
 .next {
     color:#{$theme-color};
 }
+
+
+/* Style the Image Used to Trigger the Modal */
+.expandable {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.expandable:hover {
+    opacity: 0.9;
+    cursor: -moz-zoom-in; 
+    cursor: -webkit-zoom-in; 
+    cursor: zoom-in;
+}
+.expandable:active {
+    transform: scale(1.5);
+    transition: all 0.2s ease-in-out;
+    opacity: 1.0;
+}
+

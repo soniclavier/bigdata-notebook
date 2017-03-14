@@ -24,7 +24,7 @@ In this challenge, we are given a set of details of passengers such as name, gen
 We will be implementing all of the above steps using Spark and Scala and will be building a machine learning pipeline - the overall flow can be shown by the diagram below. The grey section of the diagram shows the model building flow and the blue section of the diagram shows the flow for making prediction.
 
 <div class="col three">
-	<img class="col three" src="/img/spark_ml_flow.png">
+	<img class="col three expandable" src="/img/spark_ml_flow.png">
 </div>
 <br/><br/>
 

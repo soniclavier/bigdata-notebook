@@ -34,19 +34,19 @@ Let us consider few scenarios to understand trigger better.<br/>
 **Update** : Read about the concept of ProcesingTime and EventTime from this [blog](flink_eventtime.html).<br/>
 **scenario 1:**
 <div class="col three">
-	<img class="col three" src="/img/flink_trigger/trigger1.png">
+	<img class="col three expandable" src="/img/flink_trigger/trigger1.png">
 </div>
 This is the basic case, where window 1 received 5 items within its window-width of 15 seconds. Last two items have overlap with window 2, hence it will be present in both windows 1 and 2. But window 2 has only 2 items which is less than the trigger count **5**. Whereas window 1 has received 5 items within its window-width and hence the function `sum()` will be triggered.
 
 **scenario 2:**
 <div class="col three">
-	<img class="col three" src="/img/flink_trigger/trigger2.png">
+	<img class="col three expandable" src="/img/flink_trigger/trigger2.png">
 </div>
 In this case, the items arrived in such a way that, both windows 1 and 2 received 5 items in the region where it overlaps. Hence, both windows will be triggered at the same time.
 
 **scenario 3:**
 <div class="col three">
-	<img class="col three" src="/img/flink_trigger/trigger3.png">
+	<img class="col three expandable" src="/img/flink_trigger/trigger3.png">
 </div>
 This is similar to scenario 2, except that window 1 received 10 items, 5 of which are overlapping with window 2. What do you think will happen in such scenario?
 
@@ -67,7 +67,7 @@ val counts = socTextStream.flatMap{_.split("\\s")}
 Here, the evictor is CountEvictor of 3, i.e., it will evict all the items except 3 from the window once the trigger is fired. e.g.,
 Consider the **scenario 1** of trigger example and assume we added a CountEvictor of 3 to it.
 <div class="col three">
-	<img class="col three" src="/img/flink_trigger/evictor.png">
+	<img class="col three expandable" src="/img/flink_trigger/evictor.png">
 </div>
 
 The function sum will be applied only to the 3 items which are left in the window after eviction.

@@ -113,7 +113,7 @@ You can now access the Solr UI via <a href="http://localhost:8983/solr/#/">http:
 *Solr home page:*
 
 <div class="col three">
-	<img class="col three" src="/img/solr_loadpage.png">
+	<img class="col three expandable" src="/img/solr_loadpage.png">
 </div>
 
 Now we need to create a collection in solr. This will be used by our Storm topology to store the message of the type *solr*.
@@ -195,7 +195,7 @@ $bin/storm logviewer
 Check <a href="http://localhost:8080/index.html">http://localhost:8080/index.html</a> and make sure that supervisor and the nimbus servers has been started.
 
 <div class="col three">
-	<img class="col three" src="/img/storm_home.png"/>
+	<img class="col three expandable" src="/img/storm_home.png"/>
 </div>
 
 We have completed the environment setup and in the next part we will see how to setup the Eclipse project and start writing Storm Topology.

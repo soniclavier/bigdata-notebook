@@ -20,14 +20,14 @@ In the case of Streaming applications, the data is continuous and therefore we c
 # **Tumbling Window**
 A Tumbling window, tumbles over the stream of data. This type of Window is non-overlapping - i.e., the events/data in one window will not overlap/present in the other windows.
 <div class="col three">
-	<img class="col three" src="/img/flink_streaming/tumbling.png">
+	<img class="col three expandable" src="/img/flink_streaming/tumbling.png">
 </div>
 You can configure the window to tumble based on the count - e.g., for every 5 elements, or based on the time - e.g., for every 10 seconds.
 
 # **Sliding Window**
 A sliding window, opposed to a tumbling window, slides over the stream of data. Because of this, a sliding window can be overlapping and it gives a smoother aggregation over the incoming stream of data - since you are not jumping from one set of input to the next, rather you are sliding over the incoming stream of data.
 <div class="col three">
-	<img class="col three" src="/img/flink_streaming/sliding.png">
+	<img class="col three expandable" src="/img/flink_streaming/sliding.png">
 </div>
 Similar to Tumbling window, you can configure a Sliding window also to slide based on time or by the count of events.
 

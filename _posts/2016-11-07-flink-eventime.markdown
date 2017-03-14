@@ -37,18 +37,18 @@ senv.execute("ProcessingTime processing example")
 #### **Case 1: Messages arrive without delay**
 Suppose the source generated three messages of the type **a** at times 13th second, 13th second and 16th second respectively. (Hours and minutes are not important here since the window size is only 10 seconds).
 <div class="col three">
-    <img class="col three" src="/img/flink_eventtime/pr_ino_source.png">
+    <img class="col three expandable" src="/img/flink_eventtime/pr_ino_source.png">
 </div>
 These messages will fall into the windows as follows. The first two messages that were generated at 13th sec will fall into both window1*[5s-15s]* and window2*[10s-20s]* and the third message generated at 16th second will fall into window2*[10s-20s]* and window3*[15s-25s]*. The final counts emitted by each window will be (a,2), (a,3) and (a,1) respectively.
 <div>
-  <img class="col three" src="/img/flink_eventtime/pr_ino_windows.png">
+  <img class="col three expandable" src="/img/flink_eventtime/pr_ino_windows.png">
 </div>
 This output can be considered as the expected behavior. Now we will look at what happens when one of the message arrives late into the system.
 
 #### **Case 2: Messages arrive in delay**
 Now suppose one of the messages (generated at 13th second) arrived at a delay of 6 seconds(at 19th second), may be due to some network congestion. Can you guess which all windows would this message fall into?
 <div class="col three">
-  <img class="col three" src="/img/flink_eventtime/pr_ooo_windows.png">
+  <img class="col three expandable" src="/img/flink_eventtime/pr_ooo_windows.png">
 </div>
 The delayed message fell into window 2 and 3, since 19 is within the range *10-20* and *15-25*. It did not cause any problem to the calculation in window2 (because the message was anyways supposed to fall into that window) but it affected the result of window1 and window3. We will now try to fix this problem by using EventTime processing.
 
@@ -80,7 +80,7 @@ senv.execute("EventTime processing example")
 {% endhighlight %}
 The result of running the above code is shown in the diagram below.
 <div class="col three">
-  <img class="col three" src="/img/flink_eventtime/ev_ooo_windows.png">
+  <img class="col three expandable" src="/img/flink_eventtime/ev_ooo_windows.png">
 </div>
 The results look better, the windows 2 and 3 now emitted correct result, but window1 is still wrong. Flink did not assign the delayed message to window 3 because it now checked the message's event time and understood that it did not fall in that window. But why didn't it assign the message to window 1?. The reason is that by the time the delayed message reached the system(at 19th second), the evaluation of window 1 has already finished (at 15th second). Let us now try to fix this issue by using the Watermark.
 <blockquote>Note that in window 2, the delayed message was still placed at 19th second, not at 13th second(it's event time). This depiction in the figure was intentional to indicate that the messages within a window are not sorted according to it's event time. (this might change in future)</blockquote>
@@ -98,7 +98,7 @@ override def getCurrentWatermark(): Watermark = {
 <blockquote>It is usually better to maintain the maximum timestamp received yet and create the watermark with max - expected delay, instead of subtracting from the current system time.</blockquote>
 The result of running the code after making above changes is:
 <div class="col three">
-  <img class="col three" src="/img/flink_eventtime/ev_ooo_windows_wat.png">
+  <img class="col three expandable" src="/img/flink_eventtime/ev_ooo_windows_wat.png">
 </div>
 Finally we have the correct result, all the three windows now emit counts as expected - which is (a,2), (a,3) and (a,1). 
 <blockquote>Update: We could also use AllowedLateness feature to set the maximum allowed lateness of a message to solve this problem. </blockquote>

@@ -3,3 +3,6 @@
 _site/
 resources/target/
 GemFile.lock
+
+
+.DS_Store
