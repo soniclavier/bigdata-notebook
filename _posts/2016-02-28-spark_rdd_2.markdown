@@ -25,7 +25,7 @@ rdd.persist(StorageLevel.MEMORY_AND_DISK)
 	<img class="col three expandable" src="/img/spark_rdd_2/rdd_persistence.png">
 </div>
 In the above example, the RDD has 3 partitions and there are 2 nodes in the cluster. Also, memory available in the cluster can hold only 2 out of 3 partitions of the RDD. Here, partitions 1 and 2 can be saved in memory where as partition 3 will be saved to disk. Another StorageLevel, *DISK_ONLY* stores all the partitions on the disk.
-<blockquote>In the above methods, the RDDs are not serialized before saving to Memory or Disk, there are two other StorageLevels - MEMORY_ONLY_SER and MEMORY_AND_DISK_SER, which will store the RDDs as serialized java objects.
+<blockquote>In the above method, the RDDs are not serialized before saving to Memory, there are two other StorageLevels - MEMORY_ONLY_SER and MEMORY_AND_DISK_SER, which will store the RDDs as serialized java objects.
 </blockquote> 
 There are a few more StorageLevels which I did not mention here, you can find more details about it [here](http://spark.apache.org/docs/latest/programming-guide.html#rdd-persistence)
 
