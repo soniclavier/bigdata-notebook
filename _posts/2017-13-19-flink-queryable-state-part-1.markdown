@@ -3,7 +3,7 @@ layout: post
 comments: true
 title: QueryableStates in ApacheFlink - How it works
 date: 2017-03-19
-PAGE_IDENTIFIER: flink_queryable_state*
+PAGE_IDENTIFIER: flink_queryable_state
 permalink: /flink_queryable_state1.html
 image: /img/flink_queryable_state/queryable_flow.png
 tags: ApacheFlink BigData Hadoop Scala Streaming
