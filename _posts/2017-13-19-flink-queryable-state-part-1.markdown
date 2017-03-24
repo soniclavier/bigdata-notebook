@@ -1,13 +1,13 @@
 ---
 layout: post
 comments: true
-title: QueryableStates in ApacheFlink - How it works
+title: Queryable States in ApacheFlink - How it works
 date: 2017-03-19
 PAGE_IDENTIFIER: flink_queryable_state
 permalink: /flink_queryable_state1.html
 image: /img/flink_queryable_state/queryable_flow.png
 tags: ApacheFlink BigData Hadoop Scala Streaming
-description: QueryableStates allows users to do real-time queries on the internal state of the stream without having to store the result on to any external storage. In this blog post we will see how this is done in ApacheFlink.
+description: Queryable States allows users to do real-time queries on the internal state of the stream without having to store the result on to any external storage. In this blog post we will see how this is done in ApacheFlink.
 ---
 <div class="col three">
     <img class="col three" src="/img/flink_queryable_state/header.png">
