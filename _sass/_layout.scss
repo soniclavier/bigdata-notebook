@@ -102,6 +102,28 @@ bottom:0px;
 height:50px;
 width:100%;
 }
+
+
+/**
+* Copy right ******************************************************
+*/
+
+.copyright {
+  background-color: $grey-color-dark;
+  color: $grey-color-light;
+  position:fixed;
+  right: 5px;
+  bottom: 0px;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 768px) {
+  .copyright {
+    display: none;
+  }
+}
+
+
 /**
  * Pagination   **********************************************************
  */
@@ -378,4 +400,11 @@ font-size: $caption_font_size;
 }
 .head_img img {
   padding:0;
+}
+
+/**
+*
+*/
+@media only screen and (max-width: 760px) {
+  #is-mobile { display: none; }
 }

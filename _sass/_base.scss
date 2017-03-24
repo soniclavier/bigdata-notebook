@@ -157,7 +157,7 @@ article a {
  */
 blockquote {
     color: $text-color;
-    border-left: 10px solid $grey-color-light;
+    border-left: 10px solid $white;
     padding-left: $horizontal-spacing-unit / 2;
     font-size: 18px;
     font-style: italic;
@@ -257,6 +257,40 @@ pre {
 .expandable:active {
     transform: scale(1.5);
     transition: all 0.2s ease-in-out;
+    background-color:white;
     opacity: 1.0;
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
+/*
+* Popup
+*/
+.popup-subscribe {
+    position: fixed;
+    padding: 10px;
+    align: centre;
+    bottom:70px;
+    height:30px;
+    border-radius: 15px;
+    border: 0.5px solid $grey-color-light;
+    color: $white;
+    background-color: rgb(65,131,215);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(65,131,215, 0.9);
+    clear:both;
+    display:none;
+}
+
+.popup-subscribe #sub_close:hover {
+    cursor: pointer;
+}
+
+.popup-subscribe #sub_close {
+    color: black;
+    text-shadow: 0px 2px 3px #555;
+}

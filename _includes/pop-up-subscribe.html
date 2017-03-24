@@ -1,0 +1,49 @@
+<div class="popup-subscribe">
+	<span id="sub_arrow"><i class="fa fa-quote-left" aria-hidden="true"></i></span>
+	<span id="sub_text" title="Close">Hello, Would you like to subscribe so that I can keep you posted on my new aritcles?</span>
+	<span id="sub_arrow"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
+	&nbsp;
+	<span id="sub_close"><i class="fa fa-times" aria-hidden="true"></i></span>
+</div>
+<div class="is-mobile"></div>
+
+<script>
+$( document ).ready(function() {
+	
+	//$('.popup-subscribe').hide();
+	
+	var showPopup = true;
+	var is_mobile = false;
+
+    var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+
+    if (isMobile.matches) {
+        showPopup = false;
+    }
+
+	var waypoints = $('#end-of-page').waypoint(function(){
+    	if (showPopup == true) {
+	   			showPopup = false;
+				$('.popup-subscribe').show("slow")
+	   		}
+	    })
+
+    /*
+	var waypoint = new Waypoint({
+	  element: document.getElementById('end-of-page'),
+	  handler: function() {
+	    if (showPopup == true) {
+   			showPopup = false;
+			$('.popup-subscribe').show("slow");
+   		}
+	  }
+	})
+	*/
+	$( "#sub_close" ).click(function() {
+	  $('.popup-subscribe').hide("fast");
+	});
+});
+
+
+
+</script>
