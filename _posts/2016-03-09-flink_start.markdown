@@ -52,4 +52,4 @@ $bin/start-scala-shell.sh local
 *Note:start-scala-shell.sh creates a mini cluster, you don't have to start separate jobmanager for scala shell to work on local mode*
 
 Flink setup is complete. In the coming blogs, I will be writing more about how to write various Streaming applications using Apache Flink. Thanks for reading!
-<br/><a href="http://vishnuviswanath.com/">Home</a>
+<br/><a href="search.html?query=flink">Continue reading</a>

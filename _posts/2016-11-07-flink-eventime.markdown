@@ -105,4 +105,4 @@ Finally we have the correct result, all the three windows now emit counts as exp
 
 ### **Conclusion**
 The importance of real-time stream processing systems has grown lately and having to deal with delayed message is part of any such system you build. In this blog post, we saw how late arriving messages can affect the results of your system and how ApacheFlink's Event Time processing capabilities can be used to solve them. That concludes the post, Thanks for reading!
-<br/><a href="http://vishnuviswanath.com/">Home</a>
+<br/><a href="search.html?query=flink">Continue reading</a>

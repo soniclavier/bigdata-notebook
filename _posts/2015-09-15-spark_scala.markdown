@@ -124,3 +124,4 @@ res12: Array[(String, Int)] = Array((number,2), (two,1), (line,2), (one,1))
 {% endhighlight %}
 
 In the first line, we are creating an RDD with two Strings. Next, we are splitting the line based on space. Then for each word, the mapper will emit key as the word and 1 as the value. The reducer will receive these key,value pairs and will do an aggregation of all the values to find the number of occurrences of each word.
+<br/><a href="search.html?query=spark">Continue reading</a>

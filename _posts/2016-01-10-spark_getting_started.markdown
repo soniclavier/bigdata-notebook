@@ -76,5 +76,5 @@ SQL context available as sqlContext.
 scala>
 {% endhighlight %}
 
-Spark setup is complete. Thanks for reading.<br/>
-<a href="http://vishnuviswanath.com/">Home</a>
+Spark setup is complete. Thanks for reading.
+<br/><a href="search.html?query=spark">Continue reading</a>

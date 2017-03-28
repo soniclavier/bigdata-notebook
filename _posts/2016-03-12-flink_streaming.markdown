@@ -82,4 +82,4 @@ object TimeSlidingWindow {
 That covers the basics on the types of Windows in Flink. There are various complex windowing operations that we can do in Flink - e.g., We can choose to Slide window based on time, but trigger the execution based on the Count of items and also choose to keep few of the items in the current window for the next window processing. I will try to cover these advanced topics in the upcoming blogs.
 
 Thanks for reading!
-<br/><a href="http://vishnuviswanath.com/">Home</a>
+<br/><a href="search.html?query=flink">Continue reading</a>

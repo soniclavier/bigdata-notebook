@@ -153,4 +153,4 @@ spark.catalog.dropTempView("pandas") //drops the table
 {% endhighlight %}
 
 This concludes my experiments with SparkSession for now. I will try to explore more about the new features in Spark 2.0 and share with you in later posts!
-<br/><a href="http://vishnuviswanath.com/">Home</a>
+<br/><a href="search.html?query=spark">Continue reading</a>

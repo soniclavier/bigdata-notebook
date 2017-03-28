@@ -83,6 +83,6 @@ joined.foreach(v=> if (v._2.contains("india")) accum += 1)
 //error: value *= is not a member of org.apache.spark.Accumulator[Int]
 {% endhighlight %}
 
-That concludes part 2 of the blog **Spark RDDs Simplified**, thanks for reading. Please leave a comment for any clarifications or queries.<br/>
-<a href="http://vishnuviswanath.com/">Home</a>
+That concludes part 2 of the blog **Spark RDDs Simplified**, thanks for reading. Please leave a comment for any clarifications or queries.
+<br/><a href="search.html?query=spark">Continue reading</a>
 

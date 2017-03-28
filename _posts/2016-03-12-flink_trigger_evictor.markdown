@@ -73,4 +73,4 @@ Consider the **scenario 1** of trigger example and assume we added a CountEvicto
 The function sum will be applied only to the 3 items which are left in the window after eviction.
 
 That concludes this post, you can find the code used in this article in my [GitHub](https://github.com/soniclavier/hadoop_datascience/tree/master/flink/src/main/scala/com/vishnu/flink/streaming). Thanks for reading!
-<br/><a href="http://vishnuviswanath.com/">Home</a>
+<br/><a href="search.html?query=flink">Continue reading</a>

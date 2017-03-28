@@ -154,5 +154,5 @@ db.collection1.find()
 	<img class="col three expandable" src="/img/hdfs_result.png"/>
 </div>
 
-I hope you got a fair idea about how to integrate Storm, Kafka, MongoDB, SOLR and HDFS for Realtime analysis. Although this was implemented in a single node cluster for learning purpose, it can be extended for multi-node scenarios as well. For further doubts and clarifications please comment below and I will respond as soon as possible. <br/>
-<a href="/">Home</a>
+I hope you got a fair idea about how to integrate Storm, Kafka, MongoDB, SOLR and HDFS for Realtime analysis. Although this was implemented in a single node cluster for learning purpose, it can be extended for multi-node scenarios as well. For further doubts and clarifications please comment below and I will respond as soon as possible.
+<br/><a href="search.html?query=streaming">Continue reading</a>

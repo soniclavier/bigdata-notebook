@@ -421,3 +421,4 @@ The model predicted that passengers with ID 892 and 894 will not survive and Pas
 <blockquote>Note : Received a score of <b>0.77512</b> on submitting this to Kaggle.</blockquote>
 
 This concludes the post and I hope it was helpful. Thanks for reading.
+<br/><a href="search.html?query=spark">Continue reading</a>
