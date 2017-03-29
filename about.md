@@ -7,7 +7,7 @@ permalink: /about/
 <img class="col one right" src="/img/prof_pic.png">
 
 <h1><b>Vishnu Viswanath</b></h1>
-I am a competent Big Data developer currently pursuing MS in Computer Science with concentration in Data Analytics. I have over 4.5 years of experience in designing and building various scalable and efficient systems and proficient in most of the BigData stacks.<br/><br/>
+I am a Data Engineer with 5 years of experience in designing and building scalable and efficient systems and proficient in most of the BigData stacks. My current interests include Funcitonal Programming, Reactive Programming, Distributed Systems, Real-time Processing and Deep Learning<br/><br/>
 	I am a relentless tech-enthusiast and like to keep myself up-to-date with the technologies in vogue. In these times of ever expanding three dimensional data, with my relevant experience and expertise and zeal for acquiring new skills and information, I hope to venture deeper in addressing the challenges posed in big data and machine learning which can further help me to master the domain of future analytic and computing models.
 <hr/>
 <br/>
