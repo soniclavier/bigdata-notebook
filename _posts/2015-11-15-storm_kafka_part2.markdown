@@ -5,7 +5,7 @@ title: Realtime Processing using Storm-Kafka- Part2
 date: 2015-11-05
 PAGE_IDENTIFIER: storm_kafka_2
 permalink: /realtime-storm-kafka2.html
-tags: ApacheStorm MongoDB SOLR Hadoop BigData Java
+tags: ApacheStorm MongoDB SOLR Hadoop BigData Kafka Java
 description: This is part two of the series Realtime Processing using Storm and Kafka. In this section we are going to create an Eclipse project and develop the Solr, MongoDb and Hdfs Bolt used for persisting the messages.
 ---
 <div class="col three">
