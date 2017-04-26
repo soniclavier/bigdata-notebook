@@ -5,7 +5,7 @@ title: Hello Kafka Streams
 date: 2017-04-23
 PAGE_IDENTIFIER: hello-kafka-streams
 permalink: /hello-kafka-streams.html
-image: /img/kafka_streams/header.png
+image: /img/kafka_streams/header_share.png
 tags: Kafka BigData Hadoop Scala Streaming
 description: Kafka Streams is a stream processing library on top of Apache Kafka. In this blog we will have a quick look at the basic concepts Kafka Streams and then build a simple Hello Streams application that reads messages (names of people) from a topic and writes “hello name” to another topic
 ---
