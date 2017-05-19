@@ -31,7 +31,10 @@
       {% endfor %}
     {% endif %}
 
+    <!-- AnchorJS for deep linking-->
+    <script src="{{ site.baseurl }}/js/anchor.min.js"></script>
     
+    <!-- JQuery and Waypoints only for blog pages-->    
     {% if page.id %}
       <script src="{{ site.baseurl }}/js/jquery-3.2.0.min.js"></script>
       <script src="{{ site.baseurl }}/js/jquery.waypoints.min.js"></script>
