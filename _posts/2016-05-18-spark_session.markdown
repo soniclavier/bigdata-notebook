@@ -11,20 +11,32 @@ description: This blog post is about my experiment with Spark 2.0, Sessions
 <div class="col three">
 	<img class="col three" src="/img/spark_session/blog_header.png">
 </div>
-The first thing that I noticed when I started the spark shell in Spark 2.0 is this line - `Spark session available as 'spark'.`
-<div class="col three">
-  <img class="col three" src="/img/spark_session/spark_session.png">
-</div>
-You would not have seen this in previous versions of Spark.
+**SparkSession** is the new entry point from Spark 2.0. Prior to 2.0, we had only SparkContext and SQLContext, and also we would create StreamingContext (if using streaming). 
+It looks like SparkSession is part of the Spark's plan of unifying the APIs from Spark 2.0.
 
-So what is this SparkSession? To find out more, I cloned the latest copy of Spark from [spark github repository](https://github.com/apache/spark) and opened it in my IntelliJ
-<div class="col three">
-  <img class="col three" src="/img/spark_session/spark_class.png">
-</div>
+### **start spark shell**
+Run the following commands from your spark base folder.
+{% highlight sh %}
+sbin/start-master.sh
+sbin/start-slave.sh spark://<your hostname>:7077
+bin/spark-shell --master spark://<your hostname>:7077
+{% endhighlight %}
 
-So, **SparkSession** is new entry point from Spark 2.0. Prior to 2.0, we had only SparkContext and SQLContext, and also we would create StreamingContext (if using streaming). 
-It looks like SparkSession is part of the Spark's plan of unifying the APIs from Spark 2.0. *(I may be wrong)*
-
+### **create spark session**
+SparkSession object will be available by default in the spark shell as "spark". But when you build your spark project outside the shell, you can create a session as follows
+{% highlight scala %}
+import org.apache.spark.sql.SparkSession
+val spark = SparkSession.
+	builder().
+	appName("ExperimentWithSession").
+	getOrCreate()
+{% endhighlight %}
+If you run the above command in spark shell, you will see this warning
+{% highlight scala %}
+WARN SparkSession$Builder: Using an existing SparkSession; some configuration may not take effect.
+spark: org.apache.spark.sql.SparkSession = org.apache.spark.sql.SparkSession@1c571162
+{% endhighlight %}
+This is because there is already an instance SparkSession object in the scope, which is also evident from the builder's getOrCreate() method.
 getOrCreate method of SparkSession builder does the following:
 
 1. ***Create a SparkConf***
@@ -49,12 +61,12 @@ df.show
 +--------------------+-----------+---------------+
 {% endhighlight %}
 <blockquote>Note: I am using the dataset from <a href="https://github.com/databricks/learning-spark/tree/master/files">learning-spark</a> github repository.</blockquote>
-Let us now register this Dataframe as a temp table
+Let us now register this Dataframe as a temp table.
 {% highlight scala %}
 df.registerTempTable("pandas")
 warning: there was one deprecation warning; re-run with -deprecation for details 
 {% endhighlight %}
-It looks like `registerTempTable` method is deprecated. To find out the alternative method to use, I checked the class `Dataset.scala`.
+It looks like `registerTempTable` method is deprecated. Let's check [Dataset.scala](https://github.com/apache/spark/blob/master/sql/core/src/main/scala/org/apache/spark/sql/Dataset.scala#L2692) to figure out which alternate method to use.
 <div class="col three">
   <img class="col three" src="/img/spark_session/temp_table_depricated.png">
 </div>
