@@ -12,7 +12,7 @@ description: This article explains the concepts - Triggers and Evictors in Flink
 	<img class="col three" src="/img/flink_trigger/blog_header.png">
 </div>
 
-In the last [blog](flink_streaming), we looked at the two basic types of Windows in Flink - Sliding and Tumbling windows. In the blog, I will explain you two importance concepts that can be used in Flink - **Triggers** and **Evictors**. 
+In the last [blog](flink_streaming), we looked at the two basic types of Windows in Flink - Sliding and Tumbling windows. In the blog, I will explain you two important concepts that can be used in Flink - **Triggers** and **Evictors**. 
 
 # **Triggers**
 Assume we have a sliding window *(of width 15 seconds, which slides every 10 seconds)* and we are collecting items in the window during streaming. A **trigger** can be used to tell Flink when to evaluate the function on the items in the window. For example, if you want the function to be evaluated on every 5 items that you receive within the window that we defined above, we can use `trigger(CountTrigger.of(5))`.
