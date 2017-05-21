@@ -6,7 +6,7 @@ date: 2016-03-14
 PAGE_IDENTIFIER: spark_session
 permalink: /spark_session.html
 tags: ApacheSpark BigData Hadoop Scala
-description: This blog post is about my experiment with Spark 2.0, Sessions
+description: This blog post talks about how to create a SparkSession object in Spark 2.0 and how to use it for registering Tables, creating DataSets, DataFrames, UDFs and Catalogs
 ---
 <div class="col three">
 	<img class="col three" src="/img/spark_session/blog_header.png">
