@@ -14,7 +14,7 @@ description: Queryable States allows users to do real-time queries on the intern
 </div>
 QueryableStates allows users to do real-time queries on the internal state of the stream without having to store the result on to any external storage. This opens up many interesting possibilities since we no longer need to wait for the system to write to the external storage (which has always been one of the main bottlenecks in these kinds of systems). It might be even possible to not have any kind of database and make the user facing applications directly query the stream, which will make the application faster and cheaper. This might not be applicable to all the use cases, but if your pipeline has to maintain an internal state (may be to do some aggregations), it would be a good idea to make the state available to query. 
 
-We will first look at the overall steps that take places inside Flink when we make a state queryable, and when we do the query. In the next blog, we will see how to create a Pipeline with queryable state and how to create a client to query its state.
+We will first look at the overall steps that take places inside Flink when we make a state queryable, and when we do the query. In the next [blog](flink_queryable_state2.html), we will see how to create a Pipeline with queryable state and how to create a client to query its state.
 
 ### **Making the State Queryable**
 Let us assume that we have created a pipeline with a queryable state and submitted the Job via JobClient. The following diagram shows what happens inside Flink.
