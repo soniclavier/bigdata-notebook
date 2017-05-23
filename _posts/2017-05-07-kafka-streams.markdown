@@ -5,7 +5,7 @@ title: Kafka Streams - Part 2
 date: 2017-05-07
 PAGE_IDENTIFIER: kafka-streams-part2
 permalink: /kafka-streams-part2.html
-image: /img/kafka_streams_2/logo.png
+image: /img/kafka_streams_2/logo_share.png
 tags: Kafka BigData Hadoop Scala Streaming
 description: This is continuation of the blog post - "Hello Kafka Streams". In this blog we  build a bit more complicated application that demonstrates the use of flatMapValues, branch, predicate, selectKey, through, join and also see how to create a custom SerDe using Kryo.
 ---
