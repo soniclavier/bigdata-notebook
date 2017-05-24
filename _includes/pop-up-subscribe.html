@@ -19,7 +19,8 @@ $( document ).ready(function() {
     		var d = new Date()
     		var m = d.getTime()
     		//if its has been atleast 1 hour after the last popup, show popup and update the storage
-    		var delay = (60 * 60 * 1000)
+    		//var delay = (60 * 60 * 1000)
+    		var delay = 0 //show every time
     		//var delay = (10 * 1000)
     		if (m >= t + delay) {
     			localStorage.setItem("show_popup", [false, m])
