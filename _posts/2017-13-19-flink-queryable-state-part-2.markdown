@@ -16,6 +16,7 @@ description: This is part 2 of the blog Queryable States in Apache Flink. In the
 This is part 2 of the blog Queryable States in Apache Flink. In the previous [blog](flink_queryable_state1.html), we saw how Apache Flink enabled Queryable States. In this part, we will create a Streaming Job with Queryable States and create a QueryClient to query the state. I assume that Flink is already installed and setup. If not you can check out my earlier blog post on installation [here](flink_start.html). I will be using a Tumbling window in this example, to read about Windows in Flink, please read [this](flink_streaming.html) blog post.
 
 All the code used in this blog post will be available on my [GitHub](https://github.com/soniclavier/hadoop_datascience/tree/master/flink/src/main/scala/com/vishnu/flink/streaming/queryablestate) <i class="fa fa-github" aria-hidden="true"></i>.
+*Note: The implementation of QueryClient is specific to Flink 1.2.0*
 
 ### **Creating the Pipeline**
 Let us now create a streaming job with QueryableState. In this example, our input is climate log which is of the format `country, state, temperature, humidity` where country and state are Strings, temperature and humidity are Floats. We will first create case class to hold these logs.
