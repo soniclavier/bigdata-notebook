@@ -5,12 +5,13 @@ resolvers in ThisBuild ++= Seq(Resolver.mavenLocal)
 
 scalaVersion in ThisBuild := "2.11.3"
 
-val flinkVersion = "1.3.1-SNAPSHOT"
+val flinkVersion = "1.4-SNAPSHOT"
 
 val flink_scala = "org.apache.flink" %% "flink-scala" % flinkVersion % "provided"
 val flink_clients = "org.apache.flink" %% "flink-clients" % flinkVersion % "provided"
 val flink_streaming = "org.apache.flink" %% "flink-streaming-scala" %flinkVersion % "provided"
 val flink_rocks_db = "org.apache.flink" %% "flink-statebackend-rocksdb" % flinkVersion % "provided"
+//val flink_data_artisans = "com.data-artisans" %% "flink-training-exercises" % "0.9.0"
 val joda_time = "joda-time" % "joda-time" % "2.9.4"
 
 val main = "com.vishnu.flink.streaming.queryablestate.QuerybleStateStream"
@@ -33,6 +34,7 @@ lazy val root = (project in file(".")).
     libraryDependencies += flink_streaming,
     libraryDependencies += flink_rocks_db,
     libraryDependencies += joda_time,
+    //libraryDependencies += flink_data_artisans,
     retrieveManaged := true
   )
 
