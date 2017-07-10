@@ -14,7 +14,7 @@ description: Apache Flink's Session Windows allows messages to be windowed into 
 </div>
 Session Windows in Apache Flink allows messages to be [Windowed](flink_streaming) into sessions based on user's activity. Flink allows us to define a time gap and all the messages that arrive within a "period of inactivity" less than the defined time gap can be considered to belong to the same session. This has many practical use cases, mainly because this relates to Sessions in Web applications.
 
-In this blog, we will build a streaming application that uses [EventTime](flink_eventtime) based Session Windows to identify how many times user made a Click during a session. Flink version at the time of writing this blog is 1.3.0. All the code used in this blog can be found in my [Github]() <i class="fa fa-github" aria-hidden="true"></i>.
+In this blog, we will build a streaming application that uses [EventTime](flink_eventtime) based Session Windows to identify how many times user made a Click during a session. Flink version at the time of writing this blog is 1.3.0. All the code used in this blog can be found in my [Github](https://github.com/soniclavier/bigdata-notebook/tree/master/flink/src/main/scala/com/vishnu/flink/streaming/sessionwindows) <i class="fa fa-github" aria-hidden="true"></i>.
 <div class="col three">
     <img class="col three expandable" src="/img/flink_session/use_case.png">
 </div>
