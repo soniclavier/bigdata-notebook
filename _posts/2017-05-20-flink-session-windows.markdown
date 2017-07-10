@@ -53,7 +53,7 @@ val events: DataStream[Click] = rawStream.flatMap(Click(_))
 //assign the timestamp and watermark generator.
 val eventsWithTs = events.assignTimestampsAndWatermarks(new WatermarkGenerator)
 {% endhighlight %}
-*Note: WatermarkGenerator is an implementation of AssignerWithPeriodicWatermarks, you can find the implementation [here]().*
+*Note: WatermarkGenerator is an implementation of AssignerWithPeriodicWatermarks, you can find the implementation [here](https://github.com/soniclavier/bigdata-notebook/blob/master/flink/src/main/scala/com/vishnu/flink/streaming/sessionwindows/SessionWindowExample.scala#L77).*
 
 To calculate the number of clicks per user during a session, we need to key the stream based on userId. Once a stream is keyed, all the message with the same key will be part of the same Stream. Next, we have to define the Session gap (timeout). In this example, we will create an EventTime based SessionWindow with a gap of 2 seconds and also set an AllowedLateness of maximum 4 seconds. AllowedLateness allows messages that come delayed to be processed. Flink keeps the Window alive till it's MaxTimestamp + AllowedLateness.
 {% highlight scala %}
