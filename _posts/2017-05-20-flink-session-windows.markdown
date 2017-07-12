@@ -5,7 +5,7 @@ title: Session Windows in Apache Flink
 date: 2017-06-10
 PAGE_IDENTIFIER: flink_session_windows
 permalink: /flink-session-windows.html
-image: /img/flink_session_windows/logo.png
+image: /img/flink_session/logo.png
 tags: ApacheFlink BigData Hadoop Scala Streaming
 description: Apache Flink's Session Windows allows messages to be windowed into sessions. In this blog, we will create a streaming application that counts number of Clicks made by each user within a session using EventTimeSession windows.
 ---
