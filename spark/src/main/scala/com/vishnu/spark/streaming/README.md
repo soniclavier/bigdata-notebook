@@ -1,4 +1,4 @@
-# KafkaStreaming
+# Streaming from Kafka
 
 KafkaStreaming reads data from KafkaTopics and runs word count on that.
 
