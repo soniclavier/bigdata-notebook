@@ -1,14 +1,14 @@
 Edit your .bash_profile or .profile file in OSX/Unix or Edit your Environment variables in Windows.
 
 **OSX/Unix:**
-```
+```b
 vi ~/.bash_profile
 export SPARK_HOME=/Users/vishnu/spark-1.6.0-bin-hadoop2.6
 export PATH=$PATH/:$SPARK_HOME/sbin
 export PATH=$PATH/:$SPARK_HOME/bin
 ```
 **To submit the application:**
-```
+```scala
 //start spark master
 $SPARK_HOME/sbin/start-master.sh
 
