@@ -9,6 +9,13 @@ export PATH=$PATH/:$SPARK_HOME/bin
 ```
 **To submit the application:**
 ```
+//start spark master
+$SPARK_HOME/sbin/start-master.sh
+
+//start worker
+//Get the spark the master url from http://localhost:8080/
+$SPARK_HOME/sbin/start-slaves.sh spark://Vishnus-MacBook-Pro.local:7077
+
 spark-submit   --class "package.name.Object"   --master spark://your_master_server:7077 target/path/to/your/jar_file.jar
 ```
 
