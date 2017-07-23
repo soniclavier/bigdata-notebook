@@ -8,11 +8,11 @@ To run the example,
 2. Start kafka broker.
 3. Create kafka topic.<br/>
 
-  ```
+```
 bin/kafka-topics.sh --create --topic spark_streaming --zookeeper localhost:2181 --partitions 1 --replication-factor 1
-  ```
+```
   
-    If you don't have kafka or zookeeper setup, or you would like to know how to create a topic and send messages, Check my [blog post](http://vishnuviswanath.com/realtime-storm-kafka1.html) where I have explained these w.r.t to Strom streaming, but the steps are same here aswell.
+If you don't have kafka or zookeeper setup, or you would like to know how to create a topic and send messages, Check my [blog post](http://vishnuviswanath.com/realtime-storm-kafka1.html) where I have explained these w.r.t to Strom streaming, but the steps are same here aswell.
  
 ### Direct Streaming
 DirectStream approach periodically queries the kafka topic for new offset and takes in data
