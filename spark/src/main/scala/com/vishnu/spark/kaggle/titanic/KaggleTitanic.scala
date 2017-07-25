@@ -1,7 +1,6 @@
 package com.vishnu.spark.kaggle.titanic
 
 import scala.reflect.runtime.universe
-
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.ml.Pipeline
@@ -11,8 +10,7 @@ import org.apache.spark.ml.feature.Normalizer
 import org.apache.spark.ml.feature.StringIndexer
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
 import org.apache.spark.sql.functions.mean
 
 
@@ -20,8 +18,11 @@ object KaggleTitanic {
   def main(args: Array[String]) {
     
     val conf = new SparkConf().setAppName("Titanic").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark = SparkSession.builder().master("spark://Vishnus-MacBook-Pro.local:7077").appName("Titanic").getOrCreate()
+    val sc = spark.sparkContext
+    val sqlContext = spark.sqlContext
+
+    import spark.implicits._
     
     var train_data = load("/kaggle/titanic/train.csv",
       sqlContext,
@@ -84,7 +85,7 @@ object KaggleTitanic {
     result = result.select("prediction","Survived")
     val predictionAndLabels = result.map { row =>
       (row.get(0).asInstanceOf[Double],row.get(1).asInstanceOf[Double])
-    }
+    }.rdd
     
     val metrics = new BinaryClassificationMetrics(predictionAndLabels)
     println("Area under ROC = " + metrics.areaUnderROC())
@@ -113,7 +114,7 @@ object KaggleTitanic {
     result = result.select("PassengerId","prediction")
     val submitRDD = result.map { row =>
       (row.get(0).asInstanceOf[Int],row.get(1).asInstanceOf[Double].toInt)
-    }
+    }.rdd
     
     /**
      * Save the RDD for submission
