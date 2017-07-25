@@ -19,7 +19,7 @@ object FromJson {
     
     //udf register
     sqlContext.udf.register("strLen",(x:String)=>{findLength(x)})
-    texts.foreach(println)
+    //texts.foreach(r ⇒ r)
   }
   
   def findLength(x:String) = {

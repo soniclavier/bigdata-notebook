@@ -5,11 +5,10 @@ import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{DataFrame, Row, SQLContext, SparkSession}
 import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.linalg.Vectors
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.Row
+
 import scala.reflect.runtime.universe
 
 object TitanicUnderfit {
@@ -34,9 +33,16 @@ object TitanicUnderfit {
 
   def main(args: Array[String]) {
 
-    val conf = new SparkConf().setAppName("Titanic Underfit").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark = SparkSession.
+      builder().
+      appName("Titanic Underfit").
+      master("spark://Vishnus-MacBook-Pro.local:7077").
+      getOrCreate()
+
+    import spark.implicits._
+
+    val sc = spark.sparkContext
+    val sqlContext = spark.sqlContext
     var train_data = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").option("inferSchema", "true").load("/kaggle/titanic/train.csv").toDF("PassengerId", "Survived", "Pclass", "Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked")
     var prepared_train = prepareUnderfitData(train_data, true, sqlContext)
     var trainLabeled = prepared_train.map { row: Row =>
@@ -49,7 +55,7 @@ object TitanicUnderfit {
     //val training = splits(0).cache()
     //val test = splits(1)
 
-    val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(trainLabeled)
+    val model = new LogisticRegressionWithLBFGS().setNumClasses(2).run(trainLabeled.rdd)
 
     /*
     val predictionAndLabels = test.map {
@@ -78,6 +84,6 @@ object TitanicUnderfit {
         (label.toInt, prediction.toInt)
     }
        
-    submissionPrediction.saveAsTextFile("/kaggle/titanic/underfit_output")
+    submissionPrediction.rdd.saveAsTextFile("/kaggle/titanic/underfit_output")
   }
 }

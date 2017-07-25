@@ -10,6 +10,8 @@ object ApiLearn {
 
     /**
      * CONTEXT AND CONFIG
+      *
+      * 1.
      */
     val sparkConf = new SparkConf().setAppName("APILearn")
     val sc = new SparkContext(sparkConf)
@@ -20,7 +22,7 @@ object ApiLearn {
     println(sc.startTime) //1462038117646
     println(sc.applicationId) //local-1462038118983
     println(sc.defaultMinPartitions) //2
-    println(sc.defaultMinSplits) //2
+    //println(sc.defaultMinSplits) //2
     println(sc.defaultParallelism) //a) 8 (equivalent to 8 cores in my sys) b) 2
     println(sc.isLocal) //a) true b)false 
     println(sc.sparkUser) //a,b) vishnu

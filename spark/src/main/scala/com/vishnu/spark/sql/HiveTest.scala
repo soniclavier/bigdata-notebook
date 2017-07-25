@@ -2,6 +2,7 @@ package com.vishnu.spark.sql
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.hive.HiveContext
 
 object HiveTest {
@@ -14,7 +15,7 @@ object HiveTest {
     
     val input = sqlContext.read.json("/spark_learning/testweet.json")
     input.registerTempTable("tweets")
-    val texts = sqlContext.sql("select text from tweets")
-    texts.saveAsTable("texts")
+    val texts: DataFrame = sqlContext.sql("select text from tweets")
+    texts.write.saveAsTable("texts")
   }
 }

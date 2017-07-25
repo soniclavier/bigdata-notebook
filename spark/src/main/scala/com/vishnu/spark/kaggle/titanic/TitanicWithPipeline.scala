@@ -10,8 +10,7 @@ import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
 import org.apache.spark.sql.functions.mean
 import org.apache.spark.ml.tuning.CrossValidator
 import org.apache.spark.ml.tuning.ParamGridBuilder
@@ -29,9 +28,16 @@ object TitanicWithPipeline {
 
   def main(args: Array[String]) {
 
-    val conf = new SparkConf().setAppName("Titanic").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark = SparkSession.
+      builder().
+      appName("Titanic").
+      master("spark://Vishnus-MacBook-Pro.local:7077").
+      getOrCreate()
+
+    val sc = spark.sparkContext
+    val sqlContext = spark.sqlContext
+
+    import spark.implicits._
 
     //1. Load data
     var train_data = load("/kaggle/titanic/train.csv",
@@ -106,8 +112,8 @@ object TitanicWithPipeline {
     var result = lrModel.transform(inputSubmission)
     result.show();
     var saveDf = result.select("pid", "prediction")
-    var saveRDD = saveDf.map(r => (r.get(0).asInstanceOf[Double].toInt, r.get(1).asInstanceOf[Double].toInt))
-    saveRDD.saveAsTextFile("/kaggle/titanic/output")
+    var saveDataset = saveDf.map(r => (r.get(0).asInstanceOf[Double].toInt, r.get(1).asInstanceOf[Double].toInt))
+    saveDataset.rdd.saveAsTextFile("/kaggle/titanic/output")
     /**
      *  CROSS VALIDATION END
      */

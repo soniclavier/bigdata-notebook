@@ -16,8 +16,7 @@ import org.apache.spark.sql.functions.mean
 
 object KaggleTitanic {
   def main(args: Array[String]) {
-    
-    val conf = new SparkConf().setAppName("Titanic").setMaster("spark://Vishnus-MacBook-Pro.local:7077")
+
     val spark = SparkSession.builder().master("spark://Vishnus-MacBook-Pro.local:7077").appName("Titanic").getOrCreate()
     val sc = spark.sparkContext
     val sqlContext = spark.sqlContext

@@ -6,6 +6,7 @@ import akka.actor.ActorSystem
 /**
  * This object is used to send message to HelloSpark akka Actor
  */
+/*
 object SendToActor {
   
   def main(args: Array[String]) : Unit = {
@@ -24,4 +25,4 @@ object SendToActor {
     }
   }
   
-}
+}*/

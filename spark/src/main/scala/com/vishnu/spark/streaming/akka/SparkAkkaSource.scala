@@ -3,7 +3,7 @@ package com.vishnu.spark.streaming.akka
 import org.apache.spark._
 import org.apache.spark.streaming._
 import akka.actor.Props
-import org.apache.spark.streaming.receiver.ActorHelper
+//import org.apache.spark.streaming.receiver.ActorHelper
 import akka.actor.Actor
 
 /**
@@ -11,6 +11,7 @@ import akka.actor.Actor
  */
 
 //INCOMPLETE
+/*
 
 class HelloSpark extends Actor with ActorHelper {
 
@@ -68,3 +69,4 @@ object SparkAkkaSource {
   }
 
 }
+*/
