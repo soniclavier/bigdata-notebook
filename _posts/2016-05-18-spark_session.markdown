@@ -28,6 +28,7 @@ SparkSession object will be available by default in the spark shell as "spark". 
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.
 	builder().
+	master("spark://Vishnus-MacBook-Pro.local:7077").
 	appName("ExperimentWithSession").
 	getOrCreate()
 {% endhighlight %}
@@ -72,6 +73,11 @@ It looks like `registerTempTable` method is deprecated. Let's check [Dataset.sca
 </div>
 {% highlight scala %}
 df.createOrReplaceTempView("pandas")
+{% endhighlight %}
+
+You can also save the dataframe as table in hive metastore using. 
+{% highlight scala %}
+df.write.saveAsTable("pandas")
 {% endhighlight %}
 
 ### **spark.table**
@@ -137,6 +143,13 @@ spark.createDataFrame(rowRDD,schema).show
 |  2|
 |  3|
 +---+
+{% endhighlight %}
+
+### **DataFrame to RDD / DataSet to RDD**
+A DataFrame or a DataSet can be converted to rdd by calling .rdd
+{% highlight scala %}
+val ds = spark.createDataset(List(1,2,3))
+val rdd  = ds.rdd
 {% endhighlight %}
 
 ### **Catalog**
