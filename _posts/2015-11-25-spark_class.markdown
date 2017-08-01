@@ -11,7 +11,9 @@ description: Build a LogisticRegression classification model to predict survival
 <div class="col three">
 	<img class="col three" src="/img/spark_ml_logo.png">
 </div>
-The aim of this blog is to explain how to use SparkML to build a Classification model. To explain the usage better, I am going to try solve the Kaggle knowledge challenge - [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic). The source code of this project is available in my [github](https://github.com/soniclavier/hadoop/tree/master/spark/src/main/scala/com/vishnu/spark/kaggle/titanic/KaggleTitanic.scala)
+The aim of this blog is to explain how to use SparkML to build a Classification model. To explain the usage better, I am going to try solve the Kaggle knowledge challenge - [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic). The source code of this project is available in my [github](https://github.com/soniclavier/hadoop/tree/master/spark/src/main/scala/com/vishnu/spark/kaggle/titanic/KaggleTitanic.scala). 
+
+**Updated** Code for Spark 2.0 can be found in this [branch](https://github.com/soniclavier/bigdata-notebook/blob/update-spark-version/spark/src/main/scala/com/vishnu/spark/kaggle/titanic/KaggleTitanic.scala).
 
 In this challenge, we are given a set of details of passengers such as name, gender, fare, cabin etc and if the person survived the Titanic disaster. Based on this we have to build a Model that can predict, given another passenger, if he/she is likely to survive. This is an example of binary classification where there are only two possible classes(1 if passenger survives and 0 if not).
 
