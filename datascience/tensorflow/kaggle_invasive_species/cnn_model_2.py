@@ -29,6 +29,9 @@ classification.add(MaxPooling2D())
 classification.add(Conv2D(25, 3,3, activation = 'relu'))
 classification.add(MaxPooling2D())
 
+classification.add(Conv2D(25, 3,3, activation = 'relu'))
+classification.add(MaxPooling2D())
+
 classification.add(Flatten())
 
 classification.add(Dense(200, activation = 'relu'))
@@ -49,15 +52,16 @@ train_gen = train_data_gen.flow_from_directory('training_set', target_size=(128,
 valid_gen = valid_data_gen.flow_from_directory('validation_set', target_size=(128, 128), batch_size=25, class_mode='binary')
 
 #classification.load_weights("classification_model.h5")
-classification.fit_generator(train_gen, samples_per_epoch=2145, validation_data=valid_gen, nb_epoch=25, nb_val_samples=150)
+classification.fit_generator(train_gen, samples_per_epoch=2145, validation_data=valid_gen, nb_epoch=10, nb_val_samples=150)
 
 classification_json = classification.to_json()
-with open("cnn_model_1.json", "w") as json_file:
+with open("cnn_model_2.json", "w") as json_file:
     json_file.write(classification_json)
-classification.save_weights("cnn_model_1.h5")
-#91.3 val accuracy
+classification.save_weights("cnn_model_2.h5")
+#90.0 val accuracy
 
 
+#mv test/*.jpg test/unknown/
 test_data_gen = ImageDataGenerator(rescale=1./255)
 test_gen = test_data_gen.flow_from_directory('test', target_size=(128, 128), batch_size=25, class_mode='binary')
 
@@ -70,7 +74,8 @@ for i in range(len(filenames)):
 
 result.sort(key=lambda tup: tup[0])
 
-with open("submission.csv", "w") as output:
+with open("submission2.csv", "w") as output:
 	output.write("name,invasive\n")
 	for i in range(0, len(result)):
 		output.write(str(result[i][0])+","+str(result[i][1])+"\n")
+
