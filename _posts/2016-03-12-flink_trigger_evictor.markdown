@@ -52,7 +52,8 @@ This is similar to scenario 2, except that window 1 received 10 items, 5 of whic
 
 
 # **Evictors**
-An evictor is used to remove some items from the window before the window function is called. Let us add an evictor to our trigger example.
+An evictor is used to remove some items from the window before the window function is called. Let us add an evictor to our trigger example.<br/>
+***Update:*** After [FLIP-4](https://cwiki.apache.org/confluence/display/FLINK/FLIP-4+%3A+Enhance+Window+Evictor), an evictor can evict elements before or after the window function is called.
 
 {% highlight scala %}
 val counts = socTextStream.flatMap{_.split("\\s")}
