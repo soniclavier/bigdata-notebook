@@ -7,6 +7,7 @@
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% else %}<meta name="description" content="{{ site.description }}">{% endif %}
     {% seo %}
    
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/ideal-image-slider.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
@@ -40,7 +41,8 @@
       <script async src="{{ site.baseurl }}/js/jquery.waypoints.min.js"></script>
     {% endif %}
     
-
+    <!-- MathJax support for rendering equations-->
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
     <!-- Twitter card meta-->
     <meta name="twitter:card" content="summary">
