@@ -8,7 +8,7 @@ permalink: /about/
 
 <!-- This is not end of page, but used here to trigger subscribe popup -->
 <div id="end-of-page"><h1><b>Vishnu Viswanath</b></h1></div>
-I am a Data Engineer with 5 years of experience in designing and building scalable and efficient systems and proficient in most of the BigData stacks. My current interests include Funcitonal Programming, Reactive Programming, Distributed Systems, Real-time Processing and Deep Learning.<br/><br/>
+I am a Data Engineer with 6 years of experience in designing and building scalable and efficient systems and proficient in most of the BigData stacks. My current interests include Funcitonal Programming, Reactive Programming, Distributed Systems, Real-time Processing and Deep Learning.<br/><br/>
 <hr/>
 <br/>
 <span class="contacticon center">
