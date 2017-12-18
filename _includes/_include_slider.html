@@ -1,14 +1,16 @@
-
-
 <div>
+
+	<div>
+		<button class="nav_button" onclick="plusDivs(-1)">&#10094;</button>
+  		<button class="nav_button" onclick="plusDivs(1)">&#10095;</button>
+  </div>
 	{% for image in site.static_files %}
     	{% if image.path contains include.folder %}
         	<img src="{{ site.baseurl }}{{ image.path }}" class="col three expandable mySlides" />
     	{% endif %}
 	{% endfor %}
 
-	<button onclick="plusDivs(-1)">&#10094;</button>
-  	<button onclick="plusDivs(1)">&#10095;</button>
+
 </div>
 
 <script>

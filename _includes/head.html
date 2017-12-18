@@ -7,7 +7,6 @@
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% else %}<meta name="description" content="{{ site.description }}">{% endif %}
     {% seo %}
    
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/ideal-image-slider.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
@@ -38,7 +37,7 @@
     <!-- JQuery and Waypoints only for blog pages-->    
     {% if page.id or page.title == 'about' %}
       <script async src="{{ site.baseurl }}/js/jquery-3.2.0.min.js"></script>
-      <script async src="{{ site.baseurl }}/js/jquery.waypoints.min.js"></script>
+      <script src="{{ site.baseurl }}/js/jquery.waypoints.min.js"></script>
     {% endif %}
     
     <!-- MathJax support for rendering equations-->
