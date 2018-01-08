@@ -11,7 +11,7 @@ description: This blog tries to explain what a Spark RDD is and how it is used f
 <div class="col three">
 	<img class="col three" src="/img/spark_rdd/blog_header.png">
 </div>
-Spark RDDs are very simple at the same time very important concept in Apache Spark. Most of you might be knowing the full form of RDD, it is **Resilient Distributed Datasets**. ***Resilient*** because RDDs are immutable*(can't be modified once created)*, ***Distributed*** because it is distributed across cluster and ***Dataset*** because it holds data.
+Spark RDDs are very simple at the same time very important concept in Apache Spark. Most of you might be knowing the full form of RDD, it is **Resilient Distributed Datasets**. ***Resilient*** because RDDs are immutable*(can't be modified once created)* and fault tolerant, ***Distributed*** because it is distributed across cluster and ***Dataset*** because it holds data.
 
 So why RDD? Apache Spark lets you treat your input files almost like any other variable, which you cannot do in Hadoop MapReduce. RDDs are automatically distributed across the network by means of Partitions. 
 
