@@ -95,13 +95,15 @@ override def getCurrentWatermark(): Watermark = {
       new Watermark(System.currentTimeMillis - 5000)
   }
 {% endhighlight %}
-<blockquote>It is usually better to maintain the maximum timestamp received yet and create the watermark with max - expected delay, instead of subtracting from the current system time.</blockquote>
+<blockquote>Here we are assuming that the eventtime is 5 seconds older than the current system time, but that is not always the case. In many cases it will be better to hold the max timestamp received so far(which is extracted from the message) and subtract the expected delay from it. </blockquote>
 The result of running the code after making above changes is:
 <div class="col three">
   <img class="col three expandable" src="/img/flink_eventtime/ev_ooo_windows_wat.png">
 </div>
 Finally we have the correct result, all the three windows now emit counts as expected - which is (a,2), (a,3) and (a,1). 
-<blockquote>Update: We could also use AllowedLateness feature to set the maximum allowed lateness of a message to solve this problem. </blockquote>
+
+## **Allowed Lateness**
+In our earlier approach where we used "watermark - delay", the window will not fire until the watermark is past window_length + delay. If you want to accommodate late events, and want the window to fire on-time you can use **Allowed Lateness**. If allowed lateness is set, Flink will not discard message unless it is past the *window_end_time + allowed lateness*. Once a late message is received, Flink will extract it's timestamp and check if it is within the allowed lateness, then it will check whether to FIRE the window or not (as per the Trigger set). Hence, note that a window might fire multiple times in this approach, and you might want to make your sink idempotent - if you need exactly once processing.
 
 ### **Conclusion**
 The importance of real-time stream processing systems has grown lately and having to deal with delayed message is part of any such system you build. In this blog post, we saw how late arriving messages can affect the results of your system and how ApacheFlink's Event Time processing capabilities can be used to solve them. That concludes the post, Thanks for reading!
