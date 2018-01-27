@@ -31,14 +31,15 @@
       {% endfor %}
     {% endif %}
 
-    <!-- AnchorJS for deep linking-->
-    <script async src="{{ site.baseurl }}/js/anchor.min.js"></script>
-    
     <!-- JQuery and Waypoints only for blog pages-->    
     {% if page.id or page.title == 'about' %}
-      <script async src="{{ site.baseurl }}/js/jquery-3.2.0.min.js"></script>
+      <script src="{{ site.baseurl }}/js/jquery-3.2.0.min.js"></script>
       <script src="{{ site.baseurl }}/js/jquery.waypoints.min.js"></script>
     {% endif %}
+
+    <!-- AnchorJS for deep linking-->
+    <script async src="{{ site.baseurl }}/js/anchor.min.js"></script>
+      
     
     <!-- MathJax support for rendering equations-->
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
