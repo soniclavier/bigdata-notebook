@@ -99,10 +99,13 @@ object KafkaSourceStreaming {
       .format("kafka")
       .option("kafka.bootstrap.servers","localhost:9092")
       .option("topic", "fastcars")
-      .option("checkpointLocation", "/tmp/sparkcheckpoint/")
+      //.option("startingOffsets", "earliest") //earliest, latest or offset location. default latest for streaming
+      //.option("endingOffsets", "latest") // used only for batch queries
+      .option("checkpointLocation", "/tmp/sparkcheckpoint/") //must when not memory or console output
       .queryName("kafka spark streaming kafka")
-      //.outputMode("append")  // only supported when we set watermark.
-      .outputMode("update")
+      //.outputMode("complete") // output everything
+      //.outputMode("append")  // only supported when we set watermark. output only new
+      .outputMode("update") //ouput new and updated
       .start()
 
     spark.streams.awaitAnyTermination() //running multiple streams at a time
