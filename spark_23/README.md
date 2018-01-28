@@ -3,6 +3,7 @@
 - Spark Structured Streaming
   - [Socket Stream](src/main/scala/com/vishnuviswanath/spark/streaming/SocketSourceStreaming.scala)
   - [File Stream](src/main/scala/com/vishnuviswanath/spark/streaming/HelloStructredStreaming.scala#L23)
+    - [schema](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L30)
   - [Kafka Source](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L58-L64)
   - [Kafka Sink](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L96-L109)
   - [EventTime](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L79)
@@ -15,12 +16,22 @@
      - [avg](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L81)
      - [count](src/main/scala/com/vishnuviswanath/spark/streaming/SocketSourceStreaming.scala#L37)
      - [max](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L45)
+     - [flatMap](src/main/scala/com/vishnuviswanath/spark/streaming/HelloStructredStreaming.scala#L28)
      - [alias](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L81)
      - [filter](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L82)
      - [groupby](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L79)
      - [where](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L56)
+     - [withColumnRenamed](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L48)
+     - [repartition](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L57)
+     - [partitionBy](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L62)
   - SQL
+    - [selectExpr](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L67)
+    - [CAST](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L67)
+    - [where](src/main/scala/com/vishnuviswanath/spark/streaming/StreamingAggregations.scala#L56)
   - Output Modes
-  - Multiple Stream Queries
-  - Kafka Producer
+    - [complete](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L106)
+    - [append](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L107)
+    - [update](scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L108)
+  - [Multiple Stream Queries](src/main/scala/com/vishnuviswanath/spark/streaming/KafkaSourceStreaming.scala#L111)
+  - [Kafka Producer](src/main/scala/com/vishnuviswanath/spark/util/RandomCarsKafkaProducer.scala)
   
