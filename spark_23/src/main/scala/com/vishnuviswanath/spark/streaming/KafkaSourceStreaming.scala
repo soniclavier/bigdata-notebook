@@ -99,7 +99,7 @@ object KafkaSourceStreaming {
       .format("kafka")
       .option("kafka.bootstrap.servers","localhost:9092")
       .option("topic", "fastcars")
-      //.option("checkpointLocation", "/tmp/sparkcheckpoint/")
+      .option("checkpointLocation", "/tmp/sparkcheckpoint/")
       .queryName("kafka spark streaming kafka")
       //.outputMode("append")  // only supported when we set watermark.
       .outputMode("update")
