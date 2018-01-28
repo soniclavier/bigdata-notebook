@@ -1,3 +1,4 @@
+**Update:** This project uses spark 1.6, for Spark 2.3 examples click [here](https://github.com/soniclavier/bigdata-notebook/tree/master/spark_23)
 Edit your .bash_profile or .profile file in OSX/Unix or Edit your Environment variables in Windows.
 
 **OSX/Unix:**
