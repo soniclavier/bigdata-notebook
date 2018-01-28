@@ -42,7 +42,9 @@
       
     
     <!-- MathJax support for rendering equations-->
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    {% if page.has_math %}
+      <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    {% endif %}
 
     <!-- Twitter card meta-->
     <meta name="twitter:card" content="summary">

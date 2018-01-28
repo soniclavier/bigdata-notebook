@@ -7,6 +7,7 @@ PAGE_IDENTIFIER: ann_rnn_lstm
 permalink: /ann_rnn_lstm.html
 image: /img/lstm/header.png
 tags: DeepLearning ANN RNN LSTM SequenceModeling Timeseries MachineLearning
+has_math: true
 description: Long Short Term Memory(LSTM) model is a type supervised Deep Neural Network that is very good at doing time-series prediction. In this blog, we do a step by step exploration of it's architecture starting from  the basic NN, then RNN leading to LSTM.
 ---
 <div class="col three">
