@@ -74,7 +74,7 @@ object KafkaSourceStreaming {
 
     //windowing
     val aggregates = cars
-      //.withWatermark("timestamp", "3 seconds")
+      .withWatermark("timestamp", "3 seconds")
       //.groupBy(window($"timestamp","4 seconds","1 seconds"), $"carId")  //sliding window of size 4 seconds, that slides every 1 second
       .groupBy(window($"timestamp","4 seconds"), $"carId") //tumbling window of size 4 seconds
       .agg(avg("speed").alias("speed"))
