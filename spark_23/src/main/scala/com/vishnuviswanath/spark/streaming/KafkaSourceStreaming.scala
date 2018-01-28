@@ -22,7 +22,7 @@ import org.apache.spark.sql.functions._
   *
   * create kafka topics:
   * bin/kafka-topics.sh --create --topic "cars" --replication-factor 1 --partitions 1 --zookeeper localhost:2181
-  * bin/kafka-topics.sh --create --topic "fast_cars" --replication-factor 1 --partitions 1 --zookeeper localhost:2181
+  * bin/kafka-topics.sh --create --topic "fastcars" --replication-factor 1 --partitions 1 --zookeeper localhost:2181
   *
   * bin/kafka-console-producer.sh --topic fastcars --broker-list localhost:9092
   * bin/kafka-console-console.sh --topic fastcars --bootstrap-server localhost:2181
