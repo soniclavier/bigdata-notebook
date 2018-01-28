@@ -6,6 +6,7 @@
   - Kafka Source
   - Kafka Sink
   - EventTime
+  - ProcessingTime
   - Watermarks
   - Checkpointing
   - Sliding Window
