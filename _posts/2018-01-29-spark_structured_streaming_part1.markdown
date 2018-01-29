@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: A Tour of Spark Structured Streaming
-date: 2018-01-20
+date: 2018-01-29
 PAGE_IDENTIFIER: spark_structured_streaming
 permalink: /spark_structured_streaming.html
 image: /img/spark_structured_streaming/header_share.png
@@ -173,6 +173,6 @@ Let us look at an example to see how this works when there is a late arriving me
 Setting watermark will ensure that state does not grow forever. Also, notice how one of the late events was processed while the other was ignored (since it was too late).
 
 ### **Conclusion**
-We have built a simple streaming application while explaining EventTime processing, Windowing, Watermarks, Output modes and how to read and write to Kafka. The code for this and some more examples are available in my [Github repository](https://github.com/soniclavier/bigdata-notebook/tree/master/spark_23). I hope this gave a better insight on some of the new features in Spark Structured Streaming. Let me know if there is any question in the comments. 
+We have built a simple streaming application while explaining EventTime processing, Windowing, Watermarks, Output modes and how to read and write to Kafka. The code for this and some more examples are available in my [Github repository](https://github.com/soniclavier/bigdata-notebook/tree/master/spark_23). I hope this gave a better insight on some of the new features in Spark Structured Streaming. Let me know if there is any question in the comments. Thanks for reading! 
 
 <a href="search.html?query=spark">Continue reading</a>
