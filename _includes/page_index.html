@@ -1,0 +1,62 @@
+<div id="findex" class="floating_index"></div>
+<script>
+	var h3s = document.getElementsByTagName("h3");
+	var indexDiv = document.getElementById("findex")
+	indexDiv.innerHTML += "<div class=\"index_head\">Index</div>"
+	var alternate = true;
+	for (var i = 0; i < h3s.length; i++) {
+	    var name = h3s[i].textContent;
+	    var id = h3s[i].id
+	    indexDiv.innerHTML += "<a href=\"#"+id+"\"><div class=\"index_item "+alternate+"\">"+name+"</div></div>"
+	    alternate = !alternate
+	}
+
+	//from https://stackoverflow.com/questions/17534661/make-anchor-link-go-some-pixels-above-where-its-linked-to
+	// The function actually applying the offset
+	$(document).ready(function () {
+		var width = $(window).width(); 
+		if (width > 768) {
+	  		function offsetAnchor() {
+			  if (location.hash.length !== 0) {
+			    window.scrollTo(window.scrollX, window.scrollY - 100);
+			  }
+			}
+
+			// Captures click events of all <a> elements with href starting with #
+			$(document).on('click', 'a[href^="#"]', function(event) {
+			  // Click events are captured before hashchanges. Timeout
+			  // causes offsetAnchor to be called after the page jump.
+			  window.setTimeout(function() {
+			    offsetAnchor();
+			  }, 0);
+			});
+
+			// Set the offset when entering page with hash present in the url
+			window.setTimeout(offsetAnchor, 0);
+
+			var lastScrollTop = 0;
+			var d = new Date()
+			var lastFadedAt = d.getTime()
+			$(window).scroll(function(event){
+			   var st = $(this).scrollTop();
+			   var d2 = new Date()
+			   if (st > lastScrollTop && d2.getTime() > (lastFadedAt + 1000)){
+			       	$("#findex").fadeTo("slow", 0.05);
+			       	lastFadedAt = d2.getTime()
+			   } else {
+			      
+			   }
+			   lastScrollTop = st;
+			});
+
+			$("#findex").hover(function() {
+				lastScrollTop = $(window).scrollTop();
+		  		$(this).fadeTo("fast", 1.0);
+			});
+		}
+	});
+
+
+</script>
+
+

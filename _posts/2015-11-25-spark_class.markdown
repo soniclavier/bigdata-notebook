@@ -3,6 +3,7 @@ layout: post
 comments: true
 title: Building Classification model using Apache Spark
 date: 2015-11-25
+show_index: true
 PAGE_IDENTIFIER: spark_ml
 permalink: /spark_lr.html
 tags: ApacheSpark MachineLearning Classification Scala BigData Hadoop

@@ -16,7 +16,13 @@ layout: default_with_img
     {% for post in paginator.posts %}
       <li>
         <h2><a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
-        <p class="post-meta">{{ post.date | date: '%B %-d, %Y' }}</p>
+        <p class="post-meta">{{ post.date | date: '%B %-d, %Y' }}. Estimated read time: {% assign words = post.content | number_of_words %}
+        {% if words < 270 %}
+          1 minute
+        {% else %}
+          {{ words | divided_by:220 }} minutes
+        {% endif %} 
+      </p>
         <p>{{ post.description }}</p>
         <br/>
         <hr/>

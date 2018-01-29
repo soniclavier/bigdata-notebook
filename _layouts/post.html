@@ -5,7 +5,7 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+    <p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}. Estimated read time: {% include read_time.html %}</p>
   </header>
   <article class="post-content">
   	
@@ -19,5 +19,9 @@ layout: default
   </div> 
 </div>
 <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='21469058'></div>
+{% if page.show_index %}
+  {% include page_index.html %}
+{% endif %}
+
 {% include disqus.html %}
 {% include pop-up-subscribe.html %}

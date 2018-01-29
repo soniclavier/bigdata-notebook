@@ -39,6 +39,7 @@ $white: #FFFFFF;
 
 
 $grey-color-dark: #333;   /* footer */
+$grey-color-mid: #424141;
 $grey-color-light: #ddd;  /* navigation bar border */
 $text-color:     #666;
 
@@ -293,4 +294,61 @@ pre {
 .popup-subscribe #sub_close {
     color: black;
     text-shadow: 0px 2px 3px #555;
+}
+
+
+/**
+* Floating per page index
+* Some of the behavior is implemented in page_index.html include file
+*/
+
+.floating_index {
+    position: fixed;
+    right: 0px;
+    top: 100px;
+    text-align: center;
+    background-color: $grey-color-dark;
+}
+
+.floating_index .index_head {
+    font-weight: bold;
+    text-align: center;
+    background-color: $theme-color;
+    color: white;
+}
+
+.floating_index .true {
+    background-color: $grey-color-dark;
+}
+.floating_index .false {
+    background-color: $grey-color-mid;
+}
+.floating_index a .index_item {
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+
+}
+
+.floating_index .index_item:hover {
+    background-color: rgba(65, 131, 215, .5);
+    color: white;
+}
+
+.floating_hidden_index {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    width:10px;
+    height:20px;
+    background-color:$theme-color;
+}
+
+@media only screen and (max-width: 768px) {
+  .floating_index {
+    display: none;
+  }
 }
