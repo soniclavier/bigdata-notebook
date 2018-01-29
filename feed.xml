@@ -12,6 +12,13 @@ layout: null
       <item>
         <title>{{ post.title | xml_escape }}</title>
         <description>{{ post.description | xml_escape }}</description>
+        {% if post.image %}
+          <image>
+              <url>{{ site.url }}{{ post.image }}</url>
+              <title>{{ post.title }}</title>
+              <link>{{ site.url }}</link>
+          </image>
+        {% endif %}
         <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
         <link>{{ site.url }}{{ post.url }}</link>
         <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
