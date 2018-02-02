@@ -17,7 +17,6 @@ LSTM - Long Short Term Memory model is a type supervised Deep Neural Network tha
 
 In this blog, we will try to understand how the layers in an LSTM model is connected with each other and understand the shape of weights, output and input matrices. We will not be looking at any particular implementation, that will be done in one of the future blog posts.  Let us begin by looking at the basic ANN model, then RNN and later on LSTM.
 
-*Note: I am not an expert in DeepLearning, any suggestions, improvements are welcome*
 ### **Artificial Neural Network (ANN)**
 As you might already know, an ANN has an input layer, one or more hidden layer, and an output layer. In our example, we will consider a network with just one hidden layer with 2 neurons.
 
