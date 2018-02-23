@@ -18,7 +18,7 @@ object RandomCarsKafkaProducer {
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
 
     val producer = new KafkaProducer[String, String](props)
-    val interval = 300
+    val interval = 1000
     val topic = "cars"
     val numRecsToProduce: Option[Int] = None //None = infinite
 
@@ -42,16 +42,16 @@ object RandomCarsKafkaProducer {
       }
 
       numRecToProduce match {
-        case Some(x) if x > 0 ⇒ {
+        case Some(x) if x > 0 ⇒
           producer.send(generateCarRecord(topic))
           Thread.sleep(interval)
           produceRecord(Some(x - 1))
-        }
-        case None ⇒ {
+
+        case None ⇒
           producer.send(generateCarRecord(topic))
           Thread.sleep(interval)
           produceRecord(None)
-        }
+
         case _ ⇒
       }
     }
