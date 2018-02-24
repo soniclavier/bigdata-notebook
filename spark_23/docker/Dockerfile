@@ -1,6 +1,7 @@
-FROM openjdk:8-jre
+FROM openjdk:8-jre-alpine
 
-RUN apt-get update && apt-get install -y curl
+RUN apk add --no-cache curl
+RUN apk update && apk upgrade && apk add bash
 
 # SETUP SPARK
 ARG SPARK_VERSION=2.2.1
