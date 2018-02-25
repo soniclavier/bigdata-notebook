@@ -9,15 +9,12 @@ services:
     ports:
       - 8080:8080
       - 7077:7077
-      - 4040:4040
 
   spark-worker:
     image: soniclavier/spark-kafka:2.2.1_1.0.0
     command: spark-worker spark-master:7077
     expose:
       - 8081
-    ports:
-      - 8081:8081
 
   kafka-broker:
     image: soniclavier/spark-kafka:2.2.1_1.0.0
