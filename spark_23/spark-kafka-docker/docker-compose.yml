@@ -1,0 +1,30 @@
+version: "2"
+services:
+  spark-master:
+    image: soniclavier/spark-kafka:2.2.1_1.0.0
+    command: spark-master
+    expose:
+      - 8080
+      - 7077
+    ports:
+      - 8080:8080
+      - 7077:7077
+      - 4040:4040
+
+  spark-worker:
+    image: soniclavier/spark-kafka:2.2.1_1.0.0
+    command: spark-worker spark-master:7077
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+
+  kafka-broker:
+    image: soniclavier/spark-kafka:2.2.1_1.0.0
+    command: kafka-broker
+    expose:
+      - 2181
+      - 9092
+    ports:
+      - 2181:2181
+      - 9092:9092
