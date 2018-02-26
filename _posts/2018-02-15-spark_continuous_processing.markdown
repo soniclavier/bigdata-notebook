@@ -8,7 +8,7 @@ permalink: /spark_streaming_continuous_processing.html
 image: /img/spark_continuous/header_share.png
 show_index: false
 tags: ApacheSpark Kafka Streaming Scala BigData Hadoop
-description: Continuous Processing is Apache Spark's new Execution engine that allows very low latency(in milliseconds) event at a time processing. In this blog we are going to do an early peek at this still experimental feature in Apache Spark that is going to be available in version 2.3.
+description: Continuous Processing is Apache Spark's new Execution engine that allows very low latency(in milliseconds) event at a time processing. In earlier versions, streaming was done via micro-batching. In continuous processing, Spark launches long-running tasks that continuously read, process and write data. In this blog, we are going to do an early peek at this still experimental feature in Apache Spark that is going to be available in version 2.3.
 ---
 <div class="col three">
 	<img class="col three" src="/img/spark_continuous/header.png">
