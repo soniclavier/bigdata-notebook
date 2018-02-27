@@ -3,7 +3,7 @@ layout: post
 comments: true
 title: Spark Continuous Processing
 date: 2018-02-25
-PAGE_IDENTIFIER: spark_structured_streaming
+PAGE_IDENTIFIER: spark_streaming_continuous
 permalink: /spark_streaming_continuous_processing.html
 image: /img/spark_continuous/header_share.png
 show_index: false
@@ -13,7 +13,7 @@ description: Continuous Processing is Apache Spark's new Execution engine that a
 <div class="col three">
 	<img class="col three" src="/img/spark_continuous/header.png">
 </div>
-Continuous Processing is Apache Spark's new Execution engine that allows very low latency(in milliseconds) event at a time processing. In this blog we are going to do an early peek at this still experimental feature in Apache Spark that is going to be available in version 2.3. I am going to assume that you are already familiar with Spark's micro-batch based execution engine. If you are not, do read my previous blog post [here](spark_structured_streaming.html). The code used in this blog post is available in my [Github repo](https://github.com/soniclavier/bigdata-notebook/blob/master/spark_23/src/main/scala/com/vishnuviswanath/spark/streaming/ContinuousKafkaStreaming.scala) <i class="fa fa-github" aria-hidden="true"></i> 
+Continuous Processing is Apache Spark's new Execution engine that allows very low latency(in milliseconds) event at a time processing. In this blog, we are going to do an early peek at this still experimental feature in Apache Spark that is going to be available in version 2.3. I am going to assume that you are already familiar with Spark's micro-batch based execution engine. If you are not, do read my previous blog post [here](spark_structured_streaming.html). The code used in this blog post is available in my [Github repo](https://github.com/soniclavier/bigdata-notebook/blob/master/spark_23/src/main/scala/com/vishnuviswanath/spark/streaming/ContinuousKafkaStreaming.scala) <i class="fa fa-github" aria-hidden="true"></i> 
 
 ### **From MicroBatch to ContinuousProcessing**
 Apache Spark has been providing stream processing capabilities via micro-batching all this while, the main disadvantage of this approach is that each task/micro-batch has to be collected and scheduled at regular intervals, through which the best(minimum) latency that Spark could provide is around 1 second. There was no concept of a single event/message processing. Continuous processing is Spark's attempt to overcome this limitations to provide stream processing with very low latencies.
@@ -67,11 +67,11 @@ If you are already familiar with Spark's Structured Streaming API, the only chan
 
 This caused an exception, *org.apache.spark.sql.AnalysisException* - **Continuous processing does not support EventTimeWatermark operations**. Watermarks are not supported in ContinuousProcessing since that involves collecting data. So we will remove **withWatermark("timestamp", "3 seconds")** from the code.<br/>
 
-Now the application threw another exception **Continuous processing does not support Aggregate operations**. As I mentioned earlier, Spark expects you to use micro-batch based processing if you need to do aggregations, since this involves waiting for data to arrive. Removing the code related to avg, groupBy and window fixes the problem and the application runs.
+Now the application threw another exception **Continuous processing does not support Aggregate operations**. As I mentioned earlier, Spark expects you to use micro-batch based processing if you need to do aggregations, since this involves waiting for data to arrive. Removing the code related to avg, groupBy and window fixes the problem and the application runs. The modified application code is [here](https://github.com/soniclavier/bigdata-notebook/blob/master/spark_23/src/main/scala/com/vishnuviswanath/spark/streaming/ContinuousKafkaStreaming.scala).
 
 Note: ContinuousTrigger internally uses a ProcessingTimeExecutor(same as ProcessingTime trigger). But this does not have any effect on how often the data is processed since the tasks are already launched and is continuously processing the data.
 
 ### **Conclusion**
-ContinuousExecution provides us ability to do very low latency processing, but is limited in what we can we can do. This can change in near future since this is a new feature and is in the experimental stage. Hope you liked the post and as always thanks for reading. 
+ContinuousExecution provides us the ability to do very low latency processing but is limited in what we can we can do. This can change in near future since this is a new feature and is in the experimental stage. Hope you liked the post and as always thanks for reading. 
 
 <a href="search.html?query=spark">Continue reading</a>
