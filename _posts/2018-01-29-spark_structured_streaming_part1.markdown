@@ -22,6 +22,7 @@ Before we jump into the use case, let us take a look at how streaming works unde
 	<img class="col three expandable" src="/img/spark_structured_streaming/microbatching.png">
 </div>
 
+In version 2.3, Spark released a new execution engine called Continuous Processing, which does not do micro-batching. Instead, it launches long runnings tasks that read and process incoming data continuously. To read more about it, do check my blog post [here](spark_streaming_continuous_processing.html).
 ### **Kafka Source**
 We will be reading the events from a Kafka topic - *cars*. To do that, we need to set the **format** as "kafka", set **kafka.bootstrap.server** with the broker address and provide the topic name using the option "subscribe".
 {% highlight scala %}
