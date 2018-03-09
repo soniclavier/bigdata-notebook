@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <row>
+    <Page>/spark_session.html</Page>
+    <Country>United States</Country>
+    <Pageviews>2584</Pageviews>
+    <Unique Pageviews>2443</Unique Pageviews>
+    <Avg. Time on Page>0:04:25</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_lr.html</Page>
+    <Country>United States</Country>
+    <Pageviews>2004</Pageviews>
+    <Unique Pageviews>1846</Unique Pageviews>
+    <Avg. Time on Page>0:04:40</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/</Page>
+    <Country>United States</Country>
+    <Pageviews>1748</Pageviews>
+    <Unique Pageviews>1516</Unique Pageviews>
+    <Avg. Time on Page>0:00:47</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_rdd.html</Page>
+    <Country>India</Country>
+    <Pageviews>1723</Pageviews>
+    <Unique Pageviews>1563</Unique Pageviews>
+    <Avg. Time on Page>0:06:01</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_rdd.html</Page>
+    <Country>United States</Country>
+    <Pageviews>1542</Pageviews>
+    <Unique Pageviews>1398</Unique Pageviews>
+    <Avg. Time on Page>0:04:16</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_session.html</Page>
+    <Country>India</Country>
+    <Pageviews>1480</Pageviews>
+    <Unique Pageviews>1401</Unique Pageviews>
+    <Avg. Time on Page>0:04:23</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_lr.html</Page>
+    <Country>India</Country>
+    <Pageviews>1216</Pageviews>
+    <Unique Pageviews>1099</Unique Pageviews>
+    <Avg. Time on Page>0:05:30</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/flink_eventtime.html</Page>
+    <Country>United States</Country>
+    <Pageviews>1054</Pageviews>
+    <Unique Pageviews>937</Unique Pageviews>
+    <Avg. Time on Page>0:05:42</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka3.html</Page>
+    <Country>India</Country>
+    <Pageviews>958</Pageviews>
+    <Unique Pageviews>827</Unique Pageviews>
+    <Avg. Time on Page>0:03:54</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/hello-kafka-streams.html</Page>
+    <Country>United States</Country>
+    <Pageviews>885</Pageviews>
+    <Unique Pageviews>789</Unique Pageviews>
+    <Avg. Time on Page>0:02:45</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka2.html</Page>
+    <Country>India</Country>
+    <Pageviews>868</Pageviews>
+    <Unique Pageviews>722</Unique Pageviews>
+    <Avg. Time on Page>0:03:37</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark-scala.html</Page>
+    <Country>United States</Country>
+    <Pageviews>825</Pageviews>
+    <Unique Pageviews>774</Unique Pageviews>
+    <Avg. Time on Page>0:03:16</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_rdd_part2.html</Page>
+    <Country>India</Country>
+    <Pageviews>791</Pageviews>
+    <Unique Pageviews>715</Unique Pageviews>
+    <Avg. Time on Page>0:04:32</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka2.html</Page>
+    <Country>United States</Country>
+    <Pageviews>766</Pageviews>
+    <Unique Pageviews>594</Unique Pageviews>
+    <Avg. Time on Page>0:02:29</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka3.html</Page>
+    <Country>United States</Country>
+    <Pageviews>754</Pageviews>
+    <Unique Pageviews>624</Unique Pageviews>
+    <Avg. Time on Page>0:03:08</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/flink_streaming.html</Page>
+    <Country>United States</Country>
+    <Pageviews>718</Pageviews>
+    <Unique Pageviews>658</Unique Pageviews>
+    <Avg. Time on Page>0:03:16</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark_rdd_part2.html</Page>
+    <Country>United States</Country>
+    <Pageviews>703</Pageviews>
+    <Unique Pageviews>620</Unique Pageviews>
+    <Avg. Time on Page>0:03:26</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/</Page>
+    <Country>India</Country>
+    <Pageviews>702</Pageviews>
+    <Unique Pageviews>531</Unique Pageviews>
+    <Avg. Time on Page>0:00:40</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka1.html</Page>
+    <Country>India</Country>
+    <Pageviews>687</Pageviews>
+    <Unique Pageviews>577</Unique Pageviews>
+    <Avg. Time on Page>0:04:01</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/spark-scala.html</Page>
+    <Country>India</Country>
+    <Pageviews>671</Pageviews>
+    <Unique Pageviews>623</Unique Pageviews>
+    <Avg. Time on Page>0:06:43</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/kafka-streams-part2.html</Page>
+    <Country>United States</Country>
+    <Pageviews>645</Pageviews>
+    <Unique Pageviews>535</Unique Pageviews>
+    <Avg. Time on Page>0:01:53</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/realtime-storm-kafka1.html</Page>
+    <Country>United States</Country>
+    <Pageviews>614</Pageviews>
+    <Unique Pageviews>512</Unique Pageviews>
+    <Avg. Time on Page>0:02:50</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/search.html?query=spark</Page>
+    <Country>India</Country>
+    <Pageviews>577</Pageviews>
+    <Unique Pageviews>425</Unique Pageviews>
+    <Avg. Time on Page>0:00:31</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/flink_trigger_evictor.html</Page>
+    <Country>United States</Country>
+    <Pageviews>501</Pageviews>
+    <Unique Pageviews>437</Unique Pageviews>
+    <Avg. Time on Page>0:03:21</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/search.html?query=spark</Page>
+    <Country>United States</Country>
+    <Pageviews>461</Pageviews>
+    <Unique Pageviews>321</Unique Pageviews>
+    <Avg. Time on Page>0:00:32</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/flink_eventtime.html</Page>
+    <Country>India</Country>
+    <Pageviews>448</Pageviews>
+    <Unique Pageviews>401</Unique Pageviews>
+    <Avg. Time on Page>0:06:13</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/search.html?query=flink</Page>
+    <Country>United States</Country>
+    <Pageviews>434</Pageviews>
+    <Unique Pageviews>317</Unique Pageviews>
+    <Avg. Time on Page>0:00:29</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/hello-kafka-streams.html</Page>
+    <Country>India</Country>
+    <Pageviews>415</Pageviews>
+    <Unique Pageviews>375</Unique Pageviews>
+    <Avg. Time on Page>0:03:57</Avg. Time on Page>
+  </row>
+  <row>
+    <Page>/flink_streaming.html</Page>
+    <Country>India</Country>
+    <Pageviews>325</Pageviews>
+    <Unique Pageviews>305</Unique Pageviews>
+    <Avg. Time on Page>0:03:45</Avg. Time on Page>
+  </row>
+</root>
