@@ -1,52 +1,60 @@
-import sbt.Keys.name
+ThisBuild / resolvers ++= Seq("Apache Development Snapshot Repository" at "https://repository.apache.org/content/repositories/snapshots/", Resolver.mavenLocal)
 
-//resolvers in ThisBuild ++= Seq("Apache Development Snapshot Repository" at "https://repository.apache.org/content/repositories/snapshots/", Resolver.mavenLocal)
-resolvers in ThisBuild ++= Seq(Resolver.mavenLocal)
+ThisBuild / scalaVersion := "2.11.7"
 
-scalaVersion in ThisBuild := "2.11.3"
+val flinkVersion = "1.5.0"
+val kafkaVersion = "0.11.0.2"
 
-val flinkVersion = "1.4-SNAPSHOT"
+val flinkDependencies = Seq(
+  "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-clients" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-streaming-scala" %flinkVersion % "provided",
+  "org.apache.flink" %% "flink-statebackend-rocksdb" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-queryable-state-client-java" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-queryable-state-runtime" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-cep-scala" % flinkVersion,
+  "org.apache.flink" %% "flink-connector-kafka-0.11" % flinkVersion
+)
 
-val flink_scala = "org.apache.flink" %% "flink-scala" % flinkVersion % "provided"
-val flink_clients = "org.apache.flink" %% "flink-clients" % flinkVersion % "provided"
-val flink_streaming = "org.apache.flink" %% "flink-streaming-scala" %flinkVersion % "provided"
-val flink_rocks_db = "org.apache.flink" %% "flink-statebackend-rocksdb" % flinkVersion % "provided"
-//val flink_data_artisans = "com.data-artisans" %% "flink-training-exercises" % "0.9.0"
-val joda_time = "joda-time" % "joda-time" % "2.9.4"
+val otherDependencies = Seq(
+  "org.apache.kafka" % "kafka-clients" % kafkaVersion,
+  "joda-time" % "joda-time" % "2.9.4",
+  "org.slf4j" % "slf4j-log4j12" % "1.7.25",
+  "log4j" % "log4j" % "1.2.17"
+)
 
 val main = "com.vishnu.flink.streaming.queryablestate.QuerybleStateStream"
 
-mainClass in (Compile, run) := Some(main)
-mainClass in (Compile, packageBin) := Some(main)
+Compile / run / mainClass := Some(main)
+
+assembly / mainClass := Some(main)
+
+Compile / run := Defaults.runTask(Compile / fullClasspath,
+                                  Compile / run / mainClass,
+                                  Compile / run / runner).evaluated
 
 lazy val commonSettings = Seq(
   organization := "com.vishnuviswanath",
   version := "1.0",
-  name := "flink-vishnu"
+  name := "flink-examples"
 )
 
 lazy val root = (project in file(".")).
   settings(commonSettings:_*).
   settings(
-    name := "flink-vishnu",
-    libraryDependencies += flink_scala,
-    libraryDependencies += flink_clients,
-    libraryDependencies += flink_streaming,
-    libraryDependencies += flink_rocks_db,
-    libraryDependencies += joda_time,
-    //libraryDependencies += flink_data_artisans,
+    libraryDependencies ++= flinkDependencies,
+    libraryDependencies ++= otherDependencies,
     retrieveManaged := true
   )
+
 
 lazy val mainRunner = project.in(file("mainRunner")).dependsOn(RootProject(file("."))).settings(
   // we set all provided dependencies to none, so that they are included in the classpath of mainRunner
   libraryDependencies := (libraryDependencies in RootProject(file("."))).value.map{
-    module =>
-      if (module.configurations.equals(Some("provided"))) {
-        module.copy(configurations = None)
-      } else {
-        module
-      }
+    module => module.configurations match {
+      case Some("provided") => module.withConfigurations(None)
+      case _ => module
+    }
   }
 )
 

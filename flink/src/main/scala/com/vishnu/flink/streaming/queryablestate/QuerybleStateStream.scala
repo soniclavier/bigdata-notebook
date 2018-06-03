@@ -9,12 +9,15 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
+import org.apache.log4j.Logger
 
 /**
   * Created by vviswanath on 3/12/17.
   */
 
 object QuerybleStateStream {
+
+  val logger = Logger.getLogger("QueryableStateStream")
 
   case class ClimateLog(country: String, state: String, temperature: Float, humidity: Float)
   object ClimateLog {
@@ -23,7 +26,10 @@ object QuerybleStateStream {
       try{
         Some(ClimateLog(parts(0), parts(1), parts(2).toFloat, parts(3).toFloat))
       } catch {
-        case e: Exception => None
+        case e: Exception => {
+          logger.warn(s"Unable to parse line $line")
+          None
+        }
       }
     }
   }
@@ -39,23 +45,23 @@ object QuerybleStateStream {
       .flatMap(ClimateLog(_))
 
     val climateLogAgg = climateLogStream
+      .name("climate-log-agg")
       .keyBy("country", "state")
       .timeWindow(Time.seconds(10))
-      .apply((key: Tuple, w: TimeWindow, clogs: Iterable[ClimateLog], out: Collector[ClimateLog]) => {
-        val agg = clogs.reduce((c1: ClimateLog, c2: ClimateLog) => c1.copy(
-          temperature = c1.temperature + c2.temperature,
-          humidity=c1.humidity + c2.humidity))
-        out.collect(agg)
-      })
+      .reduce(reduceFunction)
 
     val climateLogStateDesc = new ReducingStateDescriptor[ClimateLog](
       "climate-record-state",
       reduceFunction,
       TypeInformation.of(new TypeHint[ClimateLog]() {}))
 
+
     val queryableStream = climateLogAgg
+      .name("queryable-state")
       .keyBy("country")
-      .asQueryableState("climatelog-stream", climateLogStateDesc)
+      .asQueryableState("queryable-climatelog-stream", climateLogStateDesc)
+
+    climateLogAgg.print()
 
     senv.execute("Queryablestate example streaming job")
   }

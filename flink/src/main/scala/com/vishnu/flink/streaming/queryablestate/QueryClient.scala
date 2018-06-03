@@ -1,17 +1,16 @@
 package com.vishnu.flink.streaming.queryablestate
 
-import org.apache.flink.api.common.typeinfo.{TypeHint, TypeInformation}
+import com.vishnu.flink.streaming.queryablestate.QuerybleStateStream.ClimateLog
+import org.apache.flink.api.common.functions.ReduceFunction
+import org.apache.flink.api.common.state.{ReducingState, ReducingStateDescriptor}
+import org.apache.flink.api.common.typeinfo.{BasicTypeInfo, TypeHint, TypeInformation}
 import org.apache.flink.api.common.{ExecutionConfig, JobID}
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.api.scala._
-import org.apache.flink.configuration.{ConfigConstants, Configuration}
-import org.apache.flink.runtime.query.QueryableStateClient
-import org.apache.flink.runtime.query.netty.UnknownKeyOrNamespace
-import org.apache.flink.runtime.query.netty.message.KvStateRequestSerializer
-import org.apache.flink.runtime.state.{VoidNamespace, VoidNamespaceSerializer}
+import org.apache.flink.queryablestate.client.QueryableStateClient
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
+import scala.compat.java8.FutureConverters.toScala
+import scala.concurrent.{Await, ExecutionContext, duration}
+import scala.util.{Failure, Success}
 
 /**
   * Created by vviswanath on 3/13/17.
@@ -24,45 +23,31 @@ object QueryClient {
     val jobId = JobID.fromHexString(parameterTool.get("jobId"))
     val key = parameterTool.get("stateKey")
 
-    val config = new Configuration
-    config.setString(ConfigConstants.JOB_MANAGER_IPC_ADDRESS_KEY, "localhost")
-    config.setString(ConfigConstants.JOB_MANAGER_IPC_PORT_KEY, "6123")
+    val client = new QueryableStateClient("10.0.0.189", 9067)
 
-    val client = new QueryableStateClient(config)
-    val execConfig = new ExecutionConfig
-    val keySerializer = createTypeInformation[String].createSerializer(execConfig)
-
-    //val valueSerializer = createTypeInformation[ClimateLog].createSerializer(execConfig)
-    val valueSerializer = TypeInformation.of(new TypeHint[ClimateLog]() {}).createSerializer(execConfig)
-
-    val serializedKey = KvStateRequestSerializer.serializeKeyAndNamespace(
-      key,
-      keySerializer,
-      VoidNamespace.INSTANCE,
-      VoidNamespaceSerializer.INSTANCE)
-
-    while(true) {
-      try {
-        val serializedResult = client.getKvState(jobId, "climatelog-stream", key.hashCode(), serializedKey)
-        serializedResult onSuccess {
-          case result ⇒ {
-            try {
-              val clog: ClimateLog = KvStateRequestSerializer.deserializeValue(result, valueSerializer)
-              println(s"State value: $clog")
-            } catch {
-              case e: Exception ⇒ println(s"Could not deserialize value ${e.printStackTrace()}")
-            }
-          }
-        }
-        serializedResult onFailure {
-          case uk :UnknownKeyOrNamespace ⇒ println(s"Invalid stateKey ${uk.getMessage}, ${uk.printStackTrace()}")
-          case e: Exception ⇒ println(s"Could not fetch KV state ${e.getMessage}, ${e.printStackTrace()}")
-          }
-      } catch {
-        case e: Exception ⇒ println(s"Failed to get result ${e.getMessage}")
+    val reduceFunction = new ReduceFunction[ClimateLog] {
+      override def reduce(c1: ClimateLog, c2: ClimateLog): ClimateLog = {
+        c1.copy(
+          temperature = c1.temperature + c2.temperature,
+          humidity = c1.humidity + c2.humidity)
       }
-      println("Send next query?")
-      System.in.read()
     }
+
+    val climateLogStateDesc = new ReducingStateDescriptor[ClimateLog](
+      "climate-record-state",
+      reduceFunction,
+      TypeInformation.of(new TypeHint[ClimateLog]() {}).createSerializer(new ExecutionConfig()))
+
+    implicit val ec = ExecutionContext.global
+    val resultFuture = toScala(client.getKvState (jobId, "queryable-climatelog-stream", key, new TypeHint[String]{}.getTypeInfo, climateLogStateDesc))
+
+    while(!resultFuture.isCompleted) {
+      println("waiting...")
+      Thread.sleep(1000)
+    }
+
+    resultFuture.onComplete(r ⇒ println(r.get))
+    resultFuture.onFailure(PartialFunction(println))
+
   }
 }
