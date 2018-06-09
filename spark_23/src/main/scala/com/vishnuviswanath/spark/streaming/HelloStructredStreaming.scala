@@ -26,6 +26,7 @@ object HelloStructredStreaming {
 
     //do word count
     val words = readme.flatMap(_.split(" "))
+
     val wordCounts = words.groupBy("value").count()
 
     //run the wordCount query and write to console

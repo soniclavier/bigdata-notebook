@@ -45,6 +45,7 @@ object ToFileProducer {
     for {
       word ← stream
     } {
+      Thread.sleep(5)
       if (wordsWritten == rollOverCount) {
         wordsWritten = 0
         if (maxFiles.isDefined && fileIndex + 1 > maxFiles.get) {

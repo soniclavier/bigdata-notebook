@@ -8,7 +8,7 @@ def copy(base, img, dest, claz):
 	dest_file = dest+"/"+claz+"/"+img
 	source_file = base+"/"+img
 	if not os.path.exists(os.path.dirname(dest_file)):
-		os.makedirs(os.path.dirname(dest_file))
+		os.makedirs(os.path.dirname(dest_file))	
 	copyfile(source_file, dest_file)
 
 for i in train_labels[1:]:

@@ -1,7 +1,8 @@
 package com.vishnuviswanath.spark.streaming
 
+import org.apache.spark.SparkConf
 import org.apache.spark.sql.streaming.Trigger
-import org.apache.spark.sql.{Dataset, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 
 /**
   * Created by vviswanath on 1/9/18.
@@ -25,7 +26,7 @@ object SocketSourceStreaming {
     import spark.implicits._
 
     //read from a directory as text stream
-    val socketData = spark
+    val socketData: DataFrame = spark
       .readStream
       .format("socket")
       .option("host", "localhost")
@@ -34,7 +35,9 @@ object SocketSourceStreaming {
 
     //do word count
     val words = socketData.as[String].flatMap(_.split(" "))
-    val wordCounts = words.groupBy("value").count()
+    val wordCounts = words
+      .selectExpr("count(value) as counts")
+      .selectExpr("avg(counts) as avg")
 
     //run the wordCount query and write to console
     val query = wordCounts
@@ -43,10 +46,9 @@ object SocketSourceStreaming {
         .outputMode("update") //output only the counts that changed
         //.outputMode("complete") //output all the counts seen till now
         .format("console")
-        //.trigger(Trigger.ProcessingTime(5000))  //triggers the query every "interval" if any new element was received.
+        .trigger(Trigger.ProcessingTime(4000))  //triggers the query every "interval" if any new element was received
+        .trigger(Trigger.Once)  //triggers the query every "interval" if any new element was receive d// .
         .start()
-
-
 
     //wait till query.stop() is called
     query.awaitTermination()

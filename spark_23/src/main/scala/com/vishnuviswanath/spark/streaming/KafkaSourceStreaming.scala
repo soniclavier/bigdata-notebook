@@ -2,9 +2,11 @@ package com.vishnuviswanath.spark.streaming
 
 import java.sql.Timestamp
 
+import com.vishnuviswanath.spark.util.ParameterParser
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.streaming.Trigger
 
 /**
   * Created by vviswanath on 1/10/18.
@@ -43,11 +45,13 @@ object KafkaSourceStreaming {
   }
 
   def main(args: Array[String]): Unit = {
-
+    val params = ParameterParser.parse(args)
+    val sparkMaster = params.getOrElse("master", "local[*]")
+    val kafkaBroker = params.getOrElse("kafka-broker", "localhost:9092")
     //create a spark session, and run it on local mode
     val spark = SparkSession.builder()
       .appName("KafkaSourceStreaming")
-      .master("local[*]")
+      .master(sparkMaster)
       .getOrCreate()
 
     spark.sparkContext.setLogLevel("WARN")
@@ -58,8 +62,8 @@ object KafkaSourceStreaming {
     val df: DataFrame = spark
       .readStream
       .format("kafka")
-      .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("subscribe", "cars")
+      .option("kafka.bootstrap.servers", kafkaBroker)
+      .option("subscribe", params.getOrElse("kafka-source-topics", "cars"))
       //.schema(schema)  : we cannot set a schema for kafka source. Kafka source has a fixed schema of (key, value)
       .load()
 
@@ -91,14 +95,16 @@ object KafkaSourceStreaming {
       .option("truncate", "false") //prevent trimming output fields
       .queryName("kafka spark streaming console")
       .outputMode("update")
+      .trigger(Trigger.ProcessingTime(10000))
       .start()
 
+    /*
     val writeToKafka = aggregates
       .selectExpr("CAST(carId AS STRING) AS key", "CAST(speed AS STRING) AS value")
       .writeStream
       .format("kafka")
-      .option("kafka.bootstrap.servers","localhost:9092")
-      .option("topic", "fastcars")
+      .option("kafka.bootstrap.servers", kafkaBroker)
+      .option("topic", params.getOrElse("kafka-sink-topics", "fastcars"))
       //.option("startingOffsets", "earliest") //earliest, latest or offset location. default latest for streaming
       //.option("endingOffsets", "latest") // used only for batch queries
       .option("checkpointLocation", "/tmp/sparkcheckpoint/") //must when not memory or console output
@@ -106,8 +112,9 @@ object KafkaSourceStreaming {
       //.outputMode("complete") // output everything
       //.outputMode("append")  // only supported when we set watermark. output only new
       .outputMode("update") //ouput new and updated
-      .start()
+      .start()*/
 
     spark.streams.awaitAnyTermination() //running multiple streams at a time
   }
+
 }

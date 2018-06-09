@@ -35,11 +35,13 @@ object ContinuousKafkaStreaming {
       .option("subscribe", "cars")
       .load()
 
+    import org.apache.spark.sql.functions.approx_count_distinct
     //supported operations in Continuous Processing includes - Map, Filter, Project
     val fastCars = raw
       .selectExpr("CAST(value as STRING)") //project
       .map(r ⇒ CarEvent(r.getString(0))) //map
       .filter("speed > 70") //filter
+
       //.filter(c ⇒ c.speed.getOrElse(0) > 70) //TypedFilter not supported in continuous processing,
 
 

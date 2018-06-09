@@ -1,3 +1,9 @@
+
+*.tar.gz
+*.jpg
+*.csv
+
+*.jar
 .ensime
 .ensime_cache/
 .ipynb_checkpoints/
@@ -56,3 +62,6 @@ local.properties
 .recommenders
 /target
 
+# Idea
+.idea/
+.DS_Store
