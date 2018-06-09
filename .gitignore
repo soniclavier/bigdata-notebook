@@ -1,4 +1,5 @@
 
+*.pem
 *.tar.gz
 *.jpg
 *.csv
