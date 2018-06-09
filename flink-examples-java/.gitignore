@@ -1,0 +1,13 @@
+#idea
+.idea/
+*.iml
+
+#osx
+*.DS_Store
+
+#artifacts
+*.jar
+
+
+
+
