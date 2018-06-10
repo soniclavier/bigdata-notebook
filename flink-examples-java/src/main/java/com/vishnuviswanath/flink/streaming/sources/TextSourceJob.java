@@ -1,7 +1,12 @@
 package com.vishnuviswanath.flink.streaming.sources;
 
+import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.java.io.TextInputFormat;
+import org.apache.flink.contrib.streaming.state.RocksDBStateBackend;
 import org.apache.flink.core.fs.Path;
+import org.apache.flink.runtime.executiongraph.restart.RestartStrategy;
+import org.apache.flink.runtime.state.StateBackend;
+import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -10,9 +15,15 @@ import org.apache.flink.streaming.api.functions.source.FileProcessingMode;
 
 public class TextSourceJob {
 
+    /**
+     *
+     * @param args /Users/vviswanath/temp/input file:///Users/vviswanath/temp/backend
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment senv = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        senv.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, 100));
         /*Checkpoints are used for recovering from failures.
         Default mode is EXACTLY_ONCE, AT_LEAST_ONCE mode can be used for lower latency, since in this case
         elements are not buffered during barrier alignment.
@@ -36,7 +47,12 @@ public class TextSourceJob {
         RETAIN_ON_CANCELLATION is used to not delete the checkpoints.
          */
         CheckpointConfig config = senv.getCheckpointConfig();
-        config.enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+        config.enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.DELETE_ON_CANCELLATION);
+
+        RocksDBStateBackend rocksDBStateBackend = new RocksDBStateBackend(args[1]);
+        rocksDBStateBackend.getDbOptions().statistics();
+        StateBackend fsStateBackend = new FsStateBackend(new Path(args[1]));
+        senv.setStateBackend(fsStateBackend);
 
 
         DataStream<String> textInput = senv.readFile(new TextInputFormat(new Path(args[0])), args[0], FileProcessingMode.PROCESS_CONTINUOUSLY, 1);

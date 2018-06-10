@@ -1,0 +1,1 @@
+flink run /usr/share/flink-job.jar
