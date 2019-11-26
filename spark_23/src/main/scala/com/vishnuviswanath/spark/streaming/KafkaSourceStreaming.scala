@@ -15,7 +15,7 @@ import org.apache.spark.sql.functions._
   * Download from https://kafka.apache.org/downloads
   *
   * start zookeeper:
-  * bin/zookeeper-server-start.sh conig/zookeeper.properties
+  * bin/zookeeper-server-start.sh config/zookeeper.properties
   *
   * start kafka broker(s):
   * bin/kafka-server-start.sh config/server.properties
